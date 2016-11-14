@@ -111,20 +111,20 @@ MyRandom& random,ofstream& out_stream) {
       ++voters_this_hour;
     }
     int arrival = hour*3600;
-  for(int voter = 0; voter < voters_this_hour; ++voter) {
-    double lambda = static_cast<double>
-                    (voters_this_hour / 3600.0);
-    int interarrival = random.RandomExponentialInt(lambda);
-    arrival += interarrival;
-    int durationsub = random.RandomUniformInt
-      (0, config.GetMaxServiceSubscript());
-    duration = config.actual_service_times_.at(durationsub);
-    OneVoter one_voter(sequence, arrival, duration);
-    voters_backup_.insert(std::pair<int, OneVoter>
-                          (arrival, one_voter));
-    ++sequence;
+    for(int voter = 0; voter < voters_this_hour; ++voter) {
+      double lambda = static_cast<double>
+                      (voters_this_hour / 3600.0);
+      int interarrival = random.RandomExponentialInt(lambda);
+      arrival += interarrival;
+      int durationsub = random.RandomUniformInt
+        (0, config.GetMaxServiceSubscript());
+      duration = config.actual_service_times_.at(durationsub);
+      OneVoter one_voter(sequence, arrival, duration);
+      voters_backup_.insert(std::pair<int, OneVoter>
+                           (arrival, one_voter));
+      ++sequence;
     }
-   }
+  }
 }
 
 /*****************************************************************
@@ -314,41 +314,45 @@ MyRandom& random, ofstream& out_stream) {
 **/
 void OnePct::RunSimulationPct2(int stations_count) {
 
-free_stations_.clear();
-for (int i = 0; i < stations_count; ++i) {
-free_stations_.push_back(i);
-} 
+  free_stations_.clear();
+  for (int i = 0; i < stations_count; ++i) {
+    free_stations_.push_back(i);
+  } 
 
-voters_voting_.clear();
-voters_done_voting_.clear();
+  voters_voting_.clear();
+  voters_done_voting_.clear();
 
-int second = 0;
-bool done = false;
-while (!done) {
+  int second = 0;
+  bool done = false;
+  while (!done) {
+    for (auto iter = voters_voting_.begin(); 
+         iter != voters_voting_.end(); ++iter) {
+      if (second == iter->first) {
+        OneVoter one_voter = iter->second;
 
-for (auto iter = voters_voting_.begin(); iter != voters_voting_.end(); ++iter) {
-if (second == iter->first) {
-OneVoter one_voter = iter->second;
+        int which_station = one_voter.GetStationNumber();
+        free_stations_.push_back(which_station);
+        voters_done_voting_.insert(
+          std::pair<int, OneVoter>(second, one_voter));
+      }
+    }
+    voters_voting_.erase(second);
 
-int which_station = one_voter.GetStationNumber();
-free_stations_.push_back(which_station);
-voters_done_voting_.insert(std::pair<int, OneVoter>(second, one_voter));
-}
-}
-voters_voting_.erase(second);
-
-vector<map<int, OneVoter>::iterator > voters_pending_to_erase_by_iterator;
-for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); ++iter) {
-if (second >= iter->first) {       // if they have already arrived
-if (free_stations_.size() > 0) { // and there are free stations
-OneVoter next_voter = iter->second;
-if (next_voter.GetTimeArrival() <= second) {
-int which_station = free_stations_.at(0);
-free_stations_.erase(free_stations_.begin());
-next_voter.AssignStation(which_station, second);
-int leave_time = next_voter.GetTimeDoneVoting();
-voters_voting_.insert(std::pair<int, OneVoter>(leave_time, next_voter));
-voters_pending_to_erase_by_iterator.push_back(iter);
+    vector<map<int, OneVoter>::iterator > 
+      voters_pending_to_erase_by_iterator;
+    for (auto iter = voters_pending_.begin(); 
+         iter != voters_pending_.end(); ++iter) {
+      if (second >= iter->first) {       // if they have already arrived
+        if (free_stations_.size() > 0) { // and there are free stations
+          OneVoter next_voter = iter->second;
+          if (next_voter.GetTimeArrival() <= second) {
+            int which_station = free_stations_.at(0);
+            free_stations_.erase(free_stations_.begin());
+            next_voter.AssignStation(which_station, second);
+            int leave_time = next_voter.GetTimeDoneVoting();
+            voters_voting_.insert(std::pair
+              <int, OneVoter>(leave_time, next_voter));
+            voters_pending_to_erase_by_iterator.push_back(iter);
 
 // This was commented out 6 October 2016
 //            Utils::log_stream << kTag << "ASSIGNED    "
@@ -361,25 +365,25 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
 << Utils::Format((int)voters_voting_.size(), 5) << ": "
 << Utils::Format((int)voters_done_voting_.size(), 5) << endl;
 */
-} // if (next_voter.GetTimeArrival() <= second) {
-} // if (free_stations_.size() > 0) {
-} else { // if (second == iter->first) {
-break; // we have walked in time past current time to arrivals in the future
-}
-} // for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); ++iter) {
+          } // if (next_voter.GetTimeArrival() <= second) {
+        } // if (free_stations_.size() > 0) {
+      } else { // if (second == iter->first) {
+          break; // we have walked in time past current time to arrivals in the future
+      }
+    } // for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); ++iter) {
 
-for (auto iter = voters_pending_to_erase_by_iterator.begin();
-iter != voters_pending_to_erase_by_iterator.end(); ++iter) {
-voters_pending_.erase(*iter);
-}
-++second;
-//    if (second > 500) break;
-done = true;
-if ((voters_pending_.size() > 0) || (voters_voting_.size() > 0)) {
-done = false;
-}
-} // while (!done) {
-
+    for (auto iter = voters_pending_to_erase_by_iterator.begin();
+         iter != voters_pending_to_erase_by_iterator.end(); 
+         ++iter) {
+      voters_pending_.erase(*iter);
+    }
+    ++second;
+    done = true;
+    if ((voters_pending_.size() > 0) 
+        || (voters_voting_.size() > 0)) {
+      done = false;
+    }
+  } // while (!done) {
 } // void Simulation::RunSimulationPct2()
 
 /****************************************************************
