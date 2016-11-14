@@ -389,40 +389,41 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
 /****************************************************************
 **/
 string OnePct::ToString() {
-string s = "";
+  string s = "";
 
-s += Utils::Format(pct_number_, 4);
-s += " " + Utils::Format(pct_name_, 25, "left");
-s += Utils::Format(pct_turnout_, 8, 2);
-s += Utils::Format(pct_num_voters_, 8);
-s += Utils::Format(pct_expected_voters_, 8);
-s += Utils::Format(pct_expected_per_hour_, 8);
-s += Utils::Format(pct_stations_, 3);
-s += Utils::Format(pct_minority_, 8, 2);
+  s += Utils::Format(pct_number_, 4);
+  s += " " + Utils::Format(pct_name_, 25, "left");
+  s += Utils::Format(pct_turnout_, 8, 2);
+  s += Utils::Format(pct_num_voters_, 8);
+  s += Utils::Format(pct_expected_voters_, 8);
+  s += Utils::Format(pct_expected_per_hour_, 8);
+  s += Utils::Format(pct_stations_, 3);
+  s += Utils::Format(pct_minority_, 8, 2);
 
-s += " HH ";
-for (auto iter = stations_to_histo_.begin();
-iter != stations_to_histo_.end(); ++iter) {
-s += Utils::Format(*iter, 4);
-}
-s += " HH";
-
-return s;
+  s += " HH ";
+  for (auto iter = stations_to_histo_.begin();
+       iter != stations_to_histo_.end(); ++iter) {
+    s += Utils::Format(*iter, 4);
+  }
+  s += " HH";
+  return s;
 } // string OnePct::ToString()
 
 /****************************************************************
 **/
 string OnePct::ToStringVoterMap(string label,
 multimap<int, OneVoter> themap) {
-string s = "";
+  string s = "";
 
-s += "\n" + label + " WITH " + Utils::Format((int)themap.size(), 6)
-+ " ENTRIES\n";
-s += OneVoter::ToStringHeader() + "\n";
-for (auto iter = themap.begin(); iter != themap.end(); ++iter) {
-s += (iter->second).ToString() + "\n";
-}
+  s += "\n" + label + " WITH " + Utils::Format(
+      (int)themap.size(), 6)
+      + " ENTRIES\n";
+  s += OneVoter::ToStringHeader() + "\n";
+  for (auto iter = themap.begin(); 
+       iter != themap.end(); ++iter) {
+    s += (iter->second).ToString() + "\n";
+  }
 
-return s;
+  return s;
 } // string OnePct::ToString()
 
