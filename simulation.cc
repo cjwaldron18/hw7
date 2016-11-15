@@ -1,5 +1,6 @@
 #include "simulation.h"
-/****************************************************************
+/******************************************************************************
+ *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
 * Implementation for the 'Simulation' class.
 *
 * Author/copyright:  Duncan Buell
@@ -9,24 +10,24 @@
 
 static const string kTag = "SIM: ";
 
-/****************************************************************
-* Constructor.
+/******************************************************************************
+ * Constructor.
 **/
 Simulation::Simulation() {
 }
 
-/****************************************************************
-* Destructor.
+/******************************************************************************
+ * Destructor.
 **/
 Simulation::~Simulation() {
 }
 
-/****************************************************************
-* Accessors and mutators.
+/******************************************************************************
+ * Accessors and mutators.
 **/
 
-/****************************************************************
-* General functions.
+/******************************************************************************
+ * General functions.
 **/
 void Simulation::ReadPrecincts(Scanner& infile) {
   
@@ -37,7 +38,7 @@ void Simulation::ReadPrecincts(Scanner& infile) {
   } // while (infile.HasNext()) {
 } // void Simulation::ReadPrecincts(Scanner& infile) {
 
-/****************************************************************
+/******************************************************************************
 **/
 void Simulation::RunSimulation(const Configuration& config,
 MyRandom& random, ofstream& out_stream) {
@@ -65,8 +66,8 @@ MyRandom& random, ofstream& out_stream) {
   // Utils::Output(outstring, out_stream, Utils::log_stream);
 } // void Simulation::RunSimulation()
 
-/****************************************************************
-* Usual 'ToString'.
+/******************************************************************************
+ * Function 'ToString'.
 **/
 string Simulation::ToString() {
   
