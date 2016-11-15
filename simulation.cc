@@ -1,11 +1,11 @@
 #include "simulation.h"
 /******************************************************************************
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
-* Implementation for the 'Simulation' class.
-*
-* Author/copyright:  Duncan Buell
-* Date: 19 July 2016
-*
+ * Implementation for the 'Simulation' class.
+ *
+ * Author/copyright:  Duncan Buell
+ * Date: 19 July 2016
+ *
 **/
 
 static const string kTag = "SIM: ";
