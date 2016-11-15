@@ -1,4 +1,5 @@
-/****************************************************************
+/******************************************************************************
+ *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Header for the 'OnePct' class
  *
  * Author/copyright:  Duncan Buell
@@ -30,20 +31,20 @@ static const string kDummyString = "dummystring";
 
 class OnePct {
 public:
-/****************************************************************
+/******************************************************************************
  * Constructors and destructors for the class. 
 **/
  OnePct();
  OnePct(Scanner& infile);
  virtual ~OnePct();
 
-/****************************************************************
+/******************************************************************************
  * Accessors and Mutators.
 **/
   int GetExpectedVoters() const;
   int GetPctNumber() const;
-
-/****************************************************************
+ 
+/******************************************************************************
  * General functions.
 **/
   void ReadData(Scanner& infile);
@@ -70,7 +71,7 @@ private:
   multimap<int, OneVoter> voters_pending_;
   multimap<int, OneVoter> voters_voting_;
 
-/****************************************************************
+/******************************************************************************
  * General private functions.
 **/
   void CreateVoters(const Configuration& config, MyRandom& random,
