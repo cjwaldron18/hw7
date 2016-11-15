@@ -247,8 +247,8 @@ MyRandom& random, ofstream& out_stream) {
     done_with_this_count = true;
     map<int, int> map_for_histo;
     outstring = kTag + this->ToString() + "\n";
-    Utils::Output(outstring, out_stream, 
-                  Utils::log_stream);
+    // Utils::Output(outstring, out_stream, 
+    //               Utils::log_stream);
     for (int iteration = 0;
          iteration < config.number_of_iterations_; 
          ++iteration) {
