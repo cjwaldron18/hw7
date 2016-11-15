@@ -192,7 +192,7 @@ ofstream& out_stream) {
                   (double)pct_expected_voters_, 6, 2)
   + "\n";
 
-  Utils::Output(outstring, out_stream, Utils::log_stream);
+  // Utils::Output(outstring, out_stream, Utils::log_stream);
 
   wait_time_minutes_map.clear();
 
@@ -269,15 +269,15 @@ MyRandom& random, ofstream& out_stream) {
     voters_done_voting_.clear();
 
     outstring = kTag + "toolong space filler\n";
-    Utils::Output(outstring, out_stream, Utils::log_stream);
+    // Utils::Output(outstring, out_stream, Utils::log_stream);
 
     if (stations_to_histo_.count(stations_count) > 0) {
       outstring = "\n" + kTag + "HISTO " + 
                   this->ToString() + "\n";
       outstring += kTag + "HISTO STATIONS "
                 + Utils::Format(stations_count, 4) + "\n";
-      Utils::Output(outstring, out_stream, 
-                    Utils::log_stream);
+     // Utils::Output(outstring, out_stream, 
+     //               Utils::log_stream);
 
       int time_lower = (map_for_histo.begin())->first;
       int time_upper = (map_for_histo.rbegin())->first;
@@ -301,10 +301,12 @@ MyRandom& random, ofstream& out_stream) {
                   Utils::Format(time, 6) + ": " + 
                   Utils::Format(count_double, 7, 2) + ": ";
         outstring += stars + "\n";
-        Utils::Output(outstring, out_stream, Utils::log_stream);
+        // Utils::Output(outstring, out_stream, 
+        //        Utils::log_stream);
       }
       outstring = "HISTO\n\n";
-      Utils::Output(outstring, out_stream, Utils::log_stream);
+      // Utils::Output(outstring, out_stream, 
+      //               Utils::log_stream);
     }
   }
 }
