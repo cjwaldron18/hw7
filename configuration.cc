@@ -95,7 +95,7 @@ string Configuration::ToString() {
   s += Utils::Format(number_of_iterations_, 4) + "\n";
   s += "Max service time subscript: ";
   s += Utils::Format(GetMaxServiceSubscript(), 6) + "\n";
-  int offset = 6;
+  // int offset = 6; Duplicate Declaration
   s += kTag;
   s += Utils::Format(0, 2) + "-" + Utils::Format(0, 2);
   s += " : " + Utils::Format(arrival_zero_, 7, 2) + "\n";
