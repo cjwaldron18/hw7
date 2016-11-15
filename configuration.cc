@@ -1,5 +1,6 @@
 #include "configuration.h"
-/****************************************************************
+/******************************************************************************
+ *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Implementation for the 'Configuration' class.
  *
  * Author/copyright:  Duncan Buell. All rights reserved.
@@ -8,35 +9,42 @@
 
   static const string kTag = "CONFIG: ";
 
-/****************************************************************
+/******************************************************************************
  * Constructor.
 **/
 Configuration::Configuration() {
 }
 
-/****************************************************************
+/******************************************************************************
  * Destructor.
 **/
 Configuration::~Configuration() {
 }
 
-/****************************************************************
+/******************************************************************************
  * Accessors and mutators.
 **/
-/****************************************************************
+/******************************************************************************
+ * Accessor 'GetMaxServiceSubscript'.
+ * 
+ * Returns:
+ *   The Max Service Subscript: actual_service_times_.size() - 1. 
+ * (Needs less generalized return definition.)
 **/
 int Configuration::GetMaxServiceSubscript() const {
   return static_cast<int>(actual_service_times_.size()) - 1;
 }
 
-/****************************************************************
+/******************************************************************************
  * General functions.
 **/
-/****************************************************************
+/******************************************************************************
+ * Function 'ReadConfiguration'.
+ *
+ * Parameters:
+ *   instream - the input stream 'config_stream'.
 **/
 void Configuration::ReadConfiguration(Scanner& instream) {
-/*
-*/
   string line;
   ScanLine scanline;
 
@@ -67,7 +75,13 @@ void Configuration::ReadConfiguration(Scanner& instream) {
   }
 }
 
-/****************************************************************
+/******************************************************************************
+ * Function 'ToString'.
+ *
+ * This returns a formatted output of seed_, election_day_length_hours_,
+ * time_to_vote_mean_seconds_, min_expected_to_simulate_,
+ * max_expected_to_simulate_, wait_time_minutes_that_is_too_long_,
+ * number_of_iterations_, GetMaxServiceSubscript().
 **/
 string Configuration::ToString() {
   
