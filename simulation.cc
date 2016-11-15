@@ -56,13 +56,13 @@ MyRandom& random, ofstream& out_stream) {
     }
   outstring = kTag + "RunSimulation for pct " + "\n";
   outstring += kTag + pct.ToString() + "\n";
-  Utils::Output(outstring, out_stream, Utils::log_stream);
+  // Utils::Output(outstring, out_stream, Utils::log_stream);
   ++pct_count_this_batch;
   pct.RunSimulationPct(config, random, out_stream);
   } // for(auto iterPct = pcts_.begin(); iterPct != pcts_.end(); ++iterPct)
   outstring = kTag + "PRECINCT COUNT THIS BATCH "
   + Utils::Format(pct_count_this_batch, 4) + "\n";
-  Utils::Output(outstring, out_stream, Utils::log_stream);
+  // Utils::Output(outstring, out_stream, Utils::log_stream);
 } // void Simulation::RunSimulation()
 
 /****************************************************************
