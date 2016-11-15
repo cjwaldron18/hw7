@@ -1,17 +1,17 @@
 #include "onevoter.h"
 /******************************************************************************
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
-* Implementation for the 'OneVoter' class.
-*
-* Author/copyright:  Duncan Buell. All rights reserved.
-* Date: 6 October 2016
-*
+ * Implementation for the 'OneVoter' class.
+ *
+ * Author/copyright:  Duncan Buell. All rights reserved.
+ * Date: 6 October 2016
+ *
 **/
 
 static const string kTag = "ONEVOTER: ";
 
 /******************************************************************************
-* Constructor.
+ * Constructor.
 **/
 OneVoter::OneVoter() {
 }
@@ -32,7 +32,7 @@ OneVoter::~OneVoter() {
 }
 
 /******************************************************************************
-* Accessors and mutators.
+ * Accessors and mutators.
 **/
 /******************************************************************************
 **/
@@ -53,7 +53,7 @@ int OneVoter::GetStationNumber() const {
 }
 
 /******************************************************************************
-* General functions.
+ * General functions.
 **/
 
 /******************************************************************************
@@ -155,7 +155,7 @@ string OneVoter::ToString() {
 } // string OneVoter::toString()
 
 /******************************************************************************
-* 
+ * 
 **/
 string OneVoter::ToStringHeader() {
   string s = kTag;
