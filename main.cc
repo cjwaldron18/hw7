@@ -1,4 +1,5 @@
-/****************************************************************
+/******************************************************************************
+ *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Main program for simulation.
  *
  * Author/copyright:  Duncan Buell. All rights reserved.
@@ -30,7 +31,8 @@ int main(int argc, char *argv[])
 
   cout<< kTag << "Beginning execution" << endl;
 
-  Utils::CheckArgs(4, argc, argv, "configfilename pctfilename outfilename logfilename");
+  Utils::CheckArgs(4, argc, argv, 
+                   "configfilename pctfilename outfilename logfilename");
   config_filename = static_cast<string>(argv[1]);
   pct_filename = static_cast<string>(argv[2]);
   out_filename = static_cast<string>(argv[3]);
@@ -49,7 +51,7 @@ int main(int argc, char *argv[])
   out_stream << outstring << endl;
   Utils::log_stream << outstring << endl;
 
-  ////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////
   // config has RN seed, station count spread, election day length
   //   and mean and dev voting time
   config_stream.OpenFile(config_filename);
@@ -62,17 +64,17 @@ int main(int argc, char *argv[])
 
   random = MyRandom(config.seed_);
 
-  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
   // now read the precinct data
   pct_stream.OpenFile(pct_filename);
   simulation.ReadPrecincts(pct_stream);
   pct_stream.Close();
 
-  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
   // here is the real work
   simulation.RunSimulation(config, random, out_stream);
 
-  ////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////
   // close up and go home
   outstring = kTag + "Ending execution" + "\n";
   outstring += kTag + Utils::TimeCall("ending");
