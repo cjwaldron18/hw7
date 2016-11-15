@@ -1,5 +1,6 @@
 #include "onepct.h"
-/****************************************************************
+/******************************************************************************
+ *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
 * Implementation for the 'OnePct' class.
 *
 * Author/copyright:  Duncan Buell. All rights reserved.
@@ -9,44 +10,44 @@
 
 static const string kTag = "OnePct: ";
 
-/****************************************************************
+/******************************************************************************
 * Constructor.
 **/
 OnePct::OnePct() {
 }
-/****************************************************************
+/******************************************************************************
 * Constructor.
 **/
 OnePct::OnePct(Scanner& infile) {
   this->ReadData(infile);
 }
 
-/****************************************************************
+/******************************************************************************
 * Destructor.
 **/
 OnePct::~OnePct() {
 }
 
-/****************************************************************
+/******************************************************************************
 * Accessors and mutators.
 **/
 
-/****************************************************************
+/******************************************************************************
 **/
 int OnePct::GetExpectedVoters() const {
   return pct_expected_voters_;
 }
 
-/****************************************************************
+/******************************************************************************
 **/
 int OnePct::GetPctNumber() const {
   return pct_number_;
 }
 
-/****************************************************************
+/******************************************************************************
 * General functions.
 **/
-/****************************************************************
+/******************************************************************************
 **/
 void OnePct::ComputeMeanAndDev() {
   int sum_of_wait_times_seconds = 0;
@@ -77,7 +78,7 @@ void OnePct::ComputeMeanAndDev() {
   static_cast<double>(pct_expected_voters_));
 }
 
-/****************************************************************
+/******************************************************************************
 **/
 void OnePct::CreateVoters(const Configuration& config, 
 MyRandom& random,ofstream& out_stream) {
@@ -127,7 +128,7 @@ MyRandom& random,ofstream& out_stream) {
   }
 }
 
-/*****************************************************************
+/*******************************************************************************
 **/
 int OnePct::DoStatistics(int iteration, 
 const Configuration& config,
@@ -136,7 +137,7 @@ ofstream& out_stream) {
   string outstring = "\n";
   map<int, int> wait_time_minutes_map;
 
-////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
   multimap<int, OneVoter>::iterator iter_multimap;
   for (iter_multimap = this->voters_done_voting_.begin();
        iter_multimap != this->voters_done_voting_.end(); 
@@ -148,7 +149,7 @@ ofstream& out_stream) {
     ++(map_for_histo[wait_time_minutes]);
   }
 
-////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
   int toolongcount = 0;
   int toolongcountplus10 = 0;
   int toolongcountplus20 = 0;
@@ -169,7 +170,7 @@ ofstream& out_stream) {
     }  
   }
 
-////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
   ComputeMeanAndDev();
   outstring = "";
   outstring += kTag + Utils::Format(iteration, 3) + " "
@@ -199,7 +200,7 @@ ofstream& out_stream) {
   return toolongcount;
 }
 
-/****************************************************************
+/******************************************************************************
 **/
 void OnePct::ReadData(Scanner& infile) {
   if (infile.HasNext()) {
@@ -220,8 +221,7 @@ void OnePct::ReadData(Scanner& infile) {
     stations_to_histo_.insert(stat3);
   }
 } // void OnePct::ReadData(Scanner& infile)
-
-/****************************************************************
+/******************************************************************************
 **/
 void OnePct::RunSimulationPct(const Configuration& config,
 MyRandom& random, ofstream& out_stream) {
@@ -311,7 +311,7 @@ MyRandom& random, ofstream& out_stream) {
   }
 }
 
-/****************************************************************
+/******************************************************************************
 *
 **/
 void OnePct::RunSimulationPct2(int stations_count) {
@@ -388,7 +388,7 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
   } // while (!done) {
 } // void Simulation::RunSimulationPct2()
 
-/****************************************************************
+/******************************************************************************
 **/
 string OnePct::ToString() {
   string s = "";
@@ -411,7 +411,7 @@ string OnePct::ToString() {
   return s;
 } // string OnePct::ToString()
 
-/****************************************************************
+/******************************************************************************
 **/
 string OnePct::ToStringVoterMap(string label,
 multimap<int, OneVoter> themap) {
