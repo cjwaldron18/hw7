@@ -48,6 +48,9 @@ int OnePct::GetPctNumber() const {
 * General functions.
 **/
 /******************************************************************************
+ * Function 'ComputeMeanAndDev'.
+ *
+ * (Description of function)
 **/
 void OnePct::ComputeMeanAndDev() {
   int sum_of_wait_times_seconds = 0;
@@ -79,6 +82,14 @@ void OnePct::ComputeMeanAndDev() {
 }
 
 /******************************************************************************
+ * Function 'CreateVoters'.
+ * 
+ * (Description)
+ *
+ * Parameters:
+ *   config - 
+ *   random - 
+ *   out_stream - 
 **/
 void OnePct::CreateVoters(const Configuration& config, 
 MyRandom& random,ofstream& out_stream) {
@@ -129,6 +140,16 @@ MyRandom& random,ofstream& out_stream) {
 }
 
 /*******************************************************************************
+ * Function 'DoStatistics'.
+ *
+ * (Description)
+ *
+ * Parameters: 
+ *   iteration - 
+ *   config - 
+ *   station_count - 
+ *   map_for_histo -
+ *   out_stream -
 **/
 int OnePct::DoStatistics(int iteration, 
 const Configuration& config,
@@ -201,6 +222,12 @@ ofstream& out_stream) {
 }
 
 /******************************************************************************
+ * Function 'ReadData'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   infile - 
 **/
 void OnePct::ReadData(Scanner& infile) {
   if (infile.HasNext()) {
@@ -222,6 +249,14 @@ void OnePct::ReadData(Scanner& infile) {
   }
 } // void OnePct::ReadData(Scanner& infile)
 /******************************************************************************
+ * Function 'RunSimulationPct'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   config -
+ *   random - 
+ *   out_stream - 
 **/
 void OnePct::RunSimulationPct(const Configuration& config,
 MyRandom& random, ofstream& out_stream) {
@@ -312,7 +347,12 @@ MyRandom& random, ofstream& out_stream) {
 }
 
 /******************************************************************************
+* Function 'RunSimulationPct2'.
 *
+* (Description)
+*
+* Parameters:
+*   stations_count - 
 **/
 void OnePct::RunSimulationPct2(int stations_count) {
 
@@ -389,6 +429,11 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
 } // void Simulation::RunSimulationPct2()
 
 /******************************************************************************
+ * Function 'ToString'.
+ *
+ * (Description)
+ *
+ * Returns: 
 **/
 string OnePct::ToString() {
   string s = "";
@@ -412,6 +457,13 @@ string OnePct::ToString() {
 } // string OnePct::ToString()
 
 /******************************************************************************
+ * Function 'ToStringVoterMap'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   label -
+ *   themap - 
 **/
 string OnePct::ToStringVoterMap(string label,
 multimap<int, OneVoter> themap) {
