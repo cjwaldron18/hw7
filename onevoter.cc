@@ -16,6 +16,14 @@ static const string kTag = "ONEVOTER: ";
 OneVoter::OneVoter() {
 }
 /******************************************************************************
+ * Parameterized constructor
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   sequence - 
+ *   arrival_seconds - 
+ *   duration_seconds -
 **/
 OneVoter::OneVoter(int sequence, int arrival_seconds,
 int duration_seconds) {
@@ -23,10 +31,12 @@ int duration_seconds) {
   time_arrival_seconds_ = arrival_seconds;
   time_start_voting_seconds_ = 0;
   time_vote_duration_seconds_ = duration_seconds;
+  // Dummy value of -1.
   which_station_ = -1;
 }
 
 /******************************************************************************
+ * Destructor
 **/
 OneVoter::~OneVoter() {
 }
@@ -35,18 +45,30 @@ OneVoter::~OneVoter() {
  * Accessors and mutators.
 **/
 /******************************************************************************
+ * Accessor 'GetTimeArrival'.
+ *
+ * Returns:
+ *   The arrival time of a voter in seconds.
 **/
 int OneVoter::GetTimeArrival() const {
   return time_arrival_seconds_;
 }
 
 /******************************************************************************
+ * Accessor 'GetTimeWaiting'.
+ *
+ * Returns:
+ *   The time a voter has been waiting in seconds.
 **/
 int OneVoter::GetTimeWaiting() const {
   return time_waiting_seconds_;
 }
 
 /******************************************************************************
+ * Accessor 'GetStationNumber'.
+ *
+ * Returns:
+ *   The station used by the voter.
 **/
 int OneVoter::GetStationNumber() const {
   return which_station_;
@@ -57,6 +79,13 @@ int OneVoter::GetStationNumber() const {
 **/
 
 /******************************************************************************
+ * Function 'AssignStation'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   station_number - 
+ *   start_time_seconds -
 **/
 void OneVoter::AssignStation(int station_number,
 int start_time_seconds) {
@@ -69,6 +98,10 @@ int start_time_seconds) {
 }
 
 /******************************************************************************
+ * Accessor 'GetTimeDoneVoting'.
+ *
+ * Returns:
+ *   The sum of the time started and the duration spent voting.
 **/
 int OneVoter::GetTimeDoneVoting() const {
   return time_start_voting_seconds_ + 
@@ -76,14 +109,27 @@ int OneVoter::GetTimeDoneVoting() const {
 }
 
 /******************************************************************************
+ * Accessor 'GetTimeInQ'.
+ *
+ * Returns:
+ *   The start time minus the arrival time.
 **/
 int OneVoter::GetTimeInQ() const {
   return time_start_voting_seconds_ - time_arrival_seconds_;
 }
 
 /******************************************************************************
+ * Function 'GetTOD'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   time_in_seconds - 
+ * Returns:
+ *   The time converted from seconds.
 **/
 string OneVoter::GetTOD(int time_in_seconds) const {
+  // Commented out when received.
   //  int offset_hours = 6;
   int offset_hours = 0;
   string s = "";
@@ -91,6 +137,15 @@ string OneVoter::GetTOD(int time_in_seconds) const {
 }
 
 /******************************************************************************
+ * Function 'ConvertTime'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   time_in_seconds - 
+ * Returns:
+ *   A formatted conversion of time from seconds in the format
+ *   hours:minutes:seconds.
 **/
 string OneVoter::ConvertTime(int time_in_seconds) const {
   int hours = 0;
@@ -131,6 +186,11 @@ string OneVoter::ConvertTime(int time_in_seconds) const {
 } // string OneVoter::ConvertTime(int time_in_seconds) const
 
 /******************************************************************************
+ * Function 'ToString'.
+ *
+ * (Description)
+ *
+ * Returns:
 **/
 string OneVoter::ToString() {
   string s = kTag;
@@ -155,11 +215,16 @@ string OneVoter::ToString() {
 } // string OneVoter::toString()
 
 /******************************************************************************
- * 
+ * Function 'ToStringHeader'.
+ *
+ * (Description)
+ *
+ * Returns:
 **/
 string OneVoter::ToStringHeader() {
   string s = kTag;
-  s += "    Seq        Arr           Start             Dur             End            Wait         Stn";
+  s += "    Seq        Arr           Start             Dur             " + 
+    "End            Wait         Stn";
   return s;
 }
 
