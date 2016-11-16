@@ -31,7 +31,7 @@ Simulation::~Simulation() {
  * (Description)
  *
  * Parameters:
- *   infile - 
+ *   infile - the input stream from which to read
 **/
 void Simulation::ReadPrecincts(Scanner& infile) {
   
@@ -48,9 +48,10 @@ void Simulation::ReadPrecincts(Scanner& infile) {
  * (Description)
  *
  * Parameters:
- *   config -
- *   random -
- *   out_stream -
+ *   config - the instance of Configuration() to use
+ *   random - the instance of MyRandom() to use
+ *   out_stream - "the output stream to which to write" - Duncan Buell,
+ *                gameplay.cc, buellduncan_hw4
 **/
 void Simulation::RunSimulation(const Configuration& config,
 MyRandom& random, ofstream& out_stream) {
