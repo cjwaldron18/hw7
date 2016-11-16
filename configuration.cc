@@ -42,7 +42,7 @@ int Configuration::GetMaxServiceSubscript() const {
  * Function 'ReadConfiguration'.
  *
  * Parameters:
- *   instream - the input stream 'config_stream'.
+ *   instream - the input stream from which to read.
 **/
 void Configuration::ReadConfiguration(Scanner& instream) {
   string line;
@@ -82,6 +82,7 @@ void Configuration::ReadConfiguration(Scanner& instream) {
  * time_to_vote_mean_seconds_, min_expected_to_simulate_,
  * max_expected_to_simulate_, wait_time_minutes_that_is_too_long_,
  * number_of_iterations_, GetMaxServiceSubscript().
+ * (Needs cleaning) 
 **/
 string Configuration::ToString() {
   
