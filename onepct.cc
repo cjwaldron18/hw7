@@ -95,9 +95,10 @@ void OnePct::ComputeMeanAndDev() {
  * (Description)
  *
  * Parameters:
- *   config - 
- *   random - 
- *   out_stream - 
+ *   config - the instance of Configuration() to use
+ *   random - the instance of MyRandom() to use
+ *   out_stream - "the output stream to which to write" - Duncan Buell,
+ *                gameplay.cc, buellduncan_hw4
 **/
 void OnePct::CreateVoters(const Configuration& config, 
 MyRandom& random,ofstream& out_stream) {
@@ -153,11 +154,12 @@ MyRandom& random,ofstream& out_stream) {
  * (Description)
  *
  * Parameters: 
- *   iteration - 
- *   config - 
- *   station_count - 
- *   map_for_histo -
- *   out_stream -
+ *   iteration - the level of iteration
+ *   config - the instance of Configuration() to use
+ *   station_count - the total number of stations (pct_stations_)
+ *   map_for_histo - the map container to use (<int, int>) (?)
+ *   out_stream - "the output stream to which to write" - Duncan Buell,
+ *                gameplay.cc, buellduncan_hw4
  * Returns:
  *
 **/
@@ -237,7 +239,7 @@ ofstream& out_stream) {
  * (Description)
  *
  * Parameters:
- *   infile - 
+ *   infile - the input stream from which to read
 **/
 void OnePct::ReadData(Scanner& infile) {
   if (infile.HasNext()) {
@@ -264,9 +266,10 @@ void OnePct::ReadData(Scanner& infile) {
  * (Description)
  *
  * Parameters:
- *   config -
- *   random - 
- *   out_stream - 
+ *   config - the instance of Configuration() to use
+ *   random - the instance of MyRandom() to use
+ *   out_stream - "the output stream to which to write" - Duncan Buell,
+ *                gameplay.cc, buellduncan_hw4
 **/
 void OnePct::RunSimulationPct(const Configuration& config,
 MyRandom& random, ofstream& out_stream) {
@@ -362,7 +365,7 @@ MyRandom& random, ofstream& out_stream) {
 * (Description)
 *
 * Parameters:
-*   stations_count - 
+*   stations_count - the total number of stations (pct_stations_)
 **/
 void OnePct::RunSimulationPct2(int stations_count) {
 
