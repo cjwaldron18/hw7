@@ -29,6 +29,14 @@ Simulation::~Simulation() {
 /******************************************************************************
  * General functions.
 **/
+/******************************************************************************
+ * Function 'ReadPrecincts'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   infile - 
+**/
 void Simulation::ReadPrecincts(Scanner& infile) {
   
   while (infile.HasNext()) {
@@ -39,6 +47,14 @@ void Simulation::ReadPrecincts(Scanner& infile) {
 } // void Simulation::ReadPrecincts(Scanner& infile) {
 
 /******************************************************************************
+ * Function 'RunSimulation'.
+ *
+ * (Description)
+ *
+ * Parameters:
+ *   config -
+ *   random -
+ *   out_stream -
 **/
 void Simulation::RunSimulation(const Configuration& config,
 MyRandom& random, ofstream& out_stream) {
@@ -68,6 +84,8 @@ MyRandom& random, ofstream& out_stream) {
 
 /******************************************************************************
  * Function 'ToString'.
+ *
+ * Returns:
 **/
 string Simulation::ToString() {
   
