@@ -33,12 +33,20 @@ OnePct::~OnePct() {
 **/
 
 /******************************************************************************
+ * Accessor 'GetExpectedVoters'.
+ *
+ * Returns:
+ *   The percentage of expected voters for the precinct.
 **/
 int OnePct::GetExpectedVoters() const {
   return pct_expected_voters_;
 }
 
 /******************************************************************************
+ * Accessor 'GetPctNumber'.
+ *
+ * Returns:
+ *   The precinct number (ID) for this precinct.
 **/
 int OnePct::GetPctNumber() const {
   return pct_number_;
@@ -150,6 +158,8 @@ MyRandom& random,ofstream& out_stream) {
  *   station_count - 
  *   map_for_histo -
  *   out_stream -
+ * Returns:
+ *
 **/
 int OnePct::DoStatistics(int iteration, 
 const Configuration& config,
@@ -464,6 +474,8 @@ string OnePct::ToString() {
  * Parameters:
  *   label -
  *   themap - 
+ * Returns:
+ *
 **/
 string OnePct::ToStringVoterMap(string label,
 multimap<int, OneVoter> themap) {
