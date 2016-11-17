@@ -63,8 +63,7 @@ MyRandom& random, ofstream& out_stream) {
       iterPct != pcts_.end(); ++iterPct) {
     OnePct pct = iterPct->second;
   int expected_voters = pct.GetExpectedVoters();
-    if ((expected_voters <= config.min_expected_to_simulate_) 
-        ||
+    if ((expected_voters <= config.min_expected_to_simulate_) || 
         (expected_voters > config.max_expected_to_simulate_)) {
       continue;
     }
