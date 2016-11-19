@@ -272,19 +272,21 @@ void OnePct::ReadData(Scanner& infile) {
  *                gameplay.cc, buellduncan_hw4
 **/
 void OnePct::RunSimulationPct(const Configuration& config,
-MyRandom& random, ofstream& out_stream) {
+                              MyRandom& random, ofstream& out_stream) {
   string outstring = "XX";
 
-  int min_station_count = pct_expected_voters_ 
-    * config.time_to_vote_mean_seconds_;
+  int min_station_count = pct_expected_voters_ * 
+                          config.time_to_vote_mean_seconds_;
+  int max_station_count = min_station_count +
+                          config.election_day_length_hours_;
+  bool done_with_this_count = false;
+
+
   min_station_count = min_station_count / 
     (config.election_day_length_hours_*3600);
   if (min_station_count <= 0) {
     min_station_count = 1;
   }
-  int max_station_count = min_station_count + 
-    config.election_day_length_hours_;
-  bool done_with_this_count = false;
 
   for (int stations_count = min_station_count;
        stations_count <= max_station_count; 
@@ -393,8 +395,8 @@ void OnePct::RunSimulationPct2(int stations_count) {
     }
     voters_voting_.erase(second);
 
-    vector<map<int, OneVoter>::iterator > 
-      voters_pending_to_erase_by_iterator;
+    vector<map<int, OneVoter>::iterator > voters_pending_to_erase_by_iterator;
+
     for (auto iter = voters_pending_.begin(); 
          iter != voters_pending_.end(); ++iter) {
       if (second >= iter->first) {       // if they have already arrived
@@ -409,21 +411,24 @@ void OnePct::RunSimulationPct2(int stations_count) {
               <int, OneVoter>(leave_time, next_voter));
             voters_pending_to_erase_by_iterator.push_back(iter);
 
-// This was commented out 6 October 2016
-//            Utils::log_stream << kTag << "ASSIGNED    "
-//                              << Utils::Format(second, 5) << ": "
-//                              << next_voter.ToString() << "\n";
+            /* This was commented out 6 October 2016
+             * Utils::log_stream << kTag << "ASSIGNED    "
+             *                   << Utils::Format(second, 5) << ": "
+             *                   << next_voter.ToString() << "\n";
+            **/
 
-/*
-Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
-<< Utils::Format((int)voters_pending_.size(), 5) << ": "
-<< Utils::Format((int)voters_voting_.size(), 5) << ": "
-<< Utils::Format((int)voters_done_voting_.size(), 5) << endl;
-*/
+            /*
+            Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
+            << Utils::Format((int)voters_pending_.size(), 5) << ": "
+            << Utils::Format((int)voters_voting_.size(), 5) << ": "
+            << Utils::Format((int)voters_done_voting_.size(), 5) << endl;
+            */
           } // if (next_voter.GetTimeArrival() <= second) {
         } // if (free_stations_.size() > 0) {
-      } else { // if (second == iter->first) {
-          break; // we have walked in time past current time to arrivals in the future
+      } 
+      else { // if (second == iter->first) { 
+        // we have walked in time past current time to arrivals in the future
+        break;
       }
     } // for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); ++iter) {
 

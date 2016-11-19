@@ -28,7 +28,8 @@ Simulation::~Simulation() {
 /******************************************************************************
  * Function 'ReadPrecincts'.
  *
- * (Description)
+ * Reads precinct data from the input file and stores it
+ * in the map pcts_. Uses ReadData function from OnePct.cc.
  *
  * Parameters:
  *   infile - the input stream from which to read
@@ -45,7 +46,9 @@ void Simulation::ReadPrecincts(Scanner& infile) {
 /******************************************************************************
  * Function 'RunSimulation'.
  *
- * (Description)
+ * Runs simulations (using OnePct::RunSimulationPct)
+ * for each precinct in the map pcts_ if expected_voters is
+ * within the expected range (from config).
  *
  * Parameters:
  *   config - the instance of Configuration() to use
@@ -54,25 +57,29 @@ void Simulation::ReadPrecincts(Scanner& infile) {
  *                gameplay.cc, buellduncan_hw4
 **/
 void Simulation::RunSimulation(const Configuration& config,
-MyRandom& random, ofstream& out_stream) {
-  
+                               MyRandom& random, ofstream& out_stream) {
   string outstring = "XX";
   int pct_count_this_batch = 0;
   
-  for(auto iterPct = pcts_.begin(); 
+  for(auto iterPct = pcts_.begin();
       iterPct != pcts_.end(); ++iterPct) {
+
     OnePct pct = iterPct->second;
-  int expected_voters = pct.GetExpectedVoters();
+    int expected_voters = pct.GetExpectedVoters();
+
+    //Exits the loop if expected_voters is too small or too large.
     if ((expected_voters <= config.min_expected_to_simulate_) || 
         (expected_voters > config.max_expected_to_simulate_)) {
       continue;
     }
-  outstring = kTag + "RunSimulation for pct " + "\n";
-  outstring += kTag + pct.ToString() + "\n";
-  // Utils::Output(outstring, out_stream, Utils::log_stream);
-  ++pct_count_this_batch;
-  pct.RunSimulationPct(config, random, out_stream);
+
+    outstring = kTag + "RunSimulation for pct " + "\n";
+    outstring += kTag + pct.ToString() + "\n";
+    // Utils::Output(outstring, out_stream, Utils::log_stream);
+    ++pct_count_this_batch;
+    pct.RunSimulationPct(config, random, out_stream);
   } // for(auto iterPct = pcts_.begin(); iterPct != pcts_.end(); ++iterPct)
+  
   outstring = kTag + "PRECINCT COUNT THIS BATCH "
   + Utils::Format(pct_count_this_batch, 4) + "\n";
   // Utils::Output(outstring, out_stream, Utils::log_stream);
@@ -80,13 +87,15 @@ MyRandom& random, ofstream& out_stream) {
 
 /******************************************************************************
  * Function 'ToString'.
+ * 
+ * Calls OnePct::ToString on each precinct in the map pcts_.
  *
  * Returns:
 **/
 string Simulation::ToString() {
   
   string s = "";
-  for(auto iterPct = pcts_.begin(); 
+  for(auto iterPct = pcts_.begin();
       iterPct != pcts_.end(); ++iterPct) {
     s += kTag + (iterPct->second).ToString() + "\n";
   }

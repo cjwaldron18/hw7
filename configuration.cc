@@ -41,6 +41,8 @@ int Configuration::GetMaxServiceSubscript() const {
 /******************************************************************************
  * Function 'ReadConfiguration'.
  *
+ * Reads the configuration data from the input file.
+ * 
  * Parameters:
  *   instream - the input stream from which to read.
 **/
@@ -89,31 +91,40 @@ string Configuration::ToString() {
   string s = "\n";
   int offset = 6;
   s += kTag;
-  s += "RN seed:              ";
+  s += Utils::Format("RN seed:", 22); 
+  //s += "RN seed:              ";
   s += Utils::Format(seed_, 8) + "\n";
   s += kTag;
+
   s += "Election Day length:  ";
   s += Utils::Format(election_day_length_seconds_, 8) + " =";
-  s += Utils::Format(election_day_length_seconds_/3600.0, 8, 2) + " (";
-  s += Utils::Format(election_day_length_hours_, 8, 2) + ") hours\n";
+//  s += Utils::Format(election_day_length_seconds_/3600.0, 8, 2) + " (";
+  s += Utils::Format(election_day_length_hours_, 6, 2) + " (";
+  s += Utils::Format(election_day_length_hours_, 6, 2) + ") hours\n";
   s += kTag;
-  s += "Time to vote mean:    ";
+
+  s += "Time to vote mean:  ";
   s += Utils::Format(time_to_vote_mean_seconds_, 8) + " =";
-  s += Utils::Format(time_to_vote_mean_seconds_/60.0, 8, 2) + " minutes\n";
+  s += Utils::Format(time_to_vote_mean_seconds_/60.0, 5, 2) + " minutes\n";
   s += kTag;
-  s += "Min and max expected voters for this simulation:     ";
+
+  s += "Min and max expected voters for this simulation: ";
   s += Utils::Format(min_expected_to_simulate_, 8);
   s += Utils::Format(max_expected_to_simulate_, 8) + "\n";
+
   s += "Wait time (minutes) that is 'too long': ";
   s += Utils::Format(wait_time_minutes_that_is_too_long_, 8) + "\n";
+
   s += "Number of iterations to perform: ";
   s += Utils::Format(number_of_iterations_, 4) + "\n";
+
   s += "Max service time subscript: ";
   s += Utils::Format(GetMaxServiceSubscript(), 6) + "\n";
   // int offset = 6; Duplicate Declaration
   s += kTag;
   s += Utils::Format(0, 2) + "-" + Utils::Format(0, 2);
   s += " : " + Utils::Format(arrival_zero_, 7, 2) + "\n";
+
   for (UINT sub = 0; sub < arrival_fractions_.size(); ++sub) {
     s += kTag;
     s += Utils::Format(offset+sub, 2) + "-" + Utils::Format(offset+sub+1, 2);
