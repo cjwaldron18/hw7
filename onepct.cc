@@ -3,6 +3,12 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
 * Implementation for the 'OnePct' class.
 *
+* The purpose of this class is to hold all the information and run the 
+* calculations of one Precinct at a time. The class uses the data from the 
+* config file and creates voters, as well as find our the times a voter has
+* to wait and which station a voter used. The data from this class is then
+* Used to run the simulation class. 
+*
 * Author/copyright:  Duncan Buell. All rights reserved.
 * Date: 21 May 2013
 *
@@ -58,7 +64,10 @@ int OnePct::GetPctNumber() const {
 /******************************************************************************
  * Function 'ComputeMeanAndDev'.
  *
- * (Description of function)
+ * This class takes the wait time of the voters in seconds, then does a 
+ * calculation to find the mean/average wait time.  It then runs through the
+ * voters' wait times againj and does calculations to find the deviation of 
+ * the mean
 **/
 void OnePct::ComputeMeanAndDev() {
   int sum_of_wait_times_seconds = 0;
@@ -67,12 +76,12 @@ void OnePct::ComputeMeanAndDev() {
   multimap<int, OneVoter>::iterator iter_multimap;
   for (iter_multimap = voters_done_voting_.begin();
        iter_multimap != voters_done_voting_.end(); 
-       ++iter_multimap) {
+       ++iter_multimap) { //Traveling through the map of voters
     OneVoter voter = iter_multimap->second;
-    sum_of_wait_times_seconds += voter.GetTimeWaiting();
+    sum_of_wait_times_seconds += voter.GetTimeWaiting();  //adds wait times
   }
   wait_mean_seconds_ = static_cast<double>
-                      (sum_of_wait_times_seconds)/
+                      (sum_of_wait_times_seconds)/ //divides by number of voters
                        static_cast<double>(pct_expected_voters_);
 
   sum_of_adjusted_times_seconds = 0.0;
@@ -84,7 +93,7 @@ void OnePct::ComputeMeanAndDev() {
                       (voter.GetTimeWaiting())
                         - wait_mean_seconds_;
     sum_of_adjusted_times_seconds += (this_addin) * (this_addin);
-  }
+  } //Calculation for deviation of a mean.
   wait_dev_seconds_ = sqrt(sum_of_adjusted_times_seconds /
   static_cast<double>(pct_expected_voters_));
 }
@@ -92,7 +101,16 @@ void OnePct::ComputeMeanAndDev() {
 /******************************************************************************
  * Function 'CreateVoters'.
  * 
- * (Description)
+ * This method is used to create voters from a Precinct. It uses the randomizer
+ * To choose a random duration from the config's actual duration, then creates
+ * a voter using that duration, an arrival number, and the voter in sequence, 
+ * all of which is also backed up in a vector.  The sequence is then increased
+ * So that each voter has it's own sequence number. 
+ *
+ * Once going through all voters that arrived at time 0, a value pulled from 
+ * the config, it then repeats the process using the arrivals that came 
+ * throughout the day, splits them up based on the hour they came in,
+ * then saves those voters into the backup vector. 
  *
  * Parameters:
  *   config - the instance of Configuration() to use
@@ -108,34 +126,35 @@ MyRandom& random,ofstream& out_stream) {
   double percent = 0.0;
   string outstring = "XX";
 
-  voters_backup_.clear();
-
+  voters_backup_.clear(); //Empties the backup if this method
+                          //has been run more than once
   percent = config.arrival_zero_;
   int voters_at_zero = round((percent / 100.0) 
-                             * pct_expected_voters_);
+                             * pct_expected_voters_); //Number of voters at time 0
   for (int voter = 0; voter < voters_at_zero; ++voter) {
     int durationsub = random.RandomUniformInt
       (0, config.GetMaxServiceSubscript());
     duration = config.actual_service_times_.at(durationsub);
     OneVoter one_voter(sequence, arrival, duration);
-    voters_backup_.insert(std::pair<int, OneVoter>
+    voters_backup_.insert(std::pair<int, OneVoter> //Saves voters into vector
                           (arrival, one_voter));
-    ++sequence;
+    ++sequence; //Each voter in sequence
   }
 
   for (int hour = 0; hour < config.election_day_length_hours_; 
        ++hour) {
-    percent = config.arrival_fractions_.at(hour);
-    int voters_this_hour = round((percent / 100.0) 
+    percent = config.arrival_fractions_.at(hour); //Finds numbe of voters in
+    int voters_this_hour = round((percent / 100.0) //a specific hour
                                  * pct_expected_voters_);
     if (0 == hour%2) {
       ++voters_this_hour;
     }
-    int arrival = hour*3600;
+    int arrival = hour*3600; //Arrival split into seconds
     for(int voter = 0; voter < voters_this_hour; ++voter) {
-      double lambda = static_cast<double>
+      double lambda = static_cast<double> 
                       (voters_this_hour / 3600.0);
-      int interarrival = random.RandomExponentialInt(lambda);
+      int interarrival = random.RandomExponentialInt(lambda); //randomizes the
+                                                     //arrival time in seconds
       arrival += interarrival;
       int durationsub = random.RandomUniformInt
         (0, config.GetMaxServiceSubscript());
@@ -151,16 +170,26 @@ MyRandom& random,ofstream& out_stream) {
 /*******************************************************************************
  * Function 'DoStatistics'.
  *
- * (Description)
+ * The first thing this method does it take the voters that finished voting and
+ * figures out how long the voter waited in minutes and saves that data into a
+ * map.  It then travels the map and checks to see if the wait time was too long, 
+ * which is done in terms of the wait time specified in the config file, as
+ * well as that number increased by 10 and 20 minutes. Finally, it runs 
+ * a method to compute the mean and deviation of the wait time, then 
+ * saves all the data it found into the outstring, followed by clearing the
+ * minutes waiting map. 
+ *
+ *
  *
  * Parameters: 
  *   iteration - the level of iteration
  *   config - the instance of Configuration() to use
  *   station_count - the total number of stations (pct_stations_)
- *   map_for_histo - the map container to use (<int, int>) (?)
+ *   map_for_histo - the map container to use (<int, int>), for simulation.
  *   out_stream - "the output stream to which to write" - Duncan Buell,
  *                gameplay.cc, buellduncan_hw4
  * Returns:
+ *   toolongcount - the number of people that had to wait far too long to vote
  *
 **/
 int OnePct::DoStatistics(int iteration, 
@@ -192,11 +221,11 @@ ofstream& out_stream) {
     int waitcount = iter->second;
     if (waittime > config.wait_time_minutes_that_is_too_long_) {
       toolongcount += waitcount;
-    }
+    } //If wait time surpasses what is too long, the counter rises
     if (waittime > config.wait_time_minutes_that_is_too_long_
         +10) { 
       toolongcountplus10 += waitcount;
-    }
+    } //Secondary counters for if the wait time is over 10 and/or 20 minutes.
     if (waittime > config.wait_time_minutes_that_is_too_long_
         +20) {
       toolongcountplus20 += waitcount;
@@ -228,7 +257,7 @@ ofstream& out_stream) {
 
   // Utils::Output(outstring, out_stream, Utils::log_stream);
 
-  wait_time_minutes_map.clear();
+  wait_time_minutes_map.clear(); //Clears the wait time map.
 
   return toolongcount;
 }
@@ -236,7 +265,9 @@ ofstream& out_stream) {
 /******************************************************************************
  * Function 'ReadData'.
  *
- * (Description)
+ * This method is called by the simulation class to read the data for a 
+ * Precinct using the input file scanner.  From this file, this instance of
+ * OnePct saves variables which are used in the simulation and calculations
  *
  * Parameters:
  *   infile - the input stream from which to read
@@ -263,7 +294,23 @@ void OnePct::ReadData(Scanner& infile) {
 /******************************************************************************
  * Function 'RunSimulationPct'.
  *
- * (Description)
+ * This method is used for running the simulation of one Precinct. It first 
+ * finds the min and max station counts using the expected voters and the 
+ * average time it takes to vote as given by the config. It then uses these
+ * numbers to go through all the stations. It creates a map for histo, then
+ * it goes through the number of iterations for a station, creates voters
+ * for that station, copies the backup from that method to a pending vector, 
+ * clears vector of voters currently and done voting, then runs a second 
+ * simulation for a specific station count. It then uses the DoStatitics
+ * method to find the number of people that waited too long and, if that 
+ * number is greater than 0, sets a value to continue to the next station.
+ *
+ * Using the Map for histo, now updated from DoStatistics, it sets the 
+ * beginning and end of the map to the time lower and time upper. It 
+ * then uses these values to set the voters per star. It then uses the time
+ * and voters per star to create a string of stars to save to the outstring. 
+ * It then, depending on the value decided by the wait time, repeats the 
+ * process for the next station. 
  *
  * Parameters:
  *   config - the instance of Configuration() to use
@@ -277,16 +324,16 @@ MyRandom& random, ofstream& out_stream) {
 
   int min_station_count = pct_expected_voters_ 
     * config.time_to_vote_mean_seconds_;
-  min_station_count = min_station_count / 
+  min_station_count = min_station_count /  //Sets minimum station count
     (config.election_day_length_hours_*3600);
-  if (min_station_count <= 0) {
-    min_station_count = 1;
+  if (min_station_count <= 0) { //If the station count ends up less than 0,
+    min_station_count = 1;      //Sets the count to a useable 1
   }
-  int max_station_count = min_station_count + 
-    config.election_day_length_hours_;
+  max_station_count = min_station_count + 
+    config.election_day_length_hours_; //Sets maximum station count
   bool done_with_this_count = false;
 
-  for (int stations_count = min_station_count;
+  for (int stations_count = min_station_count; //
        stations_count <= max_station_count; 
        ++stations_count) {
     if (done_with_this_count) {
@@ -362,7 +409,16 @@ MyRandom& random, ofstream& out_stream) {
 /******************************************************************************
 * Function 'RunSimulationPct2'.
 *
-* (Description)
+* This method uses the station count specified in the previous Run Simulation. 
+* It uses an iterator to travel a vector of voters that are currently voting, 
+* figures out which station a voter is at, saves that station to a free station
+* vector and saves the voter to a done voter vector, then removes that voter
+* from the currently voting vector. Following those voters, it then checks 
+* voters that are pending, and allows them to vote in a free station and 
+* assigns that station to the voter, followed by erasing that station from
+* free stations. It also saves the voter's leave time. Finally, it checks if 
+* the vector for voters voting or voters pending are empty. If not, it repeats
+* The entire process. 
 *
 * Parameters:
 *   stations_count - the total number of stations (pct_stations_)
@@ -371,10 +427,10 @@ void OnePct::RunSimulationPct2(int stations_count) {
 
   free_stations_.clear();
   for (int i = 0; i < stations_count; ++i) {
-    free_stations_.push_back(i);
+    free_stations_.push_back(i); //Makes all stations currently free
   } 
 
-  voters_voting_.clear();
+  voters_voting_.clear(); //Makes sure both vectors are empty
   voters_done_voting_.clear();
 
   int second = 0;
@@ -384,14 +440,14 @@ void OnePct::RunSimulationPct2(int stations_count) {
          iter != voters_voting_.end(); ++iter) {
       if (second == iter->first) {
         OneVoter one_voter = iter->second;
-
+     //Creates a voter for a second and saves it under that second in the map
         int which_station = one_voter.GetStationNumber();
         free_stations_.push_back(which_station);
         voters_done_voting_.insert(
           std::pair<int, OneVoter>(second, one_voter));
       }
     }
-    voters_voting_.erase(second);
+    voters_voting_.erase(second); //Remove voter from currently voting. 
 
     vector<map<int, OneVoter>::iterator > 
       voters_pending_to_erase_by_iterator;
@@ -434,7 +490,7 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
     }
     ++second;
     done = true;
-    if ((voters_pending_.size() > 0) 
+    if ((voters_pending_.size() > 0) //if not empty, repeat the process
         || (voters_voting_.size() > 0)) {
       done = false;
     }
@@ -444,9 +500,11 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
 /******************************************************************************
  * Function 'ToString'.
  *
- * (Description)
+ * Takes the number, name, turnout, number of voters, expeced voters, and 
+ * expected voters per hour, as well as the station, minority and stations to
+ * histo and saves it all to a string to be output to an output file. 
  *
- * Returns: 
+ * Returns: string s - the string formatted for all the data. 
 **/
 string OnePct::ToString() {
   string s = "";
@@ -472,12 +530,15 @@ string OnePct::ToString() {
 /******************************************************************************
  * Function 'ToStringVoterMap'.
  *
- * (Description)
+ * Travels through the voter map and saves the label, followed by the size
+ * of the map, then prints all the information of the each voter in the map.
  *
  * Parameters:
- *   label -
- *   themap - 
- * Returns:
+ *   label - the label given to a specific voter map
+ *   themap - a map of voters
+ *
+ * Returns: 
+ *    string s - formatted string of all the data
  *
 **/
 string OnePct::ToStringVoterMap(string label,
