@@ -32,7 +32,8 @@ Configuration::~Configuration() {
  * (Needs less generalized return definition.)
 **/
 int Configuration::GetMaxServiceSubscript() const {
-  return static_cast<int>(actual_service_times_.size()) - 1;
+  static_cast<int> value = (actual_service_times.size()) - 1;
+  return value;
 }
 
 /******************************************************************************
@@ -40,6 +41,10 @@ int Configuration::GetMaxServiceSubscript() const {
 **/
 /******************************************************************************
  * Function 'ReadConfiguration'.
+ * 
+ * This method takes in the configuration file specified in the main class, 
+ * reads it, and saves the data in the file to various variables to be sed in
+ * the calculations. 
  *
  * Parameters:
  *   instream - the input stream from which to read.
@@ -49,8 +54,8 @@ void Configuration::ReadConfiguration(Scanner& instream) {
   ScanLine scanline;
 
   line = instream.NextLine();
-  scanline.OpenString(line);
-  seed_ = scanline.NextInt();
+  scanline.OpenString(line);  //Takes one line, seperates it by delim, saves 
+  seed_ = scanline.NextInt(); //variables from that one line
   election_day_length_hours_ = scanline.NextInt();
   election_day_length_seconds_ = election_day_length_hours_ * 3600;
   time_to_vote_mean_seconds_ = scanline.NextInt();
@@ -60,14 +65,14 @@ void Configuration::ReadConfiguration(Scanner& instream) {
   number_of_iterations_ = scanline.NextInt();
 
   line = instream.NextLine();
-  scanline.OpenString(line);
+  scanline.OpenString(line); //Similar to above, split and save data. 
   arrival_zero_ = scanline.NextDouble();
   for (int sub = 0; sub < election_day_length_hours_; ++sub) {
     double input = scanline.NextDouble();
     arrival_fractions_.push_back(input);
   }
 
-  Scanner service_times_file;
+  Scanner service_times_file; //Uses actual data for comparision 
   service_times_file.OpenFile("dataallsorted.txt");
   while (service_times_file.HasNext()) {
     int thetime = service_times_file.NextInt();
@@ -82,7 +87,7 @@ void Configuration::ReadConfiguration(Scanner& instream) {
  * time_to_vote_mean_seconds_, min_expected_to_simulate_,
  * max_expected_to_simulate_, wait_time_minutes_that_is_too_long_,
  * number_of_iterations_, GetMaxServiceSubscript().
- * (Needs cleaning) 
+ *  
 **/
 string Configuration::ToString() {
   
