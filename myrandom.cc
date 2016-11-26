@@ -6,6 +6,10 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Class 'MyRandom' for random number generation.
  *
+ * This method is used as a random number generator for the program, used in the
+ * onepct class to generate random voters' duration and arrival times. This is  
+ * done using the seed saved from the config file in the configuration method.
+ *
  * Author: Duncan A. Buell
  * Date last modified: 23 May 2016
 **/
