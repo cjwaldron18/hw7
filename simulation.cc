@@ -3,6 +3,12 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Implementation for the 'Simulation' class.
  *
+ * This class is what is called from main to run the simulation using the 
+ * data found in the various files.  It uses the configuration file, input file
+ * and randomizer to generate and read the Precincts, then it prints them when
+ * the expected voters of a precinct falls into an expected range from the 
+ * config
+ *
  * Author/copyright:  Duncan Buell
  * Date: 19 July 2016
  *
@@ -28,7 +34,9 @@ Simulation::~Simulation() {
 /******************************************************************************
  * Function 'ReadPrecincts'.
  *
- * (Description)
+ * Uses the scanner to create and read Precincts, then saves
+ * the precinct as whatever number precinct it is. Actual reading of the data
+ * is within the OnePct class. 
  *
  * Parameters:
  *   infile - the input stream from which to read
@@ -36,16 +44,19 @@ Simulation::~Simulation() {
 void Simulation::ReadPrecincts(Scanner& infile) {
   
   while (infile.HasNext()) {
-    OnePct new_pct;
+    OnePct new_pct; //Generates a new precinct
     new_pct.ReadData(infile);
-    pcts_[new_pct.GetPctNumber()] = new_pct;
+    pcts_[new_pct.GetPctNumber()] = new_pct; //Saves Precinct for simulation 
   } // while (infile.HasNext()) {
 } // void Simulation::ReadPrecincts(Scanner& infile) {
 
 /******************************************************************************
  * Function 'RunSimulation'.
  *
- * (Description)
+ * This method runs through the different number of precincts and checks if 
+ * the expected voters of each princict is below the min or above the max
+ * from the config. If it is not, it then calls prints the precinct and runs
+ * a different RunSimulation method within the OnePct class. 
  *
  * Parameters:
  *   config - the instance of Configuration() to use
@@ -61,16 +72,16 @@ MyRandom& random, ofstream& out_stream) {
   
   for(auto iterPct = pcts_.begin(); 
       iterPct != pcts_.end(); ++iterPct) {
-    OnePct pct = iterPct->second;
+    OnePct pct = iterPct->second; //Travels through saved Pct from Read method.
   int expected_voters = pct.GetExpectedVoters();
     if ((expected_voters <= config.min_expected_to_simulate_) || 
         (expected_voters > config.max_expected_to_simulate_)) {
-      continue;
+      continue; //Makes sure expected voters fall into the right range
     }
   outstring = kTag + "RunSimulation for pct " + "\n";
   outstring += kTag + pct.ToString() + "\n";
   // Utils::Output(outstring, out_stream, Utils::log_stream);
-  ++pct_count_this_batch;
+  ++pct_count_this_batch; //Tracks how many Precincts there are in a batch
   pct.RunSimulationPct(config, random, out_stream);
   } // for(auto iterPct = pcts_.begin(); iterPct != pcts_.end(); ++iterPct)
   outstring = kTag + "PRECINCT COUNT THIS BATCH "
@@ -81,12 +92,16 @@ MyRandom& random, ofstream& out_stream) {
 /******************************************************************************
  * Function 'ToString'.
  *
- * Returns:
+ *
+ * Runs through each precinct and prints out it's data based on the ToString
+ * method within the Onepct class. 
+ *
+ * Returns: string s
 **/
 string Simulation::ToString() {
   
   string s = "";
-  for(auto iterPct = pcts_.begin(); 
+  for(auto iterPct = pcts_.begin();  //Runs through all saved Precincts
       iterPct != pcts_.end(); ++iterPct) {
     s += kTag + (iterPct->second).ToString() + "\n";
   }
