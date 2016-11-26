@@ -31,7 +31,7 @@ Configuration::~Configuration() {
  *   The Max Service Subscript: actual_service_times_.size() - 1. 
  * (Needs less generalized return definition.)
 **/
-int Configuration::GetMaxServiceSubscript() const {
+int Configuration::GetMaxServiceSubscript() const { 
   static_cast<int> value = (actual_service_times.size()) - 1;
   return value;
 }
