@@ -3,6 +3,11 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Implementation for the 'OneVoter' class.
  *
+ * This class holds all the information of one specific voter. This includes the 
+ * the times surrounding a voter, such as sequence and arrival, as well as the 
+ * station a voter is at.  This class also includes methods of converting time
+ * from seconds to hours, minutes, and seconds. 
+ *
  * Author/copyright:  Duncan Buell. All rights reserved.
  * Date: 6 October 2016
  *
@@ -18,17 +23,19 @@ OneVoter::OneVoter() {
 /******************************************************************************
  * Parameterized constructor
  *
- * (Description)
+ * This is called from the OnePct class to create a voter, using values 
+ * specified in the config class and those calculated in the OnePct class. 
  *
  * Parameters:
- *   sequence - 
- *   arrival_seconds - 
- *   duration_seconds -
+ *   sequence - which voter it is in sequence, specified from OnePct
+ *   arrival_seconds - The time a voter arrives, dependent on the config file
+ *   or calculated by the OnePct class.
+ *   duration_seconds - How long a voter is there, specified by the config file.
 **/
 OneVoter::OneVoter(int sequence, int arrival_seconds,
 int duration_seconds) {
   sequence_ = sequence;
-  time_arrival_seconds_ = arrival_seconds;
+  time_arrival_seconds_ = arrival_seconds; //Sets all the variables
   time_start_voting_seconds_ = 0;
   time_vote_duration_seconds_ = duration_seconds;
   // Dummy value of -1.
@@ -81,17 +88,19 @@ int OneVoter::GetStationNumber() const {
 /******************************************************************************
  * Function 'AssignStation'.
  *
- * (Description)
+ * This method is called from the RunSimulationPct2 method, in which a voter is
+ * assigned a free station from th evector of free stations. 
  *
  * Parameters:
- *   station_number - 
- *   start_time_seconds -
+ *   station_number - the station that a voter is assigned to, out of which is
+ *   specified in RunSimulationPct.
+ *   start_time_seconds - At what time a voter goes into a station.
 **/
 void OneVoter::AssignStation(int station_number,
 int start_time_seconds) {
   which_station_ = station_number;
   time_start_voting_seconds_ = start_time_seconds;
-  time_done_voting_seconds_ = time_start_voting_seconds_
+  time_done_voting_seconds_ = time_start_voting_seconds_  //Sets variables
     + time_vote_duration_seconds_;
   time_waiting_seconds_ = time_start_voting_seconds_
     - time_arrival_seconds_;
@@ -121,7 +130,8 @@ int OneVoter::GetTimeInQ() const {
 /******************************************************************************
  * Function 'GetTOD'.
  *
- * (Description)
+ * Converts the time of a voter by using the time in seconds and the offset
+ * hours converted into seconds. 
  *
  * Parameters:
  *   time_in_seconds - 
@@ -139,10 +149,11 @@ string OneVoter::GetTOD(int time_in_seconds) const {
 /******************************************************************************
  * Function 'ConvertTime'.
  *
- * (Description)
+ * Converts time that is listed in number of seconds to an hour:minute:seconds
+ * format. 
  *
  * Parameters:
- *   time_in_seconds - 
+ *   time_in_seconds - The time a voter takes in terms of secons
  * Returns:
  *   A formatted conversion of time from seconds in the format
  *   hours:minutes:seconds.
@@ -161,14 +172,14 @@ string OneVoter::ConvertTime(int time_in_seconds) const {
 
   if (hours < 0) {
     s += " 00";
-  } else if (hours < 10) {
+  } else if (hours < 10) { //Formats Hours 
     s += " 0" + Utils::Format(hours, 1);
   } else {
     s += " " + Utils::Format(hours, 2);
   }
   if(minutes < 0) {
-    s += ":00";
-  } else if(minutes < 10) {
+    s += ":00";  
+  } else if(minutes < 10) {  //Formats Minutes
     s += ":0" + Utils::Format(minutes, 1);
   } else {
     s += ":" + Utils::Format(minutes, 2);
@@ -176,7 +187,7 @@ string OneVoter::ConvertTime(int time_in_seconds) const {
 
   if(seconds < 0) {
     s += ":00";
-  } else if (seconds < 10) {
+  } else if (seconds < 10) {  //Formats seconds
     s += ":0" + Utils::Format(seconds, 1);
   } else {
     s += ":" + Utils::Format(seconds, 2);
@@ -188,9 +199,13 @@ string OneVoter::ConvertTime(int time_in_seconds) const {
 /******************************************************************************
  * Function 'ToString'.
  *
- * (Description)
+ * Takes the data from a voter and converts it into a string to be printed to
+ * an output file. This data includes a voter's sequence, arrival time, voting 
+ * time, the duration of voting, the time a voter took in total, time in Queue,
+ * and the station a voter is at.
  *
  * Returns:
+ *      string s - string formatted to hold all the data
 **/
 string OneVoter::ToString() {
   string s = kTag;
@@ -217,9 +232,11 @@ string OneVoter::ToString() {
 /******************************************************************************
  * Function 'ToStringHeader'.
  *
- * (Description)
+ * Creates a header to show all the data created in the ToString() method for
+ * easier reading.
  *
  * Returns:
+ *      string s - string holding the header to be printed to the output
 **/
 string OneVoter::ToStringHeader() {
   string s = kTag;
