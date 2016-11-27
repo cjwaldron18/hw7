@@ -32,9 +32,10 @@ Configuration::~Configuration() {
  * (Needs less generalized return definition.)
 **/
 int Configuration::GetMaxServiceSubscript() const { 
-  static_cast<int> value = (actual_service_times.size()) - 1;
+  int value = (actual_service_times_.size()) - 1;
   return value;
 }
+
 
 /******************************************************************************
  * General functions.
