@@ -94,7 +94,7 @@ void Simulation::RunSimulation(const Configuration& config, MyRandom& random,
   } // for(auto iterPct = pcts_.begin(); iterPct != pcts_.end(); ++iterPct)
   
   outstring = kTag + "PRECINCT COUNT THIS BATCH "
-  + Utils::Format(pct_count_this_batch, 4) + "\n";
+            + Utils::Format(pct_count_this_batch, 4) + "\n";
   // Utils::Output(outstring, out_stream, Utils::log_stream);
 } // void Simulation::RunSimulation()
 
