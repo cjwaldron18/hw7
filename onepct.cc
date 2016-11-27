@@ -21,57 +21,38 @@ static const string kTag = "OnePct: ";
 **/
 OnePct::OnePct() {
 }
-// Commented out 27 November 2016, C.J. Waldron
-// Description: Does not execute.
-/******************************************************************************
-* Parameterized Constructor.
-*
-OnePct::OnePct(Scanner& infile) {
-  // Test if function is executed.
-  // Utils::log_stream << kTag << "FUNC: " << "OnePct(infile) " 
-  //                   << "EXECUTED." << endl;
-
-  this->ReadData(infile);
-}
-**/
 /******************************************************************************
 * Destructor.
 **/
 OnePct::~OnePct() {
 }
-
 /******************************************************************************
 * Accessors and mutators.
 **/
-
 /******************************************************************************
  * Accessor 'GetExpectedVoters'.
  *
  * Returns:
- *   The percentage of expected voters for the precinct.
+ *   pct_expected_voters_ - The percentage of expected voters for the precinct.
 **/
 int OnePct::GetExpectedVoters() const {
   // Test if function is executed. 
   // Utils::log_stream << kTag << "FUNC: " << "GetExpectedVoters() " 
   //                   << "EXECUTED." << endl;
-
   return pct_expected_voters_;
 }
-
 /******************************************************************************
  * Accessor 'GetPctNumber'.
  *
  * Returns:
- *   The precinct number (ID) for this precinct.
+ *   pct_number_ - The precinct number (ID) for this precinct.
 **/
 int OnePct::GetPctNumber() const {
   // Test if functino is executed.
   // Utils::log_stream << kTag << "FUNC: " << "GetPctNumber() const " 
   //                   << "EXECUTED." << endl;
-
   return pct_number_;
 }
-
 /******************************************************************************
 * General functions.
 **/
@@ -87,7 +68,6 @@ void OnePct::ComputeMeanAndDev() {
   // Test if function is executed.
   // Utils::log_stream << kTag << "FUNC: " << "ComputeMeanAndDev() " 
   //                   << "EXECUTED." << endl;
-
   int sum_of_wait_times_seconds = 0;
   double sum_of_adjusted_times_seconds = 0.0;
   sum_of_wait_times_seconds = 0;
@@ -97,23 +77,21 @@ void OnePct::ComputeMeanAndDev() {
        ++iter_multimap) { //Traveling through the map of voters
     OneVoter voter = iter_multimap->second;
     sum_of_wait_times_seconds += voter.GetTimeWaiting();  //adds wait times
-  }
-  //divides sum of wait times by number of voters
+  } 
+  // Divides sum of wait times by number of voters
   wait_mean_seconds_ = static_cast<double>(sum_of_wait_times_seconds) 
-                     / static_cast<double>(pct_expected_voters_);
+                     / static_cast<double>(pct_expected_voters_); 
   sum_of_adjusted_times_seconds = 0.0;
   for (iter_multimap = voters_done_voting_.begin();
-       iter_multimap != voters_done_voting_.end(); 
-       ++iter_multimap) {
+       iter_multimap != voters_done_voting_.end(); ++iter_multimap) {
     OneVoter voter = iter_multimap->second;
     double this_addin = static_cast<double> (voter.GetTimeWaiting())
-                        - wait_mean_seconds_;
+                      - wait_mean_seconds_;
     sum_of_adjusted_times_seconds += (this_addin) * (this_addin);
   } //Calculation for deviation of a mean.
   wait_dev_seconds_ = sqrt(sum_of_adjusted_times_seconds /
   static_cast<double>(pct_expected_voters_));
 }
-
 /******************************************************************************
  * Function 'CreateVoters'.
  * 
@@ -139,17 +117,15 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
   // Test if function is executed. 
   // Utils::log_stream << kTag << "FUNC: " << "CreateVoters() " 
   //                   << "EXECUTED." << endl;
-
   int duration = 0;
   int arrival = 0;
   int sequence = 0;
   double percent = 0.0;
   string outstring = "XX";
-
-  voters_backup_.clear(); //Empties the backup if this method
-                          //has been run more than once
+  // If the function has been previously called, the backup is emptied.
+  voters_backup_.clear();
   percent = config.arrival_zero_;
-  // Number of voters at time 0
+  // Number of voters at time 0.
   int voters_at_zero = round((percent / 100.0) * pct_expected_voters_);
   for (int voter = 0; voter < voters_at_zero; ++voter) {
     int durationsub = random.RandomUniformInt
@@ -160,46 +136,40 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
     voters_backup_.insert(std::pair<int, OneVoter> (arrival, one_voter));                          
     ++sequence; // Incremented for each voter in sequence
   }
-
-  for (int hour = 0; hour < config.election_day_length_hours_; 
-       ++hour) {
+  for (int hour = 0; hour < config.election_day_length_hours_; ++hour) {
     // Finds number of voters in a specific hour.
     percent = config.arrival_fractions_.at(hour); 
     int voters_this_hour = round((percent / 100.0) * pct_expected_voters_); 
     if (0 == hour % 2) {
       ++voters_this_hour;
     }   
-    int arrival = hour*3600; //Arrival split into seconds
+    int arrival = hour*3600; // Converts arrival time from hours to seconds.
     for(int voter = 0; voter < voters_this_hour; ++voter) {
       double lambda = static_cast<double> 
                       (voters_this_hour / 3600.0);
-      int interarrival = random.RandomExponentialInt(lambda); //randomizes the
-                                                     //arrival time in seconds
+      // Randomizes the arrival time in seconds.
+      int interarrival = random.RandomExponentialInt(lambda); 
       arrival += interarrival;
       int durationsub = random.RandomUniformInt
         (0, config.GetMaxServiceSubscript());
       duration = config.actual_service_times_.at(durationsub);
       OneVoter one_voter(sequence, arrival, duration);
-      voters_backup_.insert(std::pair<int, OneVoter>
-                           (arrival, one_voter));
+      voters_backup_.insert(std::pair<int, OneVoter>(arrival, one_voter));
       ++sequence;
     }
   }
 }
-
 /*******************************************************************************
  * Function 'DoStatistics'.
  *
  * The first thing this method does it take the voters that finished voting and
  * figures out how long the voter waited in minutes and saves that data into a
- * map.  It then travels the map and checks to see if the wait time was too long, 
+ * map. It then travels the map and checks to see if the wait time was too long, 
  * which is done in terms of the wait time specified in the config file, as
  * well as that number increased by 10 and 20 minutes. Finally, it runs 
  * a method to compute the mean and deviation of the wait time, then 
  * saves all the data it found into the outstring, followed by clearing the
  * minutes waiting map. 
- *
- *
  *
  * Parameters: 
  *   iteration - the level of iteration
@@ -210,7 +180,6 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
  *                gameplay.cc, buellduncan_hw4
  * Returns:
  *   toolongcount - the number of people that had to wait far too long to vote
- *
 **/
 int OnePct::DoStatistics(int iteration, const Configuration& config,
                          int station_count, map<int, int>& map_for_histo,
@@ -218,23 +187,17 @@ int OnePct::DoStatistics(int iteration, const Configuration& config,
   // Test if function is executed.
   // Utils::log_stream << kTag << "FUNC: " << "DoStatistics() " 
   //                   << "EXECUTED." << endl;
-
   string outstring = "\n";
   map<int, int> wait_time_minutes_map;
-
-////////////////////////////////////////////////////////////////////////////////
   multimap<int, OneVoter>::iterator iter_multimap;
   for (iter_multimap = this->voters_done_voting_.begin();
-       iter_multimap != this->voters_done_voting_.end(); 
-       ++iter_multimap) {
+       iter_multimap != this->voters_done_voting_.end(); ++iter_multimap) {
     OneVoter voter = iter_multimap->second;
-    // secs to mins
+    // Wait time converted from seconds to minutes.
     int wait_time_minutes = voter.GetTimeWaiting() / 60;
     ++(wait_time_minutes_map[wait_time_minutes]);
     ++(map_for_histo[wait_time_minutes]);
   }
-
-////////////////////////////////////////////////////////////////////////////////
   int toolongcount = 0;
   int toolongcountplus10 = 0;
   int toolongcountplus20 = 0;
@@ -245,16 +208,13 @@ int OnePct::DoStatistics(int iteration, const Configuration& config,
     if (waittime > config.wait_time_minutes_that_is_too_long_) {
       toolongcount += waitcount;
     } //If wait time surpasses what is too long, the counter rises
-    if (waittime > config.wait_time_minutes_that_is_too_long_
-        +10) { 
+    if (waittime > config.wait_time_minutes_that_is_too_long_ + 10) { 
       toolongcountplus10 += waitcount;
     } //Secondary counters for if the wait time is over 10 and/or 20 minutes.
-    if (waittime > config.wait_time_minutes_that_is_too_long_
-        +20) {
+    if (waittime > config.wait_time_minutes_that_is_too_long_ + 20) {
       toolongcountplus20 += waitcount;
     }  
   }
-
 ///////////////////////////////////////////////////////////////////////////////
   ComputeMeanAndDev();
   outstring = "";
@@ -277,14 +237,10 @@ int OnePct::DoStatistics(int iteration, const Configuration& config,
   + Utils::Format(100.0*toolongcountplus20/
                   (double)pct_expected_voters_, 6, 2)
   + "\n";
-
   // Utils::Output(outstring, out_stream, Utils::log_stream);
-
   wait_time_minutes_map.clear(); //Clears the wait time map.
-
   return toolongcount;
 }
-
 /******************************************************************************
  * Function 'ReadData'.
  *
@@ -299,7 +255,6 @@ void OnePct::ReadData(Scanner& infile) {
   // Test if function is executed.
   // Utils::log_stream << kTag << "FUNC: " << "ReadData() " 
   //                   << "EXECUTED." << endl;
-
   if (infile.HasNext()) {
     pct_number_ = infile.NextInt();
     pct_name_ = infile.Next();
@@ -309,7 +264,6 @@ void OnePct::ReadData(Scanner& infile) {
     pct_expected_per_hour_ = infile.NextInt();
     pct_stations_ = infile.NextInt();
     pct_minority_ = infile.NextDouble();
-
     int stat1 = infile.NextInt();
     int stat2 = infile.NextInt();
     int stat3 = infile.NextInt();
@@ -318,7 +272,6 @@ void OnePct::ReadData(Scanner& infile) {
     stations_to_histo_.insert(stat3);
   }
 } // void OnePct::ReadData(Scanner& infile)
-
 /******************************************************************************
  * Function 'RunSimulationPct'.
  *
@@ -351,16 +304,13 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
   // Test if function is executed.  
   // Utils::log_stream << kTag << "FUNC: " << "RunSimulationPct() " 
   //                   << "EXECUTED." << endl;
-
-  string outstring = "XX";
-  
+  string outstring = "XX";  
   // Setting min and max station count.
   int min_station_count = pct_expected_voters_ 
                         *  config.time_to_vote_mean_seconds_;
   int max_station_count = min_station_count  
                         + config.election_day_length_hours_;
-  bool done_with_this_count = false;
-  
+  bool done_with_this_count = false;  
   // Reassigning min_station_count
   min_station_count = min_station_count
                     / (config.election_day_length_hours_*3600);
@@ -379,8 +329,7 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
     // Utils::Output(outstring, out_stream,  Utils::log_stream);
 ////////////////////////////////////////////////////////////////////////////////
     for (int iteration = 0; iteration < config.number_of_iterations_; 
-         ++iteration) {
-      
+         ++iteration) {     
       this->CreateVoters(config, random, out_stream);
       voters_pending_ = voters_backup_;
       voters_voting_.clear();
@@ -392,10 +341,8 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
         done_with_this_count = false;
       }
     }
-
     voters_voting_.clear();
     voters_done_voting_.clear();
-
     outstring = kTag + "toolong space filler\n";
     // Utils::Output(outstring, out_stream, Utils::log_stream);
 ////////////////////////////////////////////////////////////////////////////////
@@ -404,9 +351,7 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
                   this->ToString() + "\n";
       outstring += kTag + "HISTO STATIONS "
                 + Utils::Format(stations_count, 4) + "\n";
-     // Utils::Output(outstring, out_stream, 
-     //               Utils::log_stream);
-
+     // Utils::Output(outstring, out_stream, Utils::log_stream);
       int time_lower = (map_for_histo.begin())->first;
       int time_upper = (map_for_histo.rbegin())->first;
       int voters_per_star = 1;
@@ -422,7 +367,6 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
         int count = map_for_histo[time];
         double count_double = static_cast<double>(count)
                             / static_cast<double>(config.number_of_iterations_);
-
         int count_divided_ceiling = static_cast<int>
           (ceil(count_double / voters_per_star));
         string stars = string(count_divided_ceiling, '*');
@@ -436,7 +380,6 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
     }
   }
 }
-
 /******************************************************************************
 * Function 'RunSimulationPct2'.
 *
@@ -458,15 +401,12 @@ void OnePct::RunSimulationPct2(int stations_count) {
   // Test if function is executed.
   // Utils::log_stream << kTag << "FUNC: " << "RunSimulationPct2() " 
   //                   << "EXECUTED." << endl;
-
   free_stations_.clear();
   for (int i = 0; i < stations_count; ++i) {
     free_stations_.push_back(i); //Makes all stations currently free
   } 
-
   voters_voting_.clear(); //Makes sure both vectors are empty
   voters_done_voting_.clear();
-
   int second = 0;
   bool done = false;
   while (!done) {
@@ -505,7 +445,6 @@ void OnePct::RunSimulationPct2(int stations_count) {
               * << Utils::Format((int)voters_voting_.size(), 5) << ": "
               * << Utils::Format((int)voters_done_voting_.size(), 5) << endl;
              **/
-
           } // if (next_voter.GetTimeArrival() <= second) {
         } // if (free_stations_.size() > 0) {
       } else { // if (second == iter->first) {
@@ -513,7 +452,6 @@ void OnePct::RunSimulationPct2(int stations_count) {
         break; 
       }
     } // for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); ++iter) {
-
     for (auto iter = voters_pending_to_erase_by_iterator.begin();
          iter != voters_pending_to_erase_by_iterator.end(); ++iter) {
       voters_pending_.erase(*iter);
@@ -526,7 +464,6 @@ void OnePct::RunSimulationPct2(int stations_count) {
     }
   } // while (!done) {
 } // void Simulation::RunSimulationPct2()
-
 /******************************************************************************
  * Function 'ToString'.
  *
@@ -540,9 +477,7 @@ string OnePct::ToString() {
   // Test if function is executed.
   // Utils::log_stream << kTag << "FUNC: " << "ToString() " 
   //                   << "EXECUTED." << endl;
-
   string s = "";
-
   s += Utils::Format(pct_number_, 4);
   s += " " + Utils::Format(pct_name_, 25, "left");
   s += Utils::Format(pct_turnout_, 8, 2);
@@ -551,7 +486,6 @@ string OnePct::ToString() {
   s += Utils::Format(pct_expected_per_hour_, 8);
   s += Utils::Format(pct_stations_, 3);
   s += Utils::Format(pct_minority_, 8, 2);
-
   s += " HH ";
   for (auto iter = stations_to_histo_.begin(); 
        iter != stations_to_histo_.end(); ++iter) {
@@ -560,7 +494,19 @@ string OnePct::ToString() {
   s += " HH";
   return s;
 } // string OnePct::ToString()
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
+/******************************************************************************
+* Parameterized Constructor.
+*
+OnePct::OnePct(Scanner& infile) {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "OnePct(infile) " 
+  //                   << "EXECUTED." << endl;
 
+  this->ReadData(infile);
+}
+**/
 // Commented out 27 November 2016, C.J. Waldron
 // Description: Does not execute.
 /******************************************************************************
