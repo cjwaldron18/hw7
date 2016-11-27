@@ -32,8 +32,10 @@ OneVoter::OneVoter() {
  *   or calculated by the OnePct class.
  *   duration_seconds - How long a voter is there, specified by the config file.
 **/
-OneVoter::OneVoter(int sequence, int arrival_seconds,
-int duration_seconds) {
+OneVoter::OneVoter(int sequence, int arrival_seconds, int duration_seconds) {
+  // Utils::log_stream << kTag << "FUNC: " << "Parameterized OneVoter() " 
+  //                   << "EXECUTED." << endl;
+
   sequence_ = sequence;
   time_arrival_seconds_ = arrival_seconds; //Sets all the variables
   time_start_voting_seconds_ = 0;
@@ -58,6 +60,9 @@ OneVoter::~OneVoter() {
  *   The arrival time of a voter in seconds.
 **/
 int OneVoter::GetTimeArrival() const {
+  // Utils::log_stream << kTag << "FUNC: " << "GetTimeArrival() const " 
+  //                   << "EXECUTED." << endl;
+
   return time_arrival_seconds_;
 }
 
@@ -68,6 +73,9 @@ int OneVoter::GetTimeArrival() const {
  *   The time a voter has been waiting in seconds.
 **/
 int OneVoter::GetTimeWaiting() const {
+  // Utils::log_stream << kTag << "FUNC: " << "GetTimeWaiting() " 
+  //                   << "EXECUTED." << endl;
+
   return time_waiting_seconds_;
 }
 
@@ -78,6 +86,9 @@ int OneVoter::GetTimeWaiting() const {
  *   The station used by the voter.
 **/
 int OneVoter::GetStationNumber() const {
+  // Utils::log_stream << kTag << "FUNC: " << "GetStationNumber() " 
+  //                   << "EXECUTED." << endl;
+
   return which_station_;
 }
 
@@ -96,8 +107,10 @@ int OneVoter::GetStationNumber() const {
  *   specified in RunSimulationPct.
  *   start_time_seconds - At what time a voter goes into a station.
 **/
-void OneVoter::AssignStation(int station_number,
-int start_time_seconds) {
+void OneVoter::AssignStation(int station_number, int start_time_seconds) {
+  // Utils::log_stream << kTag << "FUNC: " << "AssignStation() " 
+  //                   << "EXECUTED." << endl;
+
   which_station_ = station_number;
   time_start_voting_seconds_ = start_time_seconds;
   time_done_voting_seconds_ = time_start_voting_seconds_  //Sets variables
@@ -113,20 +126,29 @@ int start_time_seconds) {
  *   The sum of the time started and the duration spent voting.
 **/
 int OneVoter::GetTimeDoneVoting() const {
+  // Utils::log_stream << kTag << "FUNC: " << "GetTimeDoneVoting() "
+  //                   << "EXECUTED." << endl;
   return time_start_voting_seconds_ + 
     time_vote_duration_seconds_;
 }
 
+// Commented out 27 November 2016
+// Description: Does not execute.
 /******************************************************************************
  * Accessor 'GetTimeInQ'.
  *
  * Returns:
  *   The start time minus the arrival time.
-**/
+
 int OneVoter::GetTimeInQ() const {
+  Utils::log_stream << kTag << "FUNC: " << "GetTimeInQ() "                    
+                    << "EXECUTED." << endl;
   return time_start_voting_seconds_ - time_arrival_seconds_;
 }
+**/
 
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
 /******************************************************************************
  * Function 'GetTOD'.
  *
@@ -137,15 +159,21 @@ int OneVoter::GetTimeInQ() const {
  *   time_in_seconds - 
  * Returns:
  *   The time converted from seconds.
-**/
+
 string OneVoter::GetTOD(int time_in_seconds) const {
+  Utils::log_stream << kTag << "FUNC: " << "GetTOD() " 
+                    << "EXECUTED." << endl;
+
   // Commented out when received.
   //  int offset_hours = 6;
   int offset_hours = 0;
   string s = "";
   return this->ConvertTime(time_in_seconds + offset_hours*3600);
 }
+**/
 
+// Commented out 27 November 2016
+// Description: Does not execute.
 /******************************************************************************
  * Function 'ConvertTime'.
  *
@@ -157,8 +185,11 @@ string OneVoter::GetTOD(int time_in_seconds) const {
  * Returns:
  *   A formatted conversion of time from seconds in the format
  *   hours:minutes:seconds.
-**/
-string OneVoter::ConvertTime(int time_in_seconds) const {
+
+string OneVoter::ConvertTime(int time_in_seconds) const { 
+  Utils::log_stream << kTag << "FUNC: " << "ConvertTime() " 
+                    << "EXECUTED." << endl;
+
   int hours = 0;
   int minutes = 0;
   int seconds = 0;
@@ -195,7 +226,10 @@ string OneVoter::ConvertTime(int time_in_seconds) const {
 
   return s;
 } // string OneVoter::ConvertTime(int time_in_seconds) const
+**/
 
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
 /******************************************************************************
  * Function 'ToString'.
  *
@@ -206,8 +240,11 @@ string OneVoter::ConvertTime(int time_in_seconds) const {
  *
  * Returns:
  *      string s - string formatted to hold all the data
-**/
+
 string OneVoter::ToString() {
+  Utils::log_stream << kTag << "FUNC: " << "ToString() " 
+                    << "EXECUTED." << endl;
+
   string s = kTag;
 
   s += Utils::Format(sequence_, 7);
@@ -228,7 +265,10 @@ string OneVoter::ToString() {
 
   return s;
 } // string OneVoter::toString()
+**/
 
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
 /******************************************************************************
  * Function 'ToStringHeader'.
  *
@@ -237,11 +277,14 @@ string OneVoter::ToString() {
  *
  * Returns:
  *      string s - string holding the header to be printed to the output
-**/
+
 string OneVoter::ToStringHeader() {
+  Utils::log_stream << kTag << "FUNC: " << "ToStringHeader() " 
+                    << "EXECUTED." << endl;
+
   string s = kTag;
   s += string("    Seq        Arr           Start             Dur             " )
        + string("End            Wait         Stn");
   return s;
 }
-
+**/

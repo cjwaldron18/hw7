@@ -42,6 +42,9 @@ Simulation::~Simulation() {
  *   infile - the input stream from which to read
 **/
 void Simulation::ReadPrecincts(Scanner& infile) {
+  // Test if function is executed. C.J. Waldron, 11/27/2016 
+  Utils::log_stream << kTag << "FUNC: " << "ReadPrecincts() " 
+                    << "EXECUTED." << endl;
   
   while (infile.HasNext()) {
     OnePct new_pct; //Generates a new precinct
@@ -64,9 +67,12 @@ void Simulation::ReadPrecincts(Scanner& infile) {
  *   out_stream - "the output stream to which to write" - Duncan Buell,
  *                gameplay.cc, buellduncan_hw4
 **/
-void Simulation::RunSimulation(const Configuration& config,
-MyRandom& random, ofstream& out_stream) {
-  
+void Simulation::RunSimulation(const Configuration& config, MyRandom& random, 
+                               ofstream& out_stream) {
+  // Test if function is executed. C.J. Waldron, 11/27/2016 
+  Utils::log_stream << kTag << "FUNC: " << "RunSimulation() "
+                    << "EXECUTED." << endl;
+
   string outstring = "XX";
   int pct_count_this_batch = 0;
   
@@ -99,7 +105,10 @@ MyRandom& random, ofstream& out_stream) {
  * Returns: string s
 **/
 string Simulation::ToString() {
-  
+  // Test if function is executed. C.J. Waldron, 11/27/2016 
+  Utils::log_stream << kTag << "FUNC: " << "ToString() "
+                    << "EXECUTED." << endl;
+
   string s = "";
   for(auto iterPct = pcts_.begin();  //Runs through all saved Precincts
       iterPct != pcts_.end(); ++iterPct) {

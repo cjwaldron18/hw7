@@ -31,7 +31,11 @@ Configuration::~Configuration() {
  *   The Max Service Subscript: actual_service_times_.size() - 1. 
  * (Needs less generalized return definition.)
 **/
-int Configuration::GetMaxServiceSubscript() const { 
+int Configuration::GetMaxServiceSubscript() const {
+  // Test if function is executed. 
+  // Utils::log_stream << kTag << "FUNC: " << "GetMaxServiceSubscript() " 
+  //                   << "EXECUTED." << endl;
+ 
   int value = (actual_service_times_.size()) - 1;
   return value;
 }
@@ -51,6 +55,10 @@ int Configuration::GetMaxServiceSubscript() const {
  *   instream - the input stream from which to read.
 **/
 void Configuration::ReadConfiguration(Scanner& instream) {
+  // Test if function is executed. 
+  // Utils::log_stream << kTag << "FUNC: " << "ReadConfiguration() "
+  //                   << "EXECUTED." << endl; 
+
   string line;
   ScanLine scanline;
 
@@ -91,6 +99,9 @@ void Configuration::ReadConfiguration(Scanner& instream) {
  *  
 **/
 string Configuration::ToString() {
+  // Test if function is executed. 
+  // Utils::log_stream << kTag << "FUNC: " << "ToString() "
+  //                   << "EXECUTED." << endl;
   
   string s = "\n";
   int offset = 6;
