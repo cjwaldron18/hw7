@@ -240,8 +240,8 @@ string OneVoter::ToString() {
 **/
 string OneVoter::ToStringHeader() {
   string s = kTag;
-  s += "    Seq        Arr           Start             Dur             " + 
-    "End            Wait         Stn";
+  s += string("    Seq        Arr           Start             Dur             " )
+       + string("End            Wait         Stn");
   return s;
 }
 
