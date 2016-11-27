@@ -42,9 +42,8 @@ Simulation::~Simulation() {
  *   infile - the input stream from which to read
 **/
 void Simulation::ReadPrecincts(Scanner& infile) {
-  // Test if function is executed. C.J. Waldron, 11/27/2016 
-  Utils::log_stream << kTag << "FUNC: " << "ReadPrecincts() " 
-                    << "EXECUTED." << endl;
+  // Utils::log_stream << kTag << "FUNC: " << "ReadPrecincts() " 
+  //                   << "EXECUTED." << endl;
   
   while (infile.HasNext()) {
     OnePct new_pct; //Generates a new precinct
@@ -69,9 +68,8 @@ void Simulation::ReadPrecincts(Scanner& infile) {
 **/
 void Simulation::RunSimulation(const Configuration& config, MyRandom& random, 
                                ofstream& out_stream) {
-  // Test if function is executed. C.J. Waldron, 11/27/2016 
-  Utils::log_stream << kTag << "FUNC: " << "RunSimulation() "
-                    << "EXECUTED." << endl;
+  // Utils::log_stream << kTag << "FUNC: " << "RunSimulation() "
+  //                   << "EXECUTED." << endl;
 
   string outstring = "XX";
   int pct_count_this_batch = 0;
@@ -95,6 +93,8 @@ void Simulation::RunSimulation(const Configuration& config, MyRandom& random,
   // Utils::Output(outstring, out_stream, Utils::log_stream);
 } // void Simulation::RunSimulation()
 
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
 /******************************************************************************
  * Function 'ToString'.
  *
@@ -103,9 +103,8 @@ void Simulation::RunSimulation(const Configuration& config, MyRandom& random,
  * method within the Onepct class. 
  *
  * Returns: string s
-**/
+
 string Simulation::ToString() {
-  // Test if function is executed. C.J. Waldron, 11/27/2016 
   Utils::log_stream << kTag << "FUNC: " << "ToString() "
                     << "EXECUTED." << endl;
 
@@ -116,4 +115,4 @@ string Simulation::ToString() {
   }
   return s;
 } // string Simulation::ToString()
-
+**/
