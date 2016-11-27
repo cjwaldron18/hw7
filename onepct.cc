@@ -21,13 +21,19 @@ static const string kTag = "OnePct: ";
 **/
 OnePct::OnePct() {
 }
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
 /******************************************************************************
-* Constructor.
-**/
+* Parameterized Constructor.
+*
 OnePct::OnePct(Scanner& infile) {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "OnePct(infile) " 
+  //                   << "EXECUTED." << endl;
+
   this->ReadData(infile);
 }
-
+**/
 /******************************************************************************
 * Destructor.
 **/
@@ -45,6 +51,10 @@ OnePct::~OnePct() {
  *   The percentage of expected voters for the precinct.
 **/
 int OnePct::GetExpectedVoters() const {
+  // Test if function is executed. 
+  // Utils::log_stream << kTag << "FUNC: " << "GetExpectedVoters() " 
+  //                   << "EXECUTED." << endl;
+
   return pct_expected_voters_;
 }
 
@@ -55,6 +65,10 @@ int OnePct::GetExpectedVoters() const {
  *   The precinct number (ID) for this precinct.
 **/
 int OnePct::GetPctNumber() const {
+  // Test if functino is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "GetPctNumber() const " 
+  //                   << "EXECUTED." << endl;
+
   return pct_number_;
 }
 
@@ -70,6 +84,10 @@ int OnePct::GetPctNumber() const {
  * the mean
 **/
 void OnePct::ComputeMeanAndDev() {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "ComputeMeanAndDev() " 
+  //                   << "EXECUTED." << endl;
+
   int sum_of_wait_times_seconds = 0;
   double sum_of_adjusted_times_seconds = 0.0;
   sum_of_wait_times_seconds = 0;
@@ -120,6 +138,10 @@ void OnePct::ComputeMeanAndDev() {
 **/
 void OnePct::CreateVoters(const Configuration& config, 
 MyRandom& random,ofstream& out_stream) {
+  // Test if function is executed. 
+  // Utils::log_stream << kTag << "FUNC: " << "CreateVoters() " 
+  //                   << "EXECUTED." << endl;
+
   int duration = 0;
   int arrival = 0;
   int sequence = 0;
@@ -192,10 +214,13 @@ MyRandom& random,ofstream& out_stream) {
  *   toolongcount - the number of people that had to wait far too long to vote
  *
 **/
-int OnePct::DoStatistics(int iteration, 
-const Configuration& config,
-int station_count, map<int, int>& map_for_histo,
-ofstream& out_stream) {
+int OnePct::DoStatistics(int iteration, const Configuration& config,
+                         int station_count, map<int, int>& map_for_histo,
+                         ofstream& out_stream) {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "DoStatistics() " 
+  //                   << "EXECUTED." << endl;
+
   string outstring = "\n";
   map<int, int> wait_time_minutes_map;
 
@@ -273,6 +298,10 @@ ofstream& out_stream) {
  *   infile - the input stream from which to read
 **/
 void OnePct::ReadData(Scanner& infile) {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "ReadData() " 
+  //                   << "EXECUTED." << endl;
+
   if (infile.HasNext()) {
     pct_number_ = infile.NextInt();
     pct_name_ = infile.Next();
@@ -291,6 +320,7 @@ void OnePct::ReadData(Scanner& infile) {
     stations_to_histo_.insert(stat3);
   }
 } // void OnePct::ReadData(Scanner& infile)
+
 /******************************************************************************
  * Function 'RunSimulationPct'.
  *
@@ -318,8 +348,12 @@ void OnePct::ReadData(Scanner& infile) {
  *   out_stream - "the output stream to which to write" - Duncan Buell,
  *                gameplay.cc, buellduncan_hw4
 **/
-void OnePct::RunSimulationPct(const Configuration& config,
-MyRandom& random, ofstream& out_stream) {
+void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random, 
+                              ofstream& out_stream) {
+  // Test if function is executed.  
+  // Utils::log_stream << kTag << "FUNC: " << "RunSimulationPct() " 
+  //                   << "EXECUTED." << endl;
+
   string outstring = "XX";
 
   int min_station_count = pct_expected_voters_ 
@@ -345,8 +379,7 @@ MyRandom& random, ofstream& out_stream) {
     done_with_this_count = true;
     map<int, int> map_for_histo;
     outstring = kTag + this->ToString() + "\n";
-    // Utils::Output(outstring, out_stream, 
-    //               Utils::log_stream);
+    // Utils::Output(outstring, out_stream,  Utils::log_stream);
     for (int iteration = 0;
          iteration < config.number_of_iterations_; 
          ++iteration) {
@@ -399,12 +432,10 @@ MyRandom& random, ofstream& out_stream) {
                   Utils::Format(time, 6) + ": " + 
                   Utils::Format(count_double, 7, 2) + ": ";
         outstring += stars + "\n";
-        // Utils::Output(outstring, out_stream, 
-        //        Utils::log_stream);
+        // Utils::Output(outstring, out_stream, Utils::log_stream);
       }
       outstring = "HISTO\n\n";
-      // Utils::Output(outstring, out_stream, 
-      //               Utils::log_stream);
+      // Utils::Output(outstring, out_stream, Utils::log_stream);
     }
   }
 }
@@ -427,6 +458,9 @@ MyRandom& random, ofstream& out_stream) {
 *   stations_count - the total number of stations (pct_stations_)
 **/
 void OnePct::RunSimulationPct2(int stations_count) {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "RunSimulationPct2() " 
+  //                   << "EXECUTED." << endl;
 
   free_stations_.clear();
   for (int i = 0; i < stations_count; ++i) {
@@ -510,6 +544,10 @@ Utils::log_stream << kTag << "PENDING, VOTING, DONE    "
  * Returns: string s - the string formatted for all the data. 
 **/
 string OnePct::ToString() {
+  // Test if function is executed.
+  // Utils::log_stream << kTag << "FUNC: " << "ToString() " 
+  //                   << "EXECUTED." << endl;
+
   string s = "";
 
   s += Utils::Format(pct_number_, 4);
@@ -530,6 +568,8 @@ string OnePct::ToString() {
   return s;
 } // string OnePct::ToString()
 
+// Commented out 27 November 2016, C.J. Waldron
+// Description: Does not execute.
 /******************************************************************************
  * Function 'ToStringVoterMap'.
  *
@@ -543,9 +583,11 @@ string OnePct::ToString() {
  * Returns: 
  *    string s - formatted string of all the data
  *
-**/
-string OnePct::ToStringVoterMap(string label,
-multimap<int, OneVoter> themap) {
+string OnePct::ToStringVoterMap(string label, multimap<int, OneVoter> themap) {
+  // Test if function is executed. 
+  // Utils::log_stream << kTag << "FUNC: " << "ToStringVoterMap() " 
+  //                   << "EXECUTED." << endl;
+
   string s = "";
 
   s += "\n" + label + " WITH " + Utils::Format(
@@ -559,4 +601,4 @@ multimap<int, OneVoter> themap) {
 
   return s;
 } // string OnePct::ToString()
-
+**/
