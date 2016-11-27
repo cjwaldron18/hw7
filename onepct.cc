@@ -329,8 +329,11 @@ MyRandom& random, ofstream& out_stream) {
   if (min_station_count <= 0) { //If the station count ends up less than 0,
     min_station_count = 1;      //Sets the count to a useable 1
   }
-  max_station_count = min_station_count + 
-    config.election_day_length_hours_; //Sets maximum station count
+  
+  //Sets maximum station count
+  
+  int max_station_count = min_station_count + config.election_day_length_hours_;
+ 
   bool done_with_this_count = false;
 
   for (int stations_count = min_station_count; //
