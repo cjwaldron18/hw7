@@ -168,7 +168,7 @@ string OneVoter::GetTOD(int time_in_seconds) const {
 }
 **/
 
-// Commented out 27 November 2016
+// Commented out 27 November 2016, C.J. Waldron
 // Description: Does not execute.
 /******************************************************************************
  * Function 'ConvertTime'.
