@@ -35,7 +35,6 @@ OneVoter::OneVoter() {
 OneVoter::OneVoter(int sequence, int arrival_seconds, int duration_seconds) {
   // Utils::log_stream << kTag << "FUNC: " << "Parameterized OneVoter() " 
   //                   << "EXECUTED." << endl;
-
   sequence_ = sequence;
   time_arrival_seconds_ = arrival_seconds; //Sets all the variables
   time_start_voting_seconds_ = 0;
@@ -62,7 +61,6 @@ OneVoter::~OneVoter() {
 int OneVoter::GetTimeArrival() const {
   // Utils::log_stream << kTag << "FUNC: " << "GetTimeArrival() const " 
   //                   << "EXECUTED." << endl;
-
   return time_arrival_seconds_;
 }
 
@@ -75,7 +73,6 @@ int OneVoter::GetTimeArrival() const {
 int OneVoter::GetTimeWaiting() const {
   // Utils::log_stream << kTag << "FUNC: " << "GetTimeWaiting() " 
   //                   << "EXECUTED." << endl;
-
   return time_waiting_seconds_;
 }
 
@@ -88,8 +85,20 @@ int OneVoter::GetTimeWaiting() const {
 int OneVoter::GetStationNumber() const {
   // Utils::log_stream << kTag << "FUNC: " << "GetStationNumber() " 
   //                   << "EXECUTED." << endl;
-
   return which_station_;
+}
+
+/******************************************************************************
+ * Accessor 'GetTimeDoneVoting'.
+ *
+ * Returns:
+ *   The sum of the time started and the duration spent voting.
+**/
+int OneVoter::GetTimeDoneVoting() const {
+  // Utils::log_stream << kTag << "FUNC: " << "GetTimeDoneVoting() "
+  //                   << "EXECUTED." << endl;
+  return time_start_voting_seconds_ + 
+    time_vote_duration_seconds_;
 }
 
 /******************************************************************************
@@ -117,19 +126,6 @@ void OneVoter::AssignStation(int station_number, int start_time_seconds) {
     + time_vote_duration_seconds_;
   time_waiting_seconds_ = time_start_voting_seconds_
     - time_arrival_seconds_;
-}
-
-/******************************************************************************
- * Accessor 'GetTimeDoneVoting'.
- *
- * Returns:
- *   The sum of the time started and the duration spent voting.
-**/
-int OneVoter::GetTimeDoneVoting() const {
-  // Utils::log_stream << kTag << "FUNC: " << "GetTimeDoneVoting() "
-  //                   << "EXECUTED." << endl;
-  return time_start_voting_seconds_ + 
-    time_vote_duration_seconds_;
 }
 
 // Commented out 27 November 2016
