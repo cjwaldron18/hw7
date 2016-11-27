@@ -34,9 +34,9 @@ Simulation::~Simulation() {
 /******************************************************************************
  * Function 'ReadPrecincts'.
  *
- * Uses the scanner to create and read Precincts, then saves
- * the precinct as whatever number precinct it is. Actual reading of the data
- * is within the OnePct class. 
+ * Uses the scanner to create and read Precincts, then stores the precinct
+ * in the map 'pcts_.' Actual reading of the data is performed within 
+ * the OnePct class. 
  *
  * Parameters:
  *   infile - the input stream from which to read
@@ -55,10 +55,10 @@ void Simulation::ReadPrecincts(Scanner& infile) {
 /******************************************************************************
  * Function 'RunSimulation'.
  *
- * This method runs through the different number of precincts and checks if 
- * the expected voters of each princict is below the min or above the max
- * from the config. If it is not, it then calls prints the precinct and runs
- * a different RunSimulation method within the OnePct class. 
+ * This function iterates through the precincts, stored in 'pcts_,' and checks 
+ * if the expected voters of each princict is below the min or above the max,
+ * as defined by the config. If it is not, it then prints the precinct and
+ * runs a different RunSimulation method within the OnePct class. 
  *
  * Parameters:
  *   config - the instance of Configuration() to use
@@ -74,20 +74,25 @@ void Simulation::RunSimulation(const Configuration& config, MyRandom& random,
   string outstring = "XX";
   int pct_count_this_batch = 0;
   
-  for(auto iterPct = pcts_.begin(); 
+  for(auto iterPct = pcts_.begin();
       iterPct != pcts_.end(); ++iterPct) {
+    
     OnePct pct = iterPct->second; //Travels through saved Pct from Read method.
-  int expected_voters = pct.GetExpectedVoters();
+    int expected_voters = pct.GetExpectedVoters();
+    
+    // Exits loop if expected_voters is not within the min and max.
     if ((expected_voters <= config.min_expected_to_simulate_) || 
         (expected_voters > config.max_expected_to_simulate_)) {
       continue; //Makes sure expected voters fall into the right range
     }
-  outstring = kTag + "RunSimulation for pct " + "\n";
-  outstring += kTag + pct.ToString() + "\n";
-  // Utils::Output(outstring, out_stream, Utils::log_stream);
-  ++pct_count_this_batch; //Tracks how many Precincts there are in a batch
-  pct.RunSimulationPct(config, random, out_stream);
+    
+    outstring = kTag + "RunSimulation for pct " + "\n";
+    outstring += kTag + pct.ToString() + "\n";
+    // Utils::Output(outstring, out_stream, Utils::log_stream);
+    ++pct_count_this_batch; //Tracks how many Precincts there are in a batch
+    pct.RunSimulationPct(config, random, out_stream);
   } // for(auto iterPct = pcts_.begin(); iterPct != pcts_.end(); ++iterPct)
+  
   outstring = kTag + "PRECINCT COUNT THIS BATCH "
   + Utils::Format(pct_count_this_batch, 4) + "\n";
   // Utils::Output(outstring, out_stream, Utils::log_stream);
@@ -109,7 +114,7 @@ string Simulation::ToString() {
                     << "EXECUTED." << endl;
 
   string s = "";
-  for(auto iterPct = pcts_.begin();  //Runs through all saved Precincts
+  for(auto iterPct = pcts_.begin(); // Runs through all saved Precincts
       iterPct != pcts_.end(); ++iterPct) {
     s += kTag + (iterPct->second).ToString() + "\n";
   }
