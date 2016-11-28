@@ -35,8 +35,9 @@ public:
  void ReadPrecincts(Scanner& infile);
  void RunSimulation(const Configuration& config, MyRandom& random, 
                     ofstream& out_stream);
- string ToString();
 // Commented out 27 November 2016, C.J. Waldron
+// Does not execute.
+// string ToString();
 // No such function in simulation.cc
 // string ToStringPcts();
 
