@@ -89,8 +89,8 @@ void OnePct::ComputeMeanAndDev() {
                       - wait_mean_seconds_;
     sum_of_adjusted_times_seconds += (this_addin) * (this_addin);
   } //Calculation for deviation of a mean.
-  wait_dev_seconds_ = sqrt(sum_of_adjusted_times_seconds /
-  static_cast<double>(pct_expected_voters_));
+  wait_dev_seconds_ = sqrt(sum_of_adjusted_times_seconds
+                    / static_cast<double>(pct_expected_voters_));
 }
 /******************************************************************************
  * Function 'CreateVoters'.
@@ -129,7 +129,7 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
   int voters_at_zero = round((percent / 100.0) * pct_expected_voters_);
   for (int voter = 0; voter < voters_at_zero; ++voter) {
     int durationsub = random.RandomUniformInt
-      (0, config.GetMaxServiceSubscript());
+                      (0, config.GetMaxServiceSubscript());
     duration = config.actual_service_times_.at(durationsub);
     OneVoter one_voter(sequence, arrival, duration);
     // Saves voters into a vector.
@@ -143,7 +143,7 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
     if (0 == hour % 2) {
       ++voters_this_hour;
     }   
-    int arrival = hour*3600; // Converts arrival time from hours to seconds.
+    int arrival = hour * 3600; // Converts arrival time from hours to seconds.
     for(int voter = 0; voter < voters_this_hour; ++voter) {
       double lambda = static_cast<double> 
                       (voters_this_hour / 3600.0);
@@ -151,7 +151,7 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
       int interarrival = random.RandomExponentialInt(lambda); 
       arrival += interarrival;
       int durationsub = random.RandomUniformInt
-        (0, config.GetMaxServiceSubscript());
+                        (0, config.GetMaxServiceSubscript());
       duration = config.actual_service_times_.at(durationsub);
       OneVoter one_voter(sequence, arrival, duration);
       voters_backup_.insert(std::pair<int, OneVoter>(arrival, one_voter));
@@ -219,24 +219,23 @@ int OnePct::DoStatistics(int iteration, const Configuration& config,
   ComputeMeanAndDev();
   outstring = "";
   outstring += kTag + Utils::Format(iteration, 3) + " "
-  + Utils::Format(pct_number_, 4) + " "
-  + Utils::Format(pct_name_, 25, "left")
-  + Utils::Format(pct_expected_voters_, 6)
-  + Utils::Format(station_count, 4)
-  + " stations, mean/dev wait (mins) "
-  + Utils::Format(wait_mean_seconds_/60.0, 8, 2) + " "
-  + Utils::Format(wait_dev_seconds_/60.0, 8, 2)
-  + " toolong "
-  + Utils::Format(toolongcount, 6) + " "
-  + Utils::Format(100.0*toolongcount/
-                  (double)pct_expected_voters_, 6, 2)
-  + Utils::Format(toolongcountplus10, 6) + " "
-  + Utils::Format(100.0*toolongcountplus10/
-                  (double)pct_expected_voters_, 6, 2)
-  + Utils::Format(toolongcountplus20, 6) + " "
-  + Utils::Format(100.0*toolongcountplus20/
-                  (double)pct_expected_voters_, 6, 2)
-  + "\n";
+             + Utils::Format(pct_number_, 4) + " "
+             + Utils::Format(pct_name_, 25, "left")
+             + Utils::Format(pct_expected_voters_, 6)
+             + Utils::Format(station_count, 4)
+             + " stations, mean/dev wait (mins) "
+             + Utils::Format(wait_mean_seconds_ / 60.0, 8, 2) + " "
+             + Utils::Format(wait_dev_seconds_ / 60.0, 8, 2)
+             + " toolong "
+             + Utils::Format(toolongcount, 6) + " "
+             + Utils::Format(100.0 * toolongcount /
+                             (double)pct_expected_voters_, 6, 2)
+             + Utils::Format(toolongcountplus10, 6) + " "
+             + Utils::Format(100.0 * toolongcountplus10 /
+                             (double)pct_expected_voters_, 6, 2)
+             + Utils::Format(toolongcountplus20, 6) + " "
+             + Utils::Format(100.0 * toolongcountplus20 /
+                             (double)pct_expected_voters_, 6, 2) + "\n";
   // Utils::Output(outstring, out_stream, Utils::log_stream);
   wait_time_minutes_map.clear(); //Clears the wait time map.
   return toolongcount;
@@ -327,7 +326,6 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
     map<int, int> map_for_histo;
     outstring = kTag + this->ToString() + "\n";
     // Utils::Output(outstring, out_stream,  Utils::log_stream);
-////////////////////////////////////////////////////////////////////////////////
     for (int iteration = 0; iteration < config.number_of_iterations_; 
          ++iteration) {     
       this->CreateVoters(config, random, out_stream);
@@ -347,10 +345,9 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
     // Utils::Output(outstring, out_stream, Utils::log_stream);
 ////////////////////////////////////////////////////////////////////////////////
     if (stations_to_histo_.count(stations_count) > 0) {
-      outstring = "\n" + kTag + "HISTO " + 
-                  this->ToString() + "\n";
-      outstring += kTag + "HISTO STATIONS "
-                + Utils::Format(stations_count, 4) + "\n";
+      outstring = "\n" + kTag + "HISTO " + this->ToString() + "\n";
+      outstring += kTag + "HISTO STATIONS " 
+                 + Utils::Format(stations_count, 4) + "\n";
      // Utils::Output(outstring, out_stream, Utils::log_stream);
       int time_lower = (map_for_histo.begin())->first;
       int time_upper = (map_for_histo.rbegin())->first;
@@ -362,13 +359,12 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
           voters_per_star = 1;
         }
       }
-////////////////////////////////////////////////////////////////////////////////
       for (int time = time_lower; time <= time_upper; ++time) {
         int count = map_for_histo[time];
         double count_double = static_cast<double>(count)
                             / static_cast<double>(config.number_of_iterations_);
         int count_divided_ceiling = static_cast<int>
-          (ceil(count_double / voters_per_star));
+                                    (ceil(count_double / voters_per_star));
         string stars = string(count_divided_ceiling, '*');
         outstring = kTag + "HISTO " + Utils::Format(time, 6) + ": "  
                   + Utils::Format(count_double, 7, 2) + ": ";
@@ -403,9 +399,9 @@ void OnePct::RunSimulationPct2(int stations_count) {
   //                   << "EXECUTED." << endl;
   free_stations_.clear();
   for (int i = 0; i < stations_count; ++i) {
-    free_stations_.push_back(i); //Makes all stations currently free
+    free_stations_.push_back(i); // Makes all stations currently free
   } 
-  voters_voting_.clear(); //Makes sure both vectors are empty
+  voters_voting_.clear(); // Makes sure both vectors are empty
   voters_done_voting_.clear();
   int second = 0;
   bool done = false;
@@ -423,8 +419,8 @@ void OnePct::RunSimulationPct2(int stations_count) {
     voters_voting_.erase(second); // Remove voter from currently voting. 
 ////////////////////////////////////////////////////////////////////////////////
     vector<map<int, OneVoter>::iterator > voters_pending_to_erase_by_iterator;
-    for (auto iter = voters_pending_.begin(); 
-         iter != voters_pending_.end(); ++iter) {
+    for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); 
+         ++iter) {
       if (second >= iter->first) {       // If they have already arrived
         if (free_stations_.size() > 0) { // and there are free stations
           OneVoter next_voter = iter->second;
@@ -448,7 +444,7 @@ void OnePct::RunSimulationPct2(int stations_count) {
           } // if (next_voter.GetTimeArrival() <= second) {
         } // if (free_stations_.size() > 0) {
       } else { // if (second == iter->first) {
-        // we have walked in time past current time to arrivals in the future
+        // We have walked in time past current time to arrivals in the future.
         break; 
       }
     } // for (auto iter = voters_pending_.begin(); iter != voters_pending_.end(); ++iter) {
@@ -458,7 +454,7 @@ void OnePct::RunSimulationPct2(int stations_count) {
     }
     ++second;
     done = true;
-    //if not empty, repeat the process
+    // If not empty, repeat the process.
     if ((voters_pending_.size() > 0) || (voters_voting_.size() > 0)) {
       done = false;
     }
