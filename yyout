@@ -6,7 +6,7 @@ TIME beginning             0.00 u         0.00 s   Res:      733184
 TIME beginning             0.00 u_t       0.00 s_t
 TIME***********************************************************************
 
-
+z
 
 MAIN: outfile 'yyout'
 MAIN: logfile 'yylog'
