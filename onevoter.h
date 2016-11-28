@@ -37,10 +37,11 @@ public:
 **/
  void AssignStation(int station_number, int start_time_seconds);
  void DoneVoting();
- int GetTimeInQ() const;
-
- string ToString();
- static string ToStringHeader();
+ // Commented out 27 November 2016, C.J. Waldron
+ // Description: These are not executed.
+ // int GetTimeInQ() const;
+ // string ToString();
+ // static string ToStringHeader();
 
 private:
  int sequence_ = kDummyVoterInt;
@@ -54,8 +55,10 @@ private:
 /******************************************************************************
  * General private functions.
 **/
- string ConvertTime(int time_in_seconds) const;
- string GetTOD(int time) const;
+ // Commented out 27 November 2016, C.J. Waldron
+ // Description: These are not executed.
+ // string ConvertTime(int time_in_seconds) const;
+ // string GetTOD(int time) const;
 };
 
 #endif // ONEVOTER_H
