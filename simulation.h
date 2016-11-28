@@ -9,12 +9,14 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include "configuration.h"
 #include <map>
-#include "onepct.h"
+
 #include "Utilities/scanline.h"
 #include "Utilities/scanner.h"
 #include "Utilities/utils.h"
+
+#include "configuration.h"
+#include "onepct.h"
 
 using namespace std;
 
