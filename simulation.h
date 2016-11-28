@@ -9,16 +9,14 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
-#include <map>
-
-#include "Utilities/utils.h"
-#include "Utilities/scanner.h"
-#include "Utilities/scanline.h"
-
-using namespace std;
-
 #include "configuration.h"
 #include "onepct.h"
+#include <map>
+#include "Utilities/scanner.h"
+#include "Utilities/scanline.h"
+#include "Utilities/utils.h"
+
+using namespace std;
 
 class Simulation
 {
@@ -33,8 +31,8 @@ public:
  * General functions.
 **/
   void ReadPrecincts(Scanner& infile);
-  void RunSimulation(const Configuration& config,
-                     MyRandom& random, ofstream& out_stream);
+  void RunSimulation(const Configuration& config, MyRandom& random, 
+                     ofstream& out_stream);
   string ToString();
   // Commented out 27 November 2016, C.J. Waldron
   // No such function in Simulation.cc
