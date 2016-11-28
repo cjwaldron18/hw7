@@ -35,8 +35,10 @@ public:
  * Constructors and destructors for the class. 
 **/
  OnePct();
- OnePct(Scanner& infile);
  virtual ~OnePct();
+ // Commented out 27 November 2016, C.J. Waldron
+ // Description: The parameterized constructor is not used.
+ // OnePct(Scanner& infile);
 
 /******************************************************************************
  * Accessors and Mutators.
@@ -51,7 +53,9 @@ public:
   void RunSimulationPct(const Configuration& config, MyRandom& random, ofstream& out_stream);
 
   string ToString();
-  string ToStringVoterMap(string label, multimap<int, OneVoter> themap);
+  // Commented out 27 November 2016, C.J. Waldron
+  // Description: This function is not executed.
+  // string ToStringVoterMap(string label, multimap<int, OneVoter> themap);
 
 private:
   int    pct_expected_voters_ = kDummyInt;
