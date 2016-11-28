@@ -50,7 +50,8 @@ public:
  * General functions.
 **/
   void ReadData(Scanner& infile);
-  void RunSimulationPct(const Configuration& config, MyRandom& random, ofstream& out_stream);
+  void RunSimulationPct(const Configuration& config, MyRandom& random, 
+                        ofstream& out_stream);
 
   string ToString();
   // Commented out 27 November 2016, C.J. Waldron
@@ -80,12 +81,11 @@ private:
 **/
   void CreateVoters(const Configuration& config, MyRandom& random,
                     ofstream& out_stream);
-  int DoStatistics(int iteration, const Configuration& config, int station_count,
-                   map<int, int>& map_for_histo, ofstream& out_stream);
-                    
+  int DoStatistics(int iteration, const Configuration& config, 
+                   int station_count,
+                   map<int, int>& map_for_histo, ofstream& out_stream);                  
   void ComputeMeanAndDev();
   void RunSimulationPct2(int stations);
-
 };
 
 #endif // ONEPCT_H
