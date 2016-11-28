@@ -42,13 +42,11 @@ OneVoter::OneVoter(int sequence, int arrival_seconds, int duration_seconds) {
   // Dummy value of -1.
   which_station_ = -1;
 }
-
 /******************************************************************************
  * Destructor
 **/
 OneVoter::~OneVoter() {
 }
-
 /******************************************************************************
  * Accessors and mutators.
 **/
@@ -63,7 +61,6 @@ int OneVoter::GetTimeArrival() const {
   //                   << "EXECUTED." << endl;
   return time_arrival_seconds_;
 }
-
 /******************************************************************************
  * Accessor 'GetTimeWaiting'.
  *
@@ -75,7 +72,6 @@ int OneVoter::GetTimeWaiting() const {
   //                   << "EXECUTED." << endl;
   return time_waiting_seconds_;
 }
-
 /******************************************************************************
  * Accessor 'GetStationNumber'.
  *
@@ -87,7 +83,6 @@ int OneVoter::GetStationNumber() const {
   //                   << "EXECUTED." << endl;
   return which_station_;
 }
-
 /******************************************************************************
  * Accessor 'GetTimeDoneVoting'.
  *
@@ -97,10 +92,8 @@ int OneVoter::GetStationNumber() const {
 int OneVoter::GetTimeDoneVoting() const {
   // Utils::log_stream << kTag << "FUNC: " << "GetTimeDoneVoting() "
   //                   << "EXECUTED." << endl;
-  return time_start_voting_seconds_ + 
-    time_vote_duration_seconds_;
+  return time_start_voting_seconds_ + time_vote_duration_seconds_;
 }
-
 /******************************************************************************
  * General functions.
 **/
@@ -119,15 +112,12 @@ int OneVoter::GetTimeDoneVoting() const {
 void OneVoter::AssignStation(int station_number, int start_time_seconds) {
   // Utils::log_stream << kTag << "FUNC: " << "AssignStation() " 
   //                   << "EXECUTED." << endl;
-
   which_station_ = station_number;
   time_start_voting_seconds_ = start_time_seconds;
   time_done_voting_seconds_ = time_start_voting_seconds_  //Sets variables
-    + time_vote_duration_seconds_;
-  time_waiting_seconds_ = time_start_voting_seconds_
-    - time_arrival_seconds_;
+                            + time_vote_duration_seconds_;
+  time_waiting_seconds_ = time_start_voting_seconds_ - time_arrival_seconds_;
 }
-
 // Commented out 27 November 2016
 // Description: Does not execute.
 /******************************************************************************
