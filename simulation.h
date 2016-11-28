@@ -36,7 +36,9 @@ public:
   void RunSimulation(const Configuration& config,
                      MyRandom& random, ofstream& out_stream);
   string ToString();
-  string ToStringPcts();
+  // Commented out 27 November 2016, C.J. Waldron
+  // No such function in Simulation.cc
+  // string ToStringPcts();
 
 private:
 /******************************************************************************
