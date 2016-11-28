@@ -10,10 +10,10 @@
 #define SIMULATION_H
 
 #include "configuration.h"
-#include "onepct.h"
 #include <map>
-#include "Utilities/scanner.h"
+#include "onepct.h"
 #include "Utilities/scanline.h"
+#include "Utilities/scanner.h"
 #include "Utilities/utils.h"
 
 using namespace std;
