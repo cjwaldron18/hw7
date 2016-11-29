@@ -57,6 +57,7 @@ public:
 **/
  int GetMaxServiceSubscript() const;
  void ReadConfiguration(Scanner& instream);
+ void ReadServiceTimes(Scanner& instream);
  string ToString();
 
 private:
@@ -64,3 +65,4 @@ private:
 };
 
 #endif // ONEVOTER_H
+
