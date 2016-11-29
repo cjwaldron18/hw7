@@ -25,9 +25,13 @@ Configuration::~Configuration() {
 /******************************************************************************
  * Accessor 'GetMaxServiceSubscript'.
  * 
+ * Since the service times are in ascending order from least to greatest, it 
+ * follows that the subscript of the greatest element should be the last 
+ * element in the actucal_service_times_ vector.
+ *
  * Returns:
  *   The Max Service Subscript: actual_service_times_.size() - 1. 
- * (Needs less generalized return definition.)
+ * 
 **/
 int Configuration::GetMaxServiceSubscript() const {
   // Test if function is executed. 
@@ -42,9 +46,20 @@ int Configuration::GetMaxServiceSubscript() const {
 /******************************************************************************
  * Function 'ReadConfiguration'.
  * 
- * This method takes in the configuration file specified in the main class, 
- * reads it, and saves the data in the file to various variables to be sed in
- * the calculations. 
+ * This method reads a configuration file via a input stream. Now, this file
+ * in particular helps define the contours of a statistical computation
+ * relating to simulating an election(or just a queue in general). Therefore,
+ * the confinguration file it reads should have an RN seed, number of hours
+ * in an election day, the mean time taken to vote, minimum number of 
+ * voters per pct, maximum number of voters per pct, the cut off wait time
+ * (what is too long?), and the number of iterations to perform. The 
+ * previously stated input should be given in one line delimited by spaces
+ * and they all should be integer values. Now, the second line that should
+ * be specified in the configuration file and delimited by spaces should
+ * be pct arrival percentages per hour from 0 to amount of hours
+ * in an election day(specified in the first line); hence, all these
+ * value should be given as doubles.
+ *
  *
  * Parameters:
  *   instream - the input stream from which to read.
@@ -55,30 +70,70 @@ void Configuration::ReadConfiguration(Scanner& instream) {
   //                   << "EXECUTED." << endl; 
   string line;
   ScanLine scanline;
+
+  // Read the first line.
   line = instream.NextLine();
-  scanline.OpenString(line);  // Takes one line, seperates it by delimeter,
-  seed_ = scanline.NextInt(); // saves variables from that one line.
+  scanline.OpenString(line);
+  
+  /* Fill in the variables with the tokens delimited by spaces
+     as specified in the documentation of the function for the
+     first line.
+   */
+  seed_ = scanline.NextInt(); 
   election_day_length_hours_ = scanline.NextInt();
-  election_day_length_seconds_ = election_day_length_hours_ * 3600;
+  election_day_length_seconds_ = election_day_length_hours_ * 3600; 
   time_to_vote_mean_seconds_ = scanline.NextInt();
   min_expected_to_simulate_ = scanline.NextInt();
   max_expected_to_simulate_ = scanline.NextInt();
   wait_time_minutes_that_is_too_long_ = scanline.NextInt();
   number_of_iterations_ = scanline.NextInt();
+
+  //Read the second line
   line = instream.NextLine();
-  scanline.OpenString(line); // Similar to above, split and save data. 
+  scanline.OpenString(line);
+
+  /* Fill in the variables with the tokens delimited by spaces
+     as specified in the documentation of the function for
+     the second line.
+  */
   arrival_zero_ = scanline.NextDouble();
+  
   for (int sub = 0; sub < election_day_length_hours_; ++sub) {
+    
     double input = scanline.NextDouble();
     arrival_fractions_.push_back(input);
+    
   }
-  Scanner service_times_file; // Uses actual data for comparison.
-  service_times_file.OpenFile("dataallsorted.txt");
-  while (service_times_file.HasNext()) {
-    int thetime = service_times_file.NextInt();
-    actual_service_times_.push_back(thetime);
-  }
+
+
 }
+
+/******************************************************************************
+ * Function 'ReadServiceTimes'.
+ *
+ * This function is meant to read SORTED(ascending)
+ * service times via a input stream, these service time values must be
+ * integers.
+ * Now, when we mean service time we usually mean it in the context of
+ * Queueing theory.
+ *
+ * Parameters:
+ *   instream - the input stream from which to read.
+ *
+ *  
+**/
+void Configuration::ReadServiceTimes(Scanner& instream) {
+
+  while (instream.HasNext()) {
+    
+    int thetime = instream.NextInt();
+    actual_service_times_.push_back(thetime);
+    
+  }
+
+}
+  
+
 /******************************************************************************
  * Function 'ToString'.
  *
@@ -95,6 +150,7 @@ string Configuration::ToString() {
   string s = "\n";
   int offset = 6;
   s += kTag;
+  
   // s += "RN seed:              "; 
   s += Utils::Format("RN seed:", 22);
   s += Utils::Format(seed_, 8) + "\n";
@@ -122,6 +178,7 @@ string Configuration::ToString() {
   s += kTag;
   s += Utils::Format(0, 2) + "-" + Utils::Format(0, 2);
   s += " : " + Utils::Format(arrival_zero_, 7, 2) + "\n";
+  
   for (UINT sub = 0; sub < arrival_fractions_.size(); ++sub) {
     s += kTag;
     s += Utils::Format(offset+sub, 2) + "-" + Utils::Format(offset+sub+1, 2);
