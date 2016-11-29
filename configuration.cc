@@ -1,17 +1,14 @@
 #include "configuration.h"
 /******************************************************************************
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
- * Implementation for the 'Configuration' class. The Configuration class 
- * is responsible for setting up the contours of the statistical computation.
- * As in, it fills in some independent variables needed in order to 
- * simulate an election as specified by Queueing theory. Thus, what this
- * class effectively does is read an input stream that points to a 
- * configuration file and another input stream that points to a service
- * times file. Both of these files are needed in order to fill in vectors
- * relating to service times and arrival percentages per hour. Variables 
- * are also filled in, these variables relate to election day length,
- * time to vote, number of iterations to perform, and etc.
- *
+ * Implementation for the 'Configuration' class. This class is responsible
+ * for assigning independent variables needed in order to simulate an election,
+ * as specified by Queueing theory. Ultimately, what this class does is read an
+ * input stream that points to a configuration file while also using another
+ * input stream which points to a service times file. Both of these files are 
+ * needed in order to populate the vectors for service times and arrival
+ * percentages per hour. 
+ * 
  * Author/copyright:  Duncan Buell. All rights reserved.
  * Date: 6 October 2016
 **/
@@ -34,12 +31,12 @@ Configuration::~Configuration() {
 /******************************************************************************
  * Accessor 'GetMaxServiceSubscript'.
  * 
- * Since the service times are in ascending order from least to greatest, it 
- * follows that the subscript of the greatest element should be the last 
- * element in the actucal_service_times_ vector.
+ * Since the service times are in ascending order from least to greatest, the 
+ * subscript of the greatest element will be the last element in the
+ * actucal_service_times_ vector. 
  *
  * Returns:
- *   The Max Service Subscript: actual_service_times_.size() - 1. 
+ *   the maximum service time - actual_service_times_.size() - 1. 
  * 
 **/
 int Configuration::GetMaxServiceSubscript() const {
@@ -55,20 +52,14 @@ int Configuration::GetMaxServiceSubscript() const {
 /******************************************************************************
  * Function 'ReadConfiguration'.
  * 
- * This method reads a configuration file via a input stream. Now, this file
- * in particular helps define the contours of a statistical computation
- * relating to simulating an election(or just a queue in general). Therefore,
- * the confinguration file it reads should have an RN seed, number of hours
- * in an election day, the mean time taken to vote, minimum number of 
- * voters per pct, maximum number of voters per pct, the cut off wait time
- * (what is too long?), and the number of iterations to perform. The 
- * previously stated input should be given in one line delimited by spaces
- * and they all should be integer values. Now, the second line that should
- * be specified in the configuration file and delimited by spaces should
- * be pct arrival percentages per hour from 0 to amount of hours
- * in an election day(specified in the first line); hence, all these
- * value should be given as doubles.
- *
+ * This member function reads a configuration file via an input stream. This file
+ * is used to define the contours of a statistical computation relating
+ * to the simulation of election polling times. Therefore, the confinguration
+ * file from which it reads should have the following: an RN seed,
+ * number of hours in an election day, the mean time taken to vote,
+ * minimum and maximum number of voters per precinct, 
+ * the wait time maximum (wait_time_minutes_that_is_too_long), and the number  
+ * of iterations to perform. 
  *
  * Parameters:
  *   instream - the input stream from which to read.
@@ -79,11 +70,9 @@ void Configuration::ReadConfiguration(Scanner& instream) {
   //                   << "EXECUTED." << endl; 
   string line;
   ScanLine scanline;
-
   // Read the first line.
   line = instream.NextLine();
-  scanline.OpenString(line);
-  
+  scanline.OpenString(line);  
   /* Fill in the variables with the tokens delimited by spaces
      as specified in the documentation of the function for the
      first line.
@@ -96,53 +85,38 @@ void Configuration::ReadConfiguration(Scanner& instream) {
   max_expected_to_simulate_ = scanline.NextInt();
   wait_time_minutes_that_is_too_long_ = scanline.NextInt();
   number_of_iterations_ = scanline.NextInt();
-
   //Read the second line
   line = instream.NextLine();
   scanline.OpenString(line);
-
   /* Fill in the variables with the tokens delimited by spaces
      as specified in the documentation of the function for
      the second line.
   */
-  arrival_zero_ = scanline.NextDouble();
-  
-  for (int sub = 0; sub < election_day_length_hours_; ++sub) {
-    
+  arrival_zero_ = scanline.NextDouble();  
+  for (int sub = 0; sub < election_day_length_hours_; ++sub) {    
     double input = scanline.NextDouble();
-    arrival_fractions_.push_back(input);
-    
+    arrival_fractions_.push_back(input);    
   }
-
-
 }
 
 /******************************************************************************
  * Function 'ReadServiceTimes'.
  *
- * This function is meant to read SORTED(ascending)
- * service times via a input stream, these service time values must be
+ * This function is meant to read
+ * service times, sorted in ascending order, via an input stream. these service time values must be
  * integers.
  * Now, when we mean service time we usually mean it in the context of
  * Queueing theory.
  *
  * Parameters:
  *   instream - the input stream from which to read.
- *
- *  
 **/
 void Configuration::ReadServiceTimes(Scanner& instream) {
-
-  while (instream.HasNext()) {
-    
+  while (instream.HasNext()) {    
     int thetime = instream.NextInt();
-    actual_service_times_.push_back(thetime);
-    
+    actual_service_times_.push_back(thetime);    
   }
-
 }
-  
-
 /******************************************************************************
  * Function 'ToString'.
  *
@@ -158,23 +132,19 @@ string Configuration::ToString() {
   //                   << "EXECUTED." << endl;
   string s = "\n";
   int offset = 6;
-  s += kTag;
-  
+  s += kTag;  
   // s += "RN seed:              "; 
   s += Utils::Format("RN seed:", 22);
   s += Utils::Format(seed_, 8) + "\n";
-  s += kTag;  
-  s += "Election Day length:  ";
+  s += kTag + "Election Day length:  ";  
   s += Utils::Format(election_day_length_seconds_, 8) + " =";
   // s += Utils::Format(election_day_length_seconds_/3600.0, 8, 2) + " (";
   s += Utils::Format(election_day_length_hours_, 6, 2) + " (";
   s += Utils::Format(election_day_length_hours_, 8, 2) + ") hours\n";
-  s += kTag; 
-  s += "Time to vote mean:  ";
+  s += kTag + "Time to vote mean:  "; 
   s += Utils::Format(time_to_vote_mean_seconds_, 8) + " =";
   s += Utils::Format(time_to_vote_mean_seconds_/60.0, 5, 2) + " minutes\n";
-  s += kTag;  
-  s += "Min and max expected voters for this simulation:     ";
+  s += kTag + "Min and max expected voters for this simulation:     ";  
   s += Utils::Format(min_expected_to_simulate_, 8);
   s += Utils::Format(max_expected_to_simulate_, 8) + "\n";  
   s += "Wait time (minutes) that is 'too long': ";
@@ -186,8 +156,7 @@ string Configuration::ToString() {
   // int offset = 6; Duplicate Declaration
   s += kTag;
   s += Utils::Format(0, 2) + "-" + Utils::Format(0, 2);
-  s += " : " + Utils::Format(arrival_zero_, 7, 2) + "\n";
-  
+  s += " : " + Utils::Format(arrival_zero_, 7, 2) + "\n";  
   for (UINT sub = 0; sub < arrival_fractions_.size(); ++sub) {
     s += kTag;
     s += Utils::Format(offset+sub, 2) + "-" + Utils::Format(offset+sub+1, 2);
