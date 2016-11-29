@@ -6,9 +6,9 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Class 'MyRandom' for random number generation.
  *
- * This method is used as a random number generator for the program, used in the
- * onepct class to generate random voters' duration and arrival times. This is  
- * done using the seed saved from the config file in the configuration method.
+ * This class is used as a random number generator in the OnePct class to
+ * generate random voters' duration and arrival times. This is done using
+ * the seed defined by the configuration file.
  *
  * Author: Duncan A. Buell
  * Date last modified: 23 May 2016
@@ -16,6 +16,7 @@
 
 /******************************************************************************
  * Constructor
+ * This is the default constructor which is used if a seed is not defined.
 **/
 MyRandom::MyRandom() {
   seed_ = 1;
@@ -24,6 +25,7 @@ MyRandom::MyRandom() {
 
 /******************************************************************************
  * Constructor
+ * This is the parameterized constructor which is used if a seed is defined.
 **/
 MyRandom::MyRandom(unsigned seed) {
   seed_ = seed;
@@ -46,8 +48,8 @@ MyRandom::~MyRandom() {
 
 /******************************************************************************
  * Function 'RandomExponentialInt'.
- * This generates 'double' random numbers exponentially distributed with
- * parameter 'lambda'.
+ * This generates random numbers of type 'double' exponentially distributed 
+ * with parameter 'lambda'.
  *
  * PDF is lambda * exp(-lambda * t)
  *
