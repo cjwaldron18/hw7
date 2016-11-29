@@ -1,1 +1,6 @@
-
+Pulled this from Configuration::ReadConfiguration documentation:
+ "The input should be given in two lines. The first line, delimited by spaces,
+  should all be integer values. The second line specified in the configuration 
+  file, also delimited by spaces, should be precinct arrival percentages per hour 
+  from 0 to amount of hours in an election day (specified in the first line). All these
+  value, as they are percentages, should be given as doubles."
