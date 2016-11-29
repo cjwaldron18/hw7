@@ -59,10 +59,10 @@ int OnePct::GetPctNumber() const {
 /******************************************************************************
  * Function 'ComputeMeanAndDev'.
  *
- * This class takes the wait time of the voters in seconds, then does a 
- * calculation to find the mean/average wait time.  It then runs through the
- * voters' wait times againj and does calculations to find the deviation of 
- * the mean
+ * This member function takes the wait time of the voters in seconds, then does  
+ * a calculation to find the mean/average wait time.  It then runs through the
+ * voters' wait times a second time and does calculations to find the deviation 
+ * of the mean
 **/
 void OnePct::ComputeMeanAndDev() {
   // Test if function is executed.
@@ -95,16 +95,14 @@ void OnePct::ComputeMeanAndDev() {
 /******************************************************************************
  * Function 'CreateVoters'.
  * 
- * This method is used to create voters from a Precinct. It uses the randomizer
- * To choose a random duration from the config's actual duration, then creates
- * a voter using that duration, an arrival number, and the voter in sequence, 
- * all of which is also backed up in a vector.  The sequence is then increased
- * So that each voter has it's own sequence number. 
+ * This member function is used to create voters from a precinct. It uses the randomizer
+ * to choose a random duration from the config's actual duration, then creates
+ * a voter using that duration, an arrival number, and the voter in sequence. 
+ * All of this data is backed up in a vector.  The sequence is then incremented
+ * so that each voter has it's own sequence number. 
  *
- * Once going through all voters that arrived at time 0, a value pulled from 
- * the config, it then repeats the process using the arrivals that came 
- * throughout the day, splits them up based on the hour they came in,
- * then saves those voters into the backup vector. 
+ * Once finished creating all voters that arrived at time 0, as defined by the
+ * config, the process is repeated for each remaining hour in the day.
  *
  * Parameters:
  *   config - the instance of Configuration() to use
@@ -162,14 +160,11 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
 /*******************************************************************************
  * Function 'DoStatistics'.
  *
- * The first thing this method does it take the voters that finished voting and
- * figures out how long the voter waited in minutes and saves that data into a
- * map. It then travels the map and checks to see if the wait time was too long, 
- * which is done in terms of the wait time specified in the config file, as
- * well as that number increased by 10 and 20 minutes. Finally, it runs 
- * a method to compute the mean and deviation of the wait time, then 
- * saves all the data it found into the outstring, followed by clearing the
- * minutes waiting map. 
+ * The first thing this member function does is gathers all the voter wait times 
+ * and saves them into a map. It then traverses the map and checks to see if any
+ * wait time was too long, as specified in the config file, as well as that number
+ * increased by 10 and 20 minutes. Finally, it runs another member function
+ * to compute the mean and deviation of the wait time.  
  *
  * Parameters: 
  *   iteration - the level of iteration
@@ -243,9 +238,9 @@ int OnePct::DoStatistics(int iteration, const Configuration& config,
 /******************************************************************************
  * Function 'ReadData'.
  *
- * This method is called by the simulation class to read the data for a 
- * Precinct using the input file scanner.  From this file, this instance of
- * OnePct saves variables which are used in the simulation and calculations
+ * This member function is called by the simulation class to read the data for
+ * a precinct using the input stream, which points to an input file. From this 
+ * file, OnePct saves variables which are used in the simulation and calculations.
  *
  * Parameters:
  *   infile - the input stream from which to read
@@ -257,7 +252,7 @@ void OnePct::ReadData(Scanner& infile) {
   if (infile.HasNext()) {
     pct_number_ = infile.NextInt();
     pct_name_ = infile.Next();
-    pct_turnout_ = infile.NextDouble();
+    pct_turnout_ = infile.NextDouble(); // The percentage, not the total.
     pct_num_voters_ = infile.NextInt();
     pct_expected_voters_ = infile.NextInt();
     pct_expected_per_hour_ = infile.NextInt();
@@ -274,15 +269,15 @@ void OnePct::ReadData(Scanner& infile) {
 /******************************************************************************
  * Function 'RunSimulationPct'.
  *
- * This method is used for running the simulation of one Precinct. It first 
+ * This member function is used for running the simulation of one precinct. It first 
  * finds the min and max station counts using the expected voters and the 
- * average time it takes to vote as given by the config. It then uses these
+ * average time it takes to vote, as defined by the configuration. It then uses these
  * numbers to go through all the stations. It creates a map for histo, then
  * it goes through the number of iterations for a station, creates voters
- * for that station, copies the backup from that method to a pending vector, 
+ * for that station, copies the backup from the member function to a pending vector, 
  * clears vector of voters currently and done voting, then runs a second 
  * simulation for a specific station count. It then uses the DoStatitics
- * method to find the number of people that waited too long and, if that 
+ * member function to find the number of people that waited too long and, if that 
  * number is greater than 0, sets a value to continue to the next station.
  *
  * Using the Map for histo, now updated from DoStatistics, it sets the 
@@ -379,16 +374,16 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
 /******************************************************************************
 * Function 'RunSimulationPct2'.
 *
-* This function uses the station count specified in the previous Run Simulation. 
-* It uses an iterator to travel a vector of voters that are currently voting, 
-* figures out which station a voter is at, saves that station to a free station
-* vector and saves the voter to a done voter vector, then removes that voter
+* This member function uses the station count specified in the previous RunSimulation(). 
+* It uses an iterator to traverse the vector of voters that are currently voting, 
+* figures out which station a voter is at, then saves that station to a free station
+* vector and saves the voter to a done voting vector, then removes that voter
 * from the currently voting vector. Following those voters, it then checks 
 * voters that are pending, and allows them to vote in a free station and 
 * assigns that station to the voter, followed by erasing that station from
 * free stations. It also saves the voter's leave time. Finally, it checks if 
-* the vector for voters voting or voters pending are empty. If not, it repeats
-* he entire process. 
+* the vectors for voters voting or voters pending are empty. If not, it repeats
+* the entire process. 
 *
 * Parameters:
 *   stations_count - the total number of stations (pct_stations_)
@@ -463,11 +458,12 @@ void OnePct::RunSimulationPct2(int stations_count) {
 /******************************************************************************
  * Function 'ToString'.
  *
- * Takes the number, name, turnout, number of voters, expeced voters, and 
+ * Takes the number, name, turnout, number of voters, expected voters, and 
  * expected voters per hour, as well as the station, minority and stations to
  * histo and saves it all to a string to be output to an output file. 
  *
- * Returns: string s - the string formatted for all the data. 
+ * Returns: 
+ *   string s - the string formatted for all the data. 
 **/
 string OnePct::ToString() {
   // Test if function is executed.
