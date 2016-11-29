@@ -1,6 +1,43 @@
-Pulled this from Configuration::ReadConfiguration documentation:
- "The input should be given in two lines. The first line, delimited by spaces,
-  should all be integer values. The second line specified in the configuration 
-  file, also delimited by spaces, should be precinct arrival percentages per hour 
-  from 0 to amount of hours in an election day (specified in the first line). All these
-  value, as they are percentages, should be given as doubles."
+Configuration:
+
+
+The Configuration module has these variables as the primitive types:
+ int seed_. 
+ int election_day_length_hours_ .
+ int election_day_length_seconds_ .
+ int time_to_vote_mean_seconds_ .
+ int max_expected_to_simulate_ .
+ int min_expected_to_simulate_ .
+ int wait_time_minutes_that_is_too_long_ .
+ int number_of_iterations_ .
+ double arrival_zero_
+ The Configuration module has these variables as class types:
+ vector<int> actual_service_times_
+ vector<double> arrival_fractions_
+  The Configuration module has these Methods:
+ int GetMaxServiceSubscript() const
+ void ReadConfiguration(Scanner& instream)
+ void ReadServiceTimes(Scanner& instream)
+ string ToString()
+
+
+
+
+
+
+The Configuration module is responsible for configuring the statistical computation needed by this election simulator. Thus, this module is the cast that the 'rest of the program' is poured into. This module fulfills some of the much needed independent variables needed to simulate a queue, in this case a election, as specified by traditional Queueing theory. This module needs two input files that are given by the user in the command line arguments, passed into this module via input streams; hence, those two files are the Configuration file and Service-Time file. The Configuration file has the input delimited by spaces; thus, the input should be formatted like this, let ; be the space delimiter:
+
+
+FirstLine: RN_SEED;number of hours in election day; mean time to vote; max number of voters per pct; waiting time(minutes);"too long" number of iterations to perform. All of these numbers should be integers.
+
+
+SecondLine: percent at time zero; pct arrival percentages per hour (13 numbers). All of these numbers should be doubles
+
+
+The Service-Time file should be formatted like a column, and all the values should be given as integers in sorted ascending order.
+
+
+The ReadConfiguration Method reads the Configuration file and the ReadServiceTimes Method reads the Service-Time file.
+
+
+This module does not output anything; However, this module does have a ToString() method that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript method.
