@@ -1,7 +1,16 @@
 #include "configuration.h"
 /******************************************************************************
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
- * Implementation for the 'Configuration' class.
+ * Implementation for the 'Configuration' class. The Configuration class 
+ * is responsible for setting up the contours of the statistical computation.
+ * As in, it fills in some independent variables needed in order to 
+ * simulate an election as specified by Queueing theory. Thus, what this
+ * class effectively does is read an input stream that points to a 
+ * configuration file and another input stream that points to a service
+ * times file. Both of these files are needed in order to fill in vectors
+ * relating to service times and arrival percentages per hour. Variables 
+ * are also filled in, these variables relate to election day length,
+ * time to vote, number of iterations to perform, and etc.
  *
  * Author/copyright:  Duncan Buell. All rights reserved.
  * Date: 6 October 2016
