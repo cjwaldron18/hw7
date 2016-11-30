@@ -4,9 +4,9 @@
 Main.cc .h:
 
    Main serves as the front end for the program. It handles setting up all the variables involved
-   with input and output files, as well as all major function calls required for proper execution.
-   Main uses not only the following local variables, but member functions and variables from the 
-   included Utilities file. For further information, see the Utilities section.
+   with input and output files, as well as all major function. Main uses not only the following local
+   variables, but member functions and variables from the included Utilities file. For further
+   information, see the Utilities section.
   
 Local Variables:
   string config_filename       - configuration file.txt, defined by argument 1.
