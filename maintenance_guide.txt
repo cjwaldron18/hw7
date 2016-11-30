@@ -27,7 +27,7 @@ General Functions:
   that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
   member function.
   
-Creating a Configuration File: (file_name.txt)
+Creating Configuration Files: (file_name.txt)
   The Configuration class is responsible for configuring the statistical computation needed 
   by this election simulator. Thus, this class is the cast that the 'rest of the program' is 
   poured into. This class fulfills some of the much needed independent variables needed to
@@ -37,19 +37,19 @@ Creating a Configuration File: (file_name.txt)
   and Service-Time file. The Configuration file has the input delimited by spaces; thus, the 
   input should be formatted like this, let ; be the space delimiter:
 
-Configuration File: 
-  FirstLine: 
-    RN_SEED;number of hours in election day; mean time to vote; max number of voters per pct; 
-    waiting time(minutes);"too long" number of iterations to perform. 
-    (All of these numbers should be integers.)
+  Configuration File: 
+    FirstLine: 
+      RN_SEED;number of hours in election day; mean time to vote; max number of voters per pct; 
+      waiting time(minutes);"too long" number of iterations to perform. 
+      (All of these numbers should be integers.)
 
-  SecondLine:
-    percent at time zero; pct arrival percentages per hour (13 numbers). 
-    (All of these numbers should be doubles.)
+    SecondLine:
+      percent at time zero; pct arrival percentages per hour (13 numbers). 
+      (All of these numbers should be doubles.)
     
-Service-Time File: (file_name.txt)
-  The Service-Time file should be formatted like a column, and all the values should be given 
-  as integers in sorted ascending order.
+  Service-Time File: 
+    The Service-Time file should be formatted like a column, and all the values should be given 
+    as integers in sorted ascending order.
 
 
 Simulation:
@@ -64,3 +64,9 @@ General Functions:
   
   ReadPrecincts() - reads from the Precinct file, creates a precinct, then stores it in 
                     the pcts_ map.
+  RunSimulation() - iterates through pcts_, checks to make sure the expected number of
+                    voters is with the minimum and maximum expected voters, then proceeds
+                    to run simulations.
+  
+  Once data for the precincts has been read in by the Simulation class
+  
