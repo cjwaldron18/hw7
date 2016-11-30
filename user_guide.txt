@@ -63,4 +63,9 @@ simulation, and should be set to 0 by default.  An example of the full line for 
 
                                                       000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
                                                 
- With both files written properly and placed in a location where the program can find them* (Notice this part too, I need to know where the files need to be so the user knows where to place them.  Names would help too.), the user needs to run the simulation to generate an output file.  This file lists a good bit of infomation.  First, it gives back all the information the user fed into the program through the configuration file, so the user will be able to make sure everything was entered correctly.  It also returns the maximum service time, which is the longest time in seconds that a voter had to vote.  The output file then lists out the percentages of the arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." 
+ With both files written properly and placed in a location where the program can find them* (Notice this part too, I need to know where
+ the files need to be so the user knows where to place them.  Names would help too.), the user needs to run the simulation to generate 
+ an output file.  This file lists a good bit of infomation.  First, it gives back all the information the user fed into the program 
+ through the configuration file, so the user will be able to make sure everything was entered correctly.  It also returns the maximum 
+ service time, which is the longest time in seconds that a voter had to vote.  The output file then lists out the percentages of the 
+ arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." 
