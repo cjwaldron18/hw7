@@ -36,18 +36,19 @@ Config.cc .h:
   (Brief, maybe 3 sentence description.)
 
 Public Variables:
-  int seed_;
-  int election_day_length_hours_; 
-  int election_day_length_seconds_; 
-  int time_to_vote_mean_seconds_; 
-  int max_expected_to_simulate_; 
-  int min_expected_to_simulate_; 
-  int wait_time_minutes_that_is_too_long_;
-  int number_of_iterations_; 
-  double arrival_zero_;
+  int seed_ - seed used by MyRandom, if unspecified, 1 is the default.
+  int election_day_length_hours_          - hours in an election day.
+  int election_day_length_seconds_        - seconds in an election day, calculated, not input. 
+  int time_to_vote_mean_seconds_          - average time to vote in seconds, calculated. 
+  int max_expected_to_simulate_           - max voters expected to simulate.
+  int min_expected_to_simulate_           - minimum voters expected to simulate.
+  int wait_time_minutes_that_is_too_long_ - wait time which is considered too long.
+  int number_of_iterations_               - number of iterations to perform.
+  double arrival_zero_                    - percentage of voters who arrive at time 0.
  
-  vector<int> actual_service_times_;
-  vector<double> arrival_fractions_;
+  vector<int> actual_service_times_ - stores the values from the service-times file.
+  vector<double> arrival_fractions_ - stores the doubles from the second line of the 
+                                      configuration file.
  
 General Functions:
   int GetMaxServiceSubscript() const;
@@ -213,5 +214,6 @@ Scanline.cc .h:
 
 
 Scanner.cc .h:
+
 
 Utils.cc .h:
