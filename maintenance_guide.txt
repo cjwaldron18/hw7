@@ -108,10 +108,15 @@ Public Functions:
   ToString()         -
   ToStringVoterMap() - 
   
-Public Functions:
+Private Functions:
   void CreateVoters(const Configuration& config, MyRandom& random, ofstream& out_stream)
   int DoStatistics(int iteration, const Configuration& config, int station_count
                    map<int, int>& map_for_histo, ofstream& out_stream);
   void ComputeMeanAndDev();
   void RunSimulationPct2(int stations);
+  
+  CreateVoters()      - 
+  DoStatistics()      -
+  ComputeMeanAndDev() - 
+  RunSimulationPct2() -
   
