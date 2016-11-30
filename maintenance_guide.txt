@@ -62,5 +62,5 @@ General Functions:
   void RunSimulation(const Configuration& config, MyRandom& random, ofstream& out_stream)
   string ToString()
   
-  ReadPrecincts() - reads from the Precinct file, then stores each precinct in 
+  ReadPrecincts() - reads from the Precinct file, creates a precinct, then stores it in 
                     the pcts_ map.
