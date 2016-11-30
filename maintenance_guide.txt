@@ -1,4 +1,13 @@
-Configuration:
+***Go back and also list local variables!***
+
+Main.cc .h:
+
+  (Description.)
+  
+
+
+
+Config.cc .h:
 
   (Brief, maybe 3 sentence description.)
 
@@ -53,7 +62,7 @@ Creating Configuration Files: (file_name.txt)
     as integers in sorted ascending order.
 
 
-Simulation:
+Simulation.cc .h:
 
 Private Variables:
   map<int, OnePct> pcts_;
@@ -75,7 +84,7 @@ General Functions:
   is read in, RunSimulation() iterates through pcts_ and runs simulations via OnePct::RunSimulationPct().
   
 
-OnePct:
+OnePct.cc .h:
 
   The OnePct class is where the bulk of the work is done. It uses data input from the Configuration
   file to perform computations involving queue theory.
@@ -130,7 +139,7 @@ Private Functions:
   RunSimulationPct2() - (?)
   
 
-OneVoter:
+OneVoter.cc .h:
 
   (Description.)
 
