@@ -1,5 +1,7 @@
 Configuration:
 
+  (Brief, maybe 3 sentence description.)
+
 Public Variables:
   int seed_;
   int election_day_length_hours_; 
@@ -25,11 +27,7 @@ General Functions:
   ReadServiceTimes()       - reads the Service-Time file.
   ToString()               - outputs a formatted form of the variables including 
                              GetMaxServiceSubscript().
-  
-  This class does not directly output anything; However, it does have a ToString() member function
-  that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
-  member function.
-  
+   
 Creating Configuration Files: (file_name.txt)
   The Configuration class is responsible for configuring the statistical computation needed 
   by this election simulator. Thus, this class is the cast that the 'rest of the program' is 
@@ -79,6 +77,10 @@ General Functions:
   
 
 OnePct:
+
+  The OnePct class is where the bulk of the work is done. It uses data input from the Configuration
+  file to perform computations involving queue theory.
+  (Needs more description. Maybe one sentence?)
 
 Private Variables:
   int    pct_expected_voters_ = kDummyInt;
@@ -132,3 +134,9 @@ Private Functions:
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
   RunSimulationPct2() - (?)
   
+
+  
+OneVoter:
+
+
+
