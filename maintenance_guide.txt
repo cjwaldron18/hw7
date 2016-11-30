@@ -19,7 +19,14 @@ General Functions:
   void ReadConfiguration(Scanner& instream)
   void ReadServiceTimes(Scanner& instream)
   string ToString()
+  
+  The ReadConfiguration() member function reads the Configuration file and the ReadServiceTimes()
+  member function reads the Service-Time file.
 
+  This class does not directly output anything; However, it does have a ToString() member function
+  that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
+  member function.
+  
 Creating a Configuration File: (file_name.txt)
   The Configuration class is responsible for configuring the statistical computation needed 
   by this election simulator. Thus, this class is the cast that the 'rest of the program' is 
@@ -44,10 +51,13 @@ Service-Time File:
   The Service-Time file should be formatted like a column, and all the values should be given 
   as integers in sorted ascending order.
 
-  The ReadConfiguration() member function reads the Configuration file and the ReadServiceTimes()
-  member function reads the Service-Time file.
 
-  This class does not directly output anything; However, it does have a ToString() member function
-  that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
-  member function.
+Simulation:
 
+Private Variables:
+  map<int, OnePct> pcts_;
+  
+General Functions:
+  void ReadPrecincts(Scanner& infile)
+  void RunSimulation(const Configuration& config, MyRandom& random, ofstream& out_stream)
+  string ToString()
