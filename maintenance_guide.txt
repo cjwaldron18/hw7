@@ -74,3 +74,24 @@ General Functions:
   reads in individual precint data with the ReadPrecincts() member function. After the precinct data
   is read in, RunSimulation() iterates through pcts_ and runs simulations via OnePct::RunSimulationPct().
   
+
+OnePct:
+
+Private Variables:
+  int    pct_expected_voters_ = kDummyInt;
+  int    pct_expected_per_hour_ = kDummyInt;
+  double pct_minority_ = kDummyDouble;
+  string pct_name_ = kDummyString;
+  int    pct_number_ = kDummyInt;
+  double pct_turnout_ = kDummyDouble;
+  int    pct_stations_ = kDummyInt;
+  int    pct_num_voters_ = kDummyInt;
+  double wait_dev_seconds_;
+  double wait_mean_seconds_;
+  set<int> stations_to_histo_;
+  vector<int> free_stations_;
+  multimap<int, OneVoter> voters_backup_;
+  multimap<int, OneVoter> voters_done_voting_;
+  multimap<int, OneVoter> voters_pending_;
+  multimap<int, OneVoter> voters_voting_;
+  
