@@ -52,11 +52,12 @@ int Configuration::GetMaxServiceSubscript() const {
 /******************************************************************************
  * Function 'ReadConfiguration'.
  * 
- * This member function reads a configuration file via an input stream. This file
- * is used to define the contours of a statistical computation relating
- * to the simulation of election polling times. Therefore, the confinguration
- * file from which it reads should have the following: an RN seed,
- * number of hours in an election day, the mean time taken to vote,
+ * This member function reads a configuration file via an input stream. 
+ * This file is used to define the contours of a statistical computation 
+ * relating to the simulation of election polling times. Therefore, 
+ * the confinguration file from which it reads should have the following: 
+ * an RN seed, number of hours in an election day, 
+ * the mean time taken to vote,
  * minimum and maximum number of voters per precinct, 
  * the wait time maximum (wait_time_minutes_that_is_too_long), and the number  
  * of iterations to perform. 
