@@ -33,7 +33,7 @@ OnePct::~OnePct() {
  * Accessor 'GetExpectedVoters'.
  *
  * Returns:
- *   pct_expected_voters_ - The percentage of expected voters for the precinct.
+ *   pct_expected_voters_ - The number expected voters for the precinct.
 **/
 int OnePct::GetExpectedVoters() const {
   // Test if function is executed. 
