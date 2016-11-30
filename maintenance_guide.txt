@@ -205,3 +205,13 @@ Private Functions:
 
   ConvertTime() - returns time from seconds to hour:minute:second format.
   GetTOD()      - returns the formatted time of day.
+
+
+Utilities:
+
+Scanline.cc .h:
+
+
+Scanner.cc .h:
+
+Utils.cc .h:
