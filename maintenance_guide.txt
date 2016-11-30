@@ -96,6 +96,13 @@ Private Variables:
   multimap<int, OneVoter> voters_done_voting_;
   multimap<int, OneVoter> voters_pending_;
   multimap<int, OneVoter> voters_voting_;
+
+Accessors:
+  int GetExpectedVoters() const;
+  int GetPctNumber() const;
+  
+  GetExpectedVoters() -
+  GetPctNumber()      -
   
 Public Functions:
   void ReadData(Scanner& infile);
