@@ -70,5 +70,7 @@ General Functions:
   ToString()      - while not being implemented in the current version, this member function
                     outputs precinct data to a string via OnePct()::ToString().
   
-  The Simulation class handles the 
+  The Simulation class handles the front-end of precinct simulation. To begin, the Simulation class
+  reads in individual precint data with the ReadPrecincts() member function. After the precinct data
+  is read in, RunSimulation() iterates through pcts_ and runs simulations via OnePct::RunSimulationPct().
   
