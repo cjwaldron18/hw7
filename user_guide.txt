@@ -17,12 +17,14 @@ Precinct File:
   precinct.
   -Precinct number
   -Precinct name
-  -Precinct turnout
+  -Precinct turnout (percentage of total voters)
   -Number of voters
   -Expected number of voters
   -Number of stations
   -Precinct minority
-  -
+  Example:
+    000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
+  (Notice the 3 trailing 0's. These should be 0 as a default.)
 
 Output:
   -The input values given in the config file
