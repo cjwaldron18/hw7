@@ -1,28 +1,30 @@
 Configuration:
 
 Public Variables:
-  int seed_
-  int election_day_length_hours_ 
-  int election_day_length_seconds_ 
-  int time_to_vote_mean_seconds_ 
-  int max_expected_to_simulate_ 
-  int min_expected_to_simulate_ 
-  int wait_time_minutes_that_is_too_long_ 
-  int number_of_iterations_ 
-  double arrival_zero_
+  int seed_;
+  int election_day_length_hours_; 
+  int election_day_length_seconds_; 
+  int time_to_vote_mean_seconds_; 
+  int max_expected_to_simulate_; 
+  int min_expected_to_simulate_; 
+  int wait_time_minutes_that_is_too_long_;
+  int number_of_iterations_; 
+  double arrival_zero_;
  
-  vector<int> actual_service_times_
-  vector<double> arrival_fractions_
+  vector<int> actual_service_times_;
+  vector<double> arrival_fractions_;
  
 General Functions:
-  int GetMaxServiceSubscript() const
-  void ReadConfiguration(Scanner& instream)
-  void ReadServiceTimes(Scanner& instream)
-  string ToString()
+  int GetMaxServiceSubscript() const;
+  void ReadConfiguration(Scanner& instream);
+  void ReadServiceTimes(Scanner& instream);
+  string ToString();
   
-  ReadConfiguration() - reads the Configuration file.
-  ReadServiceTimes()  - reads the Service-Time file.
-
+  GetMaxServiceSubscript() -
+  ReadConfiguration()      - reads the Configuration file.
+  ReadServiceTimes()       - reads the Service-Time file.
+  ToString()               -
+  
   This class does not directly output anything; However, it does have a ToString() member function
   that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
   member function.
@@ -58,9 +60,9 @@ Private Variables:
   map<int, OnePct> pcts_;
   
 General Functions:
-  void ReadPrecincts(Scanner& infile)
-  void RunSimulation(const Configuration& config, MyRandom& random, ofstream& out_stream)
-  string ToString()
+  void ReadPrecincts(Scanner& infile);
+  void RunSimulation(const Configuration& config, MyRandom& random, ofstream& out_stream);
+  string ToString();
   
   ReadPrecincts() - reads from the Precinct file, creates a precinct, then stores it in 
                     the pcts_ map.
@@ -94,4 +96,22 @@ Private Variables:
   multimap<int, OneVoter> voters_done_voting_;
   multimap<int, OneVoter> voters_pending_;
   multimap<int, OneVoter> voters_voting_;
+  
+Public Functions:
+  void ReadData(Scanner& infile);
+  void RunSimulationPct(const Configuration& config, MyRandom& random, ofstream& out_stream);
+  string ToString();
+  string ToStringVoterMap(string label, multimap<int, OneVoter> themap);
+  
+  ReadData()         - 
+  RunSimulationPct() -
+  ToString()         -
+  ToStringVoterMap() - 
+  
+Public Functions:
+  void CreateVoters(const Configuration& config, MyRandom& random, ofstream& out_stream)
+  int DoStatistics(int iteration, const Configuration& config, int station_count
+                   map<int, int>& map_for_histo, ofstream& out_stream);
+  void ComputeMeanAndDev();
+  void RunSimulationPct2(int stations);
   
