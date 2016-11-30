@@ -69,8 +69,8 @@ General Functions:
   RunSimulation() - iterates through pcts_, checks to make sure the expected number of
                     voters is with the minimum and maximum expected voters, then proceeds
                     to run simulations.
-  ToString()      - while not being implemented in the current version, this member function
-                    outputs precinct data to a string via OnePct()::ToString().
+  ToString()      - outputs precinct data to a string via OnePct()::ToString().
+                    (Not implemented in current build.)
   
   The Simulation class handles the front-end of precinct simulation. To begin, the Simulation class
   reads in individual precint data with the ReadPrecincts() member function. After the precinct data
@@ -101,8 +101,8 @@ Accessors:
   int GetExpectedVoters() const;
   int GetPctNumber() const;
   
-  GetExpectedVoters() -
-  GetPctNumber()      -
+  GetExpectedVoters() - returns the expected voter turnout for a precinct.
+  GetPctNumber()      - returns the precinct ID.
   
 Public Functions:
   void ReadData(Scanner& infile);
@@ -110,10 +110,13 @@ Public Functions:
   string ToString();
   string ToStringVoterMap(string label, multimap<int, OneVoter> themap);
   
-  ReadData()         - 
-  RunSimulationPct() -
-  ToString()         -
-  ToStringVoterMap() - 
+  ReadData()         - called by the Simulation class and creates a precinct with data from
+                       an input file.
+  RunSimulationPct() - sets a min and max station count, runs a simulation, then calls the private
+                       member function DoStatistics().
+  ToString()         - outputs a string of data involving a precinct.
+  ToStringVoterMap() - outputs the map of voters with information for each voter
+                       (Not implemented in current build.)
   
 Private Functions:
   void CreateVoters(const Configuration& config, MyRandom& random, ofstream& out_stream)
