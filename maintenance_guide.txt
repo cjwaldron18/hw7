@@ -67,6 +67,8 @@ General Functions:
   RunSimulation() - iterates through pcts_, checks to make sure the expected number of
                     voters is with the minimum and maximum expected voters, then proceeds
                     to run simulations.
+  ToString()      - while not being implemented in the current version, this member function
+                    outputs precinct data to a string via OnePct()::ToString().
   
-  Once data for the precincts has been read in by the Simulation class
+  The Simulation class handles the 
   
