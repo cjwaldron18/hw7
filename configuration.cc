@@ -103,8 +103,8 @@ void Configuration::ReadConfiguration(Scanner& instream) {
  * Function 'ReadServiceTimes'.
  *
  * This function is meant to read
- * service times, sorted in ascending order, via an input stream. these service time values must be
- * integers.
+ * service times, sorted in ascending order, via an input stream. 
+ * these service time values must be integers.
  * Now, when we mean service time we usually mean it in the context of
  * Queueing theory.
  *
