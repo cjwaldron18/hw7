@@ -20,10 +20,11 @@ General Functions:
   void ReadServiceTimes(Scanner& instream);
   string ToString();
   
-  GetMaxServiceSubscript() -
+  GetMaxServiceSubscript() - returns the longest service times from the service times vector.
   ReadConfiguration()      - reads the Configuration file.
   ReadServiceTimes()       - reads the Service-Time file.
-  ToString()               -
+  ToString()               - outputs a formatted form of the variables including 
+                             GetMaxServiceSubscript().
   
   This class does not directly output anything; However, it does have a ToString() member function
   that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
@@ -125,8 +126,9 @@ Private Functions:
   void ComputeMeanAndDev();
   void RunSimulationPct2(int stations);
   
-  CreateVoters()      - 
-  DoStatistics()      -
-  ComputeMeanAndDev() - 
-  RunSimulationPct2() -
+  CreateVoters()      - creates voters based on data from a precinct.
+  DoStatistics()      - calculates how many voters had to wait too long as well as the mean and
+                        deviation of the wait time via ComputeMeanAndDev().
+  ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
+  RunSimulationPct2() - (?)
   
