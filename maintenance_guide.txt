@@ -1,5 +1,5 @@
 ***Go back and also list local variables!***
-  ***One line description of variables.***
+  ***One line description of variables.*** (maybe only on main)
 
 Main.cc .h:
 
@@ -135,11 +135,6 @@ Private Variables:
   multimap<int, OneVoter> voters_pending_     - a map of voters waiting to vote.
   multimap<int, OneVoter> voters_voting_      - a map of voters currently voting.
   
-Local Variables:
-  int stat 1 -
-  int stat 2 -
-  int stat 3 -
-
 Accessors:
   int GetExpectedVoters() const - returns the expected voter turnout for a precinct.
   int GetPctNumber() const      - returns the precinct ID.
