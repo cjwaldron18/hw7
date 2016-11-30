@@ -116,24 +116,29 @@ OnePct.cc .h:
   (Needs more description. Maybe one sentence?)
 
 Private Variables:
-  int    pct_expected_voters_ -
-  int    pct_expected_per_hour_ -
-  double pct_minority_ -
-  string pct_name_ -
-  int    pct_number_ -
-  double pct_turnout_ -
-  int    pct_stations_ -
-  int    pct_num_voters_ -
-  double wait_dev_seconds_;
-  double wait_mean_seconds_;
+  int    pct_expected_voters_   - the number of voters expected by a precinct. (?)
+  int    pct_expected_per_hour_ - voters expected per hour.
+  double pct_minority_          - (?)
+  string pct_name_              - precinct name.
+  int    pct_number_            - precint number (ID). (?)
+  double pct_turnout_           - the percentage turnout of voters.
+  int    pct_stations_          - number of voting stations.
+  int    pct_num_voters_        - total number of voters. (?)
+  double wait_dev_seconds_      - deviation of the mean wait time, calculated.
+  double wait_mean_seconds_     - mean wait time, calculated.
   
-  set<int> stations_to_histo_;
-  vector<int> free_stations_;
+  set<int> stations_to_histo_ - 
+  vector<int> free_stations_  - 
   
-  multimap<int, OneVoter> voters_backup_;
-  multimap<int, OneVoter> voters_done_voting_;
-  multimap<int, OneVoter> voters_pending_;
-  multimap<int, OneVoter> voters_voting_;
+  multimap<int, OneVoter> voters_backup_      - a backup of all voters. (?)
+  multimap<int, OneVoter> voters_done_voting_ - a map of voters who have finished voting.
+  multimap<int, OneVoter> voters_pending_     - a map of voters waiting to vote.
+  multimap<int, OneVoter> voters_voting_      - a map of voters currently voting.
+  
+Local Variables:
+  int stat 1 -
+  int stat 2 -
+  int stat 3 -
 
 Accessors:
   int GetExpectedVoters() const - returns the expected voter turnout for a precinct.
