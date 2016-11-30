@@ -2,8 +2,18 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Header for the 'Configuration' class
  *
+ * Container class for the configuration data, which decides the specifics
+ * of how the simulation is run.
+ *
  * Author/copyright:  Duncan Buell
- * Date: 19 July 2016
+ * Used and modified with permission by:
+ *   CJ Waldron
+ *   Abraham Kahn
+ *   Thomas O'Hara
+ *   Stephen Page
+ *   Oneil Clemenson
+ *
+ * Date: November 2016
  *
 **/
 

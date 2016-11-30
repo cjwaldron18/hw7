@@ -2,8 +2,17 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Header for the 'Main' class.
  *
+ * Rather generic header file that includes the 'Utilities' code.
+ *
  * Author/copyright:  Duncan Buell
- * Date: 6 October 2016
+ * Used and modified with permission by:
+ *   CJ Waldron
+ *   Abraham Kahn
+ *   Thomas O'Hara
+ *   Stephen Page
+ *   Oneil Clemenson
+ *
+ * Date: November 2016
  *
 **/
 

@@ -1,8 +1,19 @@
 /******************************************************************************
  * Header for the 'OneVoter' class
  *
+ * Container class for a single voter. Voters are assigned a sequence,
+ * arrival time, and duration of voting upon creation and can be assigned
+ * to a voting station.
+ * 
  * Author/copyright:  Duncan Buell
- * Date: 6 October 2016
+ * Used and modified with permission by:
+ *   CJ Waldron
+ *   Abraham Kahn
+ *   Thomas O'Hara
+ *   Stephen Page
+ *   Oneil Clemenson
+ *
+ * Date: November 2016
  *
 **/
 

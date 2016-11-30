@@ -1,8 +1,18 @@
 /******************************************************************************
  * Header for the 'Simulation' class.
  *
+ * Runs simulations on each precinct provided
+ * using OnePct::ReadData() and OnePct::RunSimulationPct()
+ * 
  * Author/copyright:  Duncan Buell
- * Date: 19 July 2016
+ * Used and modified with permission by:
+ *   CJ Waldron
+ *   Abraham Kahn
+ *   Thomas O'Hara
+ *   Stephen Page
+ *   Oneil Clemenson
+ *
+ * Date: November 2016
  *
 **/
 
