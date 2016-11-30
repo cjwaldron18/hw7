@@ -20,8 +20,8 @@ General Functions:
   void ReadServiceTimes(Scanner& instream)
   string ToString()
   
-  The ReadConfiguration() member function reads the Configuration file and the ReadServiceTimes()
-  member function reads the Service-Time file.
+  ReadConfiguration() - reads the Configuration file.
+  ReadServiceTimes()  - reads the Service-Time file.
 
   This class does not directly output anything; However, it does have a ToString() member function
   that returns a string of all the primitive variables and the result of the GetMaxServiceSubscript() 
@@ -37,7 +37,7 @@ Creating a Configuration File: (file_name.txt)
   and Service-Time file. The Configuration file has the input delimited by spaces; thus, the 
   input should be formatted like this, let ; be the space delimiter:
 
-Configuration File: (file_name.txt)
+Configuration File: 
   FirstLine: 
     RN_SEED;number of hours in election day; mean time to vote; max number of voters per pct; 
     waiting time(minutes);"too long" number of iterations to perform. 
@@ -47,7 +47,7 @@ Configuration File: (file_name.txt)
     percent at time zero; pct arrival percentages per hour (13 numbers). 
     (All of these numbers should be doubles.)
     
-Service-Time File:
+Service-Time File: (file_name.txt)
   The Service-Time file should be formatted like a column, and all the values should be given 
   as integers in sorted ascending order.
 
@@ -61,3 +61,6 @@ General Functions:
   void ReadPrecincts(Scanner& infile)
   void RunSimulation(const Configuration& config, MyRandom& random, ofstream& out_stream)
   string ToString()
+  
+  ReadPrecincts() - reads from the Precinct file, then stores each precinct in 
+                    the pcts_ map.
