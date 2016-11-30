@@ -1,6 +1,6 @@
 Configuration:
 
-The Configuration class has these variables as the primitive types:
+Public Variables:
   int seed_
   int election_day_length_hours_ 
   int election_day_length_seconds_ 
@@ -11,17 +11,16 @@ The Configuration class has these variables as the primitive types:
   int number_of_iterations_ 
   double arrival_zero_
  
-The Configuration class has these variables as class types:
   vector<int> actual_service_times_
   vector<double> arrival_fractions_
  
-The Configuration class has these member functions:
+General Functions:
   int GetMaxServiceSubscript() const
   void ReadConfiguration(Scanner& instream)
   void ReadServiceTimes(Scanner& instream)
   string ToString()
 
-Creating a Configuration File:
+Creating a Configuration File: (file_name.txt)
   The Configuration class is responsible for configuring the statistical computation needed 
   by this election simulator. Thus, this class is the cast that the 'rest of the program' is 
   poured into. This class fulfills some of the much needed independent variables needed to
@@ -31,7 +30,7 @@ Creating a Configuration File:
   and Service-Time file. The Configuration file has the input delimited by spaces; thus, the 
   input should be formatted like this, let ; be the space delimiter:
 
-Configuration File:
+Configuration File: (file_name.txt)
   FirstLine: 
     RN_SEED;number of hours in election day; mean time to vote; max number of voters per pct; 
     waiting time(minutes);"too long" number of iterations to perform. 
