@@ -1,10 +1,21 @@
 ***Go back and also list local variables!***
+  ***One line description of variables.***
 
 Main.cc .h:
 
   (Description.)
   
-
+Local Variables:
+  string config_filename;
+  string service_time_filname;
+  string pct_filename;
+  string log_filename;
+  string out_filename;
+  string outstring;
+  string timecall_output;
+  
+  ofstream out_stream;
+  
 
 
 Config.cc .h:
