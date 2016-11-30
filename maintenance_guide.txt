@@ -116,18 +116,20 @@ OnePct.cc .h:
   (Needs more description. Maybe one sentence?)
 
 Private Variables:
-  int    pct_expected_voters_ = kDummyInt;
-  int    pct_expected_per_hour_ = kDummyInt;
-  double pct_minority_ = kDummyDouble;
-  string pct_name_ = kDummyString;
-  int    pct_number_ = kDummyInt;
-  double pct_turnout_ = kDummyDouble;
-  int    pct_stations_ = kDummyInt;
-  int    pct_num_voters_ = kDummyInt;
+  int    pct_expected_voters_ -
+  int    pct_expected_per_hour_ -
+  double pct_minority_ -
+  string pct_name_ -
+  int    pct_number_ -
+  double pct_turnout_ -
+  int    pct_stations_ -
+  int    pct_num_voters_ -
   double wait_dev_seconds_;
   double wait_mean_seconds_;
+  
   set<int> stations_to_histo_;
   vector<int> free_stations_;
+  
   multimap<int, OneVoter> voters_backup_;
   multimap<int, OneVoter> voters_done_voting_;
   multimap<int, OneVoter> voters_pending_;
