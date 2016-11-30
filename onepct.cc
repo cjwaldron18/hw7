@@ -48,7 +48,7 @@ int OnePct::GetExpectedVoters() const {
  *   pct_number_ - The precinct number (ID) for this precinct.
 **/
 int OnePct::GetPctNumber() const {
-  // Test if functino is executed.
+  // Test if function is executed.
   // Utils::log_stream << kTag << "FUNC: " << "GetPctNumber() const " 
   //                   << "EXECUTED." << endl;
   return pct_number_;
