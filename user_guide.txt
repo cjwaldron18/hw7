@@ -1,1 +1,32 @@
+Config File:
+  The first line should be these values separated by spaces
+    -Seed for Random Number Generator. Should be changed each use.
+    -Length of the election day (in hours)
+    -Mean time for one vote to be cast (in seconds)
+    -Minimum number of voters needed to carry out a simulation
+    -Maximum number of voters needed to carry out a simulation
+    -Wait time that is too long (in minutes)
+    -Number of times to run the simulation
+  
+  The second line should be these values separated by spaces
+    -Percent of arrivals at opening time (enter 10.0 for 10%)
+    -Percent of arrivals at each hour of the day (enter 10.0 for 10%)
 
+Precinct File:
+  Each line should have this precinct data, in this order and separated by spaces, for each
+  precinct.
+  -Precinct number
+  -Precinct name
+  -Precinct turnout
+  -Number of voters
+  -Expected number of voters
+  -Number of stations
+  -Precinct minority
+  -
+
+Output:
+  -The input values given in the config file
+  -Max service time subscript, the longest time a voter had to wait (in seconds)
+  -The percentages of arrivals at each hour of the day
+    -Compare to the "too long" wait time to see if a voter had to wait too long
+  -The percentages of arrivals at each hour of the day (as given in the precinct file)
