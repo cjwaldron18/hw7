@@ -163,7 +163,8 @@ Private Functions:
   DoStatistics()      - calculates how many voters had to wait too long as well as the mean and
                         deviation of the wait time via ComputeMeanAndDev().
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
-  RunSimulationPct2() - assigns voters to voting booths and records which booth they used. Repeats if voters are still pending.
+  RunSimulationPct2() - assigns voters to voting booths and records which booth they used. 
+                        Repeats if voters are still pending.
   
 
 OneVoter.cc .h:
@@ -210,6 +211,30 @@ Private Functions:
   ConvertTime() - returns time from seconds to hour:minute:second format.
   GetTOD()      - returns the formatted time of day.
 
+
+MyRandom.cc .h:
+
+(Description.)
+
+Default Constructor:
+  MyRandom() -
+
+Parameterized Constructor:
+  MyRandom(unsigned seed) - 
+
+Public Functions:
+  int RandomExponentialInt(double mean);
+  double RandomNormal(double mean, double dev);
+  double RandomUniformDouble(double lower, double upper);
+  int RandomUniformInt(int lower, int upper);
+  
+  int RandomExponentialInt()   -
+  double RandomNormal()        -
+  double RandomUniformDouble() -
+  int RandomUniformInt()       -
+  
+Private Variables:
+  int seed_ -
 
 Utilities:
 
