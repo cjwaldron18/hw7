@@ -18,7 +18,8 @@ int main(int argc, char *argv[])
   string log_filename = "XX";
   string out_filename = "XX";
   string outstring = "XX";
-  string timecall_output = "XX";
+	// Never used.
+  // string timecall_output = "XX";
 
   ofstream out_stream;
 
