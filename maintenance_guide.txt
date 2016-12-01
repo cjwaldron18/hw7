@@ -282,10 +282,10 @@ Contents:
   double RandomUniformDouble(double lower, double upper);
   int RandomUniformInt(int lower, int upper);
     
-  int RandomExponentialInt()   -
-  double RandomNormal()        -
-  double RandomUniformDouble() -
-  int RandomUniformInt()       -
+  int RandomExponentialInt()   - Pick a Random Integer from a Exponential Distribution.
+  double RandomNormal()        - Pick a Random Double from a Normal Distribution.
+  double RandomUniformDouble() - Pick a Random Double from a Uniform Distribution.
+  int RandomUniformInt()       - Pick a Random Integer from a Uniform Distribution.
     
 
   
