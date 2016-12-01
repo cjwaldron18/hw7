@@ -6,12 +6,11 @@
  * of how the simulation is run.
  *
  * Author/copyright:  Duncan Buell
- * Used with permission by: Group 2, 1 December 2016
+ * Modified and Used with permission by: Group 2, 1 December 2016
  *   Abraham Khan
  *   Thomas O'Hara
  *   Stephen Page
  *   C.J. Waldron
- *
 **/
 
 #ifndef CONFIGURATION_H
