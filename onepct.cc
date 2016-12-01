@@ -95,8 +95,9 @@ void OnePct::ComputeMeanAndDev() {
 /******************************************************************************
  * Function 'CreateVoters'.
  * 
- * This member function is used to create voters from a precinct. It uses the randomizer
- * to choose a random duration from the config's actual duration, then creates
+ * This member function is used to create voters from a precinct. 
+ * It uses the randomizer to choose a random duration from the config's actual
+ * duration, then creates
  * a voter using that duration, an arrival number, and the voter in sequence. 
  * All of this data is backed up in a vector.  The sequence is then incremented
  * so that each voter has it's own sequence number. 
@@ -160,9 +161,10 @@ void OnePct::CreateVoters(const Configuration& config, MyRandom& random,
 /*******************************************************************************
  * Function 'DoStatistics'.
  *
- * The first thing this member function does is gathers all the voter wait times 
+ * The first thing this member function does is gathers all the voter wait times
  * and saves them into a map. It then traverses the map and checks to see if any
- * wait time was too long, as specified in the config file, as well as that number
+ * wait time was too long,
+ * as specified in the config file, as well as that number
  * increased by 10 and 20 minutes. Finally, it runs another member function
  * to compute the mean and deviation of the wait time.  
  *
@@ -240,7 +242,8 @@ int OnePct::DoStatistics(int iteration, const Configuration& config,
  *
  * This member function is called by the simulation class to read the data for
  * a precinct using the input stream, which points to an input file. From this 
- * file, OnePct saves variables which are used in the simulation and calculations.
+ * file, OnePct saves variables which are used in the simulation and 
+ * calculations.
  *
  * Parameters:
  *   infile - the input stream from which to read
@@ -269,15 +272,18 @@ void OnePct::ReadData(Scanner& infile) {
 /******************************************************************************
  * Function 'RunSimulationPct'.
  *
- * This member function is used for running the simulation of one precinct. It first 
- * finds the min and max station counts using the expected voters and the 
- * average time it takes to vote, as defined by the configuration. It then uses these
+ * This member function is used for running the simulation of one precinct. 
+ * It first finds the min and max station counts using the 
+ * expected voters and the  average time it takes to vote, as defined by 
+ * the configuration. It then uses these
  * numbers to go through all the stations. It creates a map for histo, then
  * it goes through the number of iterations for a station, creates voters
- * for that station, copies the backup from the member function to a pending vector, 
+ * for that station, copies the backup 
+ * from the member function to a pending vector, 
  * clears vector of voters currently and done voting, then runs a second 
  * simulation for a specific station count. It then uses the DoStatitics
- * member function to find the number of people that waited too long and, if that 
+ * member function to find the number of people 
+ * that waited too long and, if that 
  * number is greater than 0, sets a value to continue to the next station.
  *
  * Using the Map for histo, now updated from DoStatistics, it sets the 
@@ -374,9 +380,10 @@ void OnePct::RunSimulationPct(const Configuration& config, MyRandom& random,
 /******************************************************************************
 * Function 'RunSimulationPct2'.
 *
-* This member function uses the station count specified in the previous RunSimulation(). 
-* It uses an iterator to traverse the vector of voters that are currently voting, 
-* figures out which station a voter is at, then saves that station to a free station
+* This member function uses the station count specified in the previous 
+* RunSimulation(). It uses an iterator to traverse the vector of voters 
+* that are currently voting, figures out which station a voter is at,
+* then saves that station to a free station
 * vector and saves the voter to a done voting vector, then removes that voter
 * from the currently voting vector. Following those voters, it then checks 
 * voters that are pending, and allows them to vote in a free station and 
