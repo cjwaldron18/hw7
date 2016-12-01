@@ -39,14 +39,6 @@ Output:
   -The percentages of arrivals at each hour of the day (as given in the precinct file)
 
 
-
-
-
-
-
-
-
-
 To use this program, the user must first supply two different files, a Configuration file and a Precinct File. The purpose of the
 configuration file is to specify limits the program needs to know. The first line of the configuration file needs a number of integers,
 separated by spaces, which are as followed; The first integer is a seed number, which is used for the randomizer. This number is used
@@ -79,4 +71,10 @@ Once the program is finished running it will output useful information onto the 
 This file contains all of your program output. First, it gives back all the information the user fed into the program through the
 configuration file, so the user will be able to make sure everything was entered correctly. The file also returns the maximum 
 service time, which is the longest time in seconds that a voter had to vote. The output file then lists out the percentages of the
-arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." 
+arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long."
+
+Once the required files have been created in the main directory, executing the program is simple. To execute the program, navigate to
+the directory using terminal. Once you have done this, type 'make' in the command line and press enter. This will essentially 'create'
+the program and make it executable. Finally, to execute the program, type: 
+                          
+                              './Aprog config_filename pct_filename output_filename log_filename'
