@@ -12,10 +12,27 @@ Contents:
     - 2.2 General Functions
     - 2.3 Creating Configuration Files
       - 2.3.1 Configuration File
+      - 2.3.2 Service-Time File
   - 3. Simulation
+    - 3.1 Private Variables
+    - 3.2 General Functions
   - 4. OnePct
+    - 4.1 Private Variables
+    - 4.2 Accessors
+    - 4.3 Public Functions
+    - 4.4 Private Functions
+    - 4.5 Creating Precinct File
   - 5. OneVoter
+    - 5.1 Parameterized Constructor
+    - 5.2 Private Variables
+    - 5.3 Accessors
+    - 5.4 Public Functions
+    - 5.5 Private Functions
   - 6. MyRandom
+    - 6.1 Private Variables
+    - 6.2 Default Constructor
+    - 6.3 Parameterized Constructor
+    - 6.4 Public Functions
   - Utilities 
   - 7. Scanline
   - 8. Scanner
@@ -44,7 +61,7 @@ Contents:
   Scanner service_stream - scanner used for reading the service-times file.
   
   Configuration config;.
-  Simulation simulation;
+  Simulation simulation;  
   MyRandom random;
 
 
@@ -187,7 +204,7 @@ Contents:
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
   RunSimulationPct2() - assigns voters to voting booths and records which booth they used. Repeats if voters are still pending.
   
-4.5 Creating Precint Files: (filename.txt)
+4.5 Creating Precint File: (filename.txt)
   The OnePct class is used to hold the data for any given precinct that the simulation runs. As such, the file needs to have
   the information that was recorded at each precinct so that it can do calculations and compare them to the values from
   the configuration class. Like the Configration file, the OnePct file is deliminated by spaces; thus the format for the file
@@ -246,14 +263,17 @@ Contents:
 6. MyRandom.cc .h:
  
   (Description.)
- 
-6.1 Default Constructor:
+
+6.1 Private Variables:
+  int seed_ -
+  
+6.2 Default Constructor:
   MyRandom() -
 
-6.2 Parameterized Constructor:
+6.3 Parameterized Constructor:
   MyRandom(unsigned seed) - 
   
-6.3 Public Functions:
+6.4 Public Functions:
   int RandomExponentialInt(double mean);
   double RandomNormal(double mean, double dev);
   double RandomUniformDouble(double lower, double upper);
@@ -264,8 +284,7 @@ Contents:
   double RandomUniformDouble() -
   int RandomUniformInt()       -
     
-6.4 Private Variables:
-  int seed_ -
+
   
 
 Utilities:
