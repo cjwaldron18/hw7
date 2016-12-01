@@ -1,14 +1,14 @@
 ***Go back and also list local variables!***
   ***One line description of variables.*** (maybe only on main)
 
-Main.cc .h:
+1. Main.cc .h:
 
    Main serves as the front end for the program. It handles setting up all the variables involved
    with input and output files, as well as all major function. Main uses not only the following local
    variables, but member functions and variables from the included Utilities file. For further
    information, see the Utilities section.
   
-Local Variables:
+1.1 Local Variables:
   string config_filename       - configuration file.txt, defined by argument 1.
   string pct_filename          - precinct file.txt, defined by argument 2.
   string out_filename          - output file.txt, defined by argument 3.
@@ -31,13 +31,13 @@ Local Variables:
 
 
 
-Config.cc .h:
+2. Config.cc .h:
 
   The Config class is responsible for assigning independent variables necessary to run the simulation. It 
   reads in values given by a config file and passes them on to other classes in the program. It also reads and
   handles the service time file.
 
-Public Variables:
+2.1 Public Variables:
   int seed_ - seed used by MyRandom, if unspecified, 1 is the default.
   int election_day_length_hours_          - hours in an election day.
   int election_day_length_seconds_        - seconds in an election day, calculated, not input. 
@@ -52,7 +52,7 @@ Public Variables:
   vector<double> arrival_fractions_ - stores the doubles from the second line of the 
                                       configuration file.
  
-General Functions:
+2.2 General Functions:
   int GetMaxServiceSubscript() const;
   void ReadConfiguration(Scanner& instream);
   void ReadServiceTimes(Scanner& instream);
@@ -64,7 +64,7 @@ General Functions:
   ToString()               - outputs a formatted form of the variables including 
                              GetMaxServiceSubscript().
    
-Creating Configuration Files: (file_name.txt)
+2.3 Creating Configuration Files: (file_name.txt)
   The Configuration class is responsible for configuring the statistical computation needed 
   by this election simulator. Thus, this class is the cast that the 'rest of the program' is 
   poured into. This class fulfills some of the much needed independent variables needed to
@@ -74,7 +74,7 @@ Creating Configuration Files: (file_name.txt)
   and Service-Time file. The Configuration file has the input delimited by spaces; thus, the 
   input should be formatted like this, let ; be the space delimiter:
 
-  Configuration File: 
+  2.3.1 Configuration File: 
     FirstLine: 
       RN_SEED;number of hours in election day; mean time to vote; max number of voters per pct; 
       waiting time(minutes);"too long" number of iterations to perform. 
@@ -84,17 +84,22 @@ Creating Configuration Files: (file_name.txt)
       percent at time zero; pct arrival percentages per hour (13 numbers). 
       (All of these numbers should be doubles.)
     
-  Service-Time File: 
+  2.3.2 Service-Time File: 
     The Service-Time file should be formatted like a column, and all the values should be given 
     as integers in sorted ascending order.
 
 
-Simulation.cc .h:
+3. Simulation.cc .h:
 
-Private Variables:
+(Description)
+  The Simulation class handles the front-end of precinct simulation. To begin, the Simulation class
+  reads in individual precint data with the ReadPrecincts() member function. After the precinct data
+  is read in, RunSimulation() iterates through pcts_ and runs simulations via OnePct::RunSimulationPct().
+
+3.1 Private Variables:
   map<int, OnePct> pcts_;
   
-General Functions:
+3.2 General Functions:
   void ReadPrecincts(Scanner& infile);
   void RunSimulation(const Configuration& config, MyRandom& random, ofstream& out_stream);
   string ToString();
@@ -106,18 +111,16 @@ General Functions:
                     to run simulations.
   ToString()      - outputs precinct data to a string via OnePct()::ToString().
   
-  The Simulation class handles the front-end of precinct simulation. To begin, the Simulation class
-  reads in individual precint data with the ReadPrecincts() member function. After the precinct data
-  is read in, RunSimulation() iterates through pcts_ and runs simulations via OnePct::RunSimulationPct().
+
   
 
-OnePct.cc .h:
+4. OnePct.cc .h:
 
   The OnePct class is where the bulk of the work is done. It uses data input from the Configuration
   file to perform computations involving queue theory. It also creates and uses voters from the OneVoter class.
  
 
-Private Variables:
+4.1 Private Variables:
   int    pct_expected_voters_   - the number of voters expected by a precinct. 
   int    pct_expected_per_hour_ - voters expected per hour.
   double pct_minority_          - (?)
@@ -137,11 +140,11 @@ Private Variables:
   multimap<int, OneVoter> voters_pending_     - a map of voters waiting to vote.
   multimap<int, OneVoter> voters_voting_      - a map of voters currently voting.
   
-Accessors:
+4.2 Accessors:
   int GetExpectedVoters() const - returns the expected voter turnout for a precinct.
   int GetPctNumber() const      - returns the precinct ID.
   
-Public Functions:
+4.3 Public Functions:
   void ReadData(Scanner& infile);
   void RunSimulationPct(const Configuration& config, MyRandom& random, ofstream& out_stream);
   string ToString();
@@ -154,7 +157,7 @@ Public Functions:
   ToString()         - outputs a string of data involving a precinct.
   ToStringVoterMap() - outputs the map of voters with information for each voter
   
-Private Functions:
+4.4 Private Functions:
   void CreateVoters(const Configuration& config, MyRandom& random, ofstream& out_stream)
   int DoStatistics(int iteration, const Configuration& config, int station_count
                    map<int, int>& map_for_histo, ofstream& out_stream);
@@ -167,27 +170,27 @@ Private Functions:
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
   RunSimulationPct2() - assigns voters to voting booths and records which booth they used. Repeats if voters are still pending.
   
-Creating Precint Files: (file_name.txt)
- The OnePct class is used to hold the data for any given precinct that the simulation runs. As such, the file needs to have
- the information that was recorded at each precinct so that it can do calculations and compare them to the values from
- the configuration class. Like the Configration file, the OnePct file is deliminated by spaces; thus the format for the file
- is as shown, using ; to represent the whitespace.
+4.5 Creating Precint Files: 
+  The OnePct class is used to hold the data for any given precinct that the simulation runs. As such, the file needs to have
+  the information that was recorded at each precinct so that it can do calculations and compare them to the values from
+  the configuration class. Like the Configration file, the OnePct file is deliminated by spaces; thus the format for the file
+  is as shown, using ; to represent the whitespace.
  
- One Line: pct_number_;pct_name_;pct_turnout_;pct_num_voters;pct_expected_voters_;
-           pct_expected_per_hour;pct_stations_;pct_minority_;stat1;stat2;stat3  
-           (The pct_turnout and pct_minority should be doubles, pct_name is a string; all other values are integers)
+  One Line: pct_number_;pct_name_;pct_turnout_;pct_num_voters;pct_expected_voters_;
+            pct_expected_per_hour;pct_stations_;pct_minority_;stat1;stat2;stat3  
+            (The pct_turnout and pct_minority should be doubles, pct_name is a string; all other values are integers)
            
-           This is repeated for each precinct that the simulation needs to run through.
+            This is repeated for each precinct that the simulation needs to run through.
 
-OneVoter.cc .h:
+5. OneVoter.cc .h:
 
   The OneVoter class is where all the information that pertains to a voter is created and saved. It uses values
   specified in the configuration and OnePct classes to generate random voters for use in calculations. 
 
-Parameterized Constructor:
+5.1 Parameterized Constructor:
   OneVoter(int sequence, int arrival_seconds, int duration_seconds);
   
-Private Variables:
+5.2 Private Variables:
   int sequence_;
   int time_arrival_seconds_;
   int time_done_voting_seconds_;
@@ -196,7 +199,7 @@ Private Variables:
   int time_waiting_seconds_;
   int which_station_;
   
-Accessors:
+5.3 Accessors:
   int GetStationNumber() const  - returns the station in use by a voter.
   int GetTimeArrival() const    - returns the arrival time of a voter in seconds.
   int GetTimeDoneVoting() const - returns the sum of the time started and the duration spent 
@@ -204,7 +207,7 @@ Accessors:
   int GetTimeWaiting() const    - returns the amount of time a voter has been waiting in seconds.
   int GetTimeInQ() const        - returns the start time minus the arrival times.
   
-Public Functions:
+5.4 Public Functions:
   void AssignStation(int station_number, int start_time_seconds);
   void DoneVoting();
   string ToString();
@@ -216,7 +219,7 @@ Public Functions:
   ToString()       - outputs data for a single voter.
   ToStringHeader() - creates a header for the ToString() member function.
   
-Private Functions:
+5.5 Private Functions:
   string ConvertTime(int time_in_seconds) const;
   string GetTOD(int time) const;
 
@@ -226,9 +229,9 @@ Private Functions:
 
 Utilities:
 
-Scanline.cc .h:
+6. Scanline.cc .h:
 
-Public Functions:
+6.1 Public Functions:
   bool HasMoreData();
   bool HasNext();
   void OpenString();
@@ -247,9 +250,9 @@ Public Functions:
   NextLine() - returns the rest of the line.
   NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token.
 
-Scanner.cc .h:
+7. Scanner.cc .h:
 
-Public Functions:
+7.1 Public Functions:
   void Close();
   bool HasNext();
   string Next();
@@ -269,13 +272,13 @@ Public Functions:
   OpenFile() - allows a file to be opened as a "Scanner."
 
 
-Utils.cc .h:
+8. Utils.cc .h:
 
-The Utils class houses a multitude of member functions all surrounding handling of input and output. This program utilizes
-a variety of the output formatting functions as well as the stream functions listed below. Also included is an argument checking 
-function.
+  The Utils class houses a multitude of member functions all surrounding handling of input and output. This program utilizes
+  a variety of the output formatting functions as well as the stream functions listed below. Also included is an argument checking 
+  function.
 
-Public Functions:
+8.1 Public Functions:
   void Utils::FileOpen(std::ifstream& in_stream, std::string filename);
   void Utils::FileOpen(std::ofstream& out_stream, std::string filename);  
   
