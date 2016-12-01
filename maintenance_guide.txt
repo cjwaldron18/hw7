@@ -41,7 +41,8 @@ Contents:
 
 Introduction:
 
- 
+  This program is designed to perform calculations involved with queue theory. Currently, the program is configured
+  for simulating polling times at designated voting precincts. 
 
 
 1. Main.cc .h:
