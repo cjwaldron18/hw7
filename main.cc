@@ -8,7 +8,8 @@
  * file, service time file, and a precinct file in order to compute 
  * information regarding the simulation of an election. The output info
  * outputs the submitted information(input) and a comparison between
- * the time taken with respects to what was considered " too long". 
+ * the time taken too vote
+ * with respects to what was considered " too long". 
  * 
  *
  * Author/copyright:  Duncan Buell. All rights reserved.
