@@ -134,13 +134,12 @@ Introduction:
 
 3. Simulation.cc .h:
 
-(Description)
   The Simulation class handles the front-end of precinct simulation. To begin, the Simulation class
   reads in individual precint data with the ReadPrecincts() member function. After the precinct data
   is read in, RunSimulation() iterates through pcts_ and runs simulations via OnePct::RunSimulationPct().
 
 3.1 Private Variables:
-  map<int, OnePct> pcts_;
+  map<int, OnePct> pcts_; - a map of the precincts.
   
 3.2 General Functions:
   void ReadPrecincts(Scanner& infile);
@@ -155,14 +154,11 @@ Introduction:
   ToString()      - outputs precinct data to a string via OnePct()::ToString().
   
 
-  
-
 4. OnePct.cc .h:
 
   The OnePct class is where the bulk of the work is done. It uses data input from the Configuration
   file to perform computations involving queue theory. It also creates and uses voters from the OneVoter class.
  
-
 4.1 Private Variables:
   int    pct_expected_voters_   - the number of voters expected by a precinct. 
   int    pct_expected_per_hour_ - voters expected per hour.
@@ -226,6 +222,7 @@ Introduction:
             Example: 000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
            
             This is repeated for each precinct that the simulation needs to run through.
+
 
 5. OneVoter.cc .h:
 
@@ -296,7 +293,6 @@ Introduction:
   int RandomUniformInt()       - Pick a Random Integer from a Uniform Distribution.
     
 
-  
 
 Utilities:
 
