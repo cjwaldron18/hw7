@@ -216,6 +216,8 @@ Contents:
   One Line: pct_number_;pct_name_;pct_turnout_;pct_num_voters;pct_expected_voters_;
             pct_expected_per_hour;pct_stations_;pct_minority_;stat1;stat2;stat3  
             (The pct_turnout and pct_minority should be doubles, pct_name is a string; all other values are integers)
+            
+            Example: 000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
            
             This is repeated for each precinct that the simulation needs to run through.
 
