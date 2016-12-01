@@ -6,7 +6,12 @@ Contents:
 
   - Introduction
   - 1. Main
+    - 1.1 Local Variables
   - 2. Config
+    - 2.1 Public Variables
+    - 2.2 General Functions
+    - 2.3 Creating Configuration Files
+      - 2.3.1 Configuration File
   - 3. Simulation
   - 4. OnePct
   - 5. OneVoter
@@ -182,7 +187,7 @@ Contents:
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
   RunSimulationPct2() - assigns voters to voting booths and records which booth they used. Repeats if voters are still pending.
   
-4.5 Creating Precint Files: 
+4.5 Creating Precint Files: (filename.txt)
   The OnePct class is used to hold the data for any given precinct that the simulation runs. As such, the file needs to have
   the information that was recorded at each precinct so that it can do calculations and compare them to the values from
   the configuration class. Like the Configration file, the OnePct file is deliminated by spaces; thus the format for the file
