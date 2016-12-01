@@ -1,5 +1,3 @@
-***Go back and also list local variables!***
-  ***One line description of variables.*** (maybe only on main)
 POLLING SIMULATION MAINTENANCE GUIDE
 
 Contents:
