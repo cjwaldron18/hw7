@@ -352,4 +352,3 @@ Utilities:
   void Utils::FileOpen(std::ofstream& out_stream, std::string filename);  
   
   Utils::FileOpen() - an overloaded function that opens an input or output file based on the paramters passed.
-
