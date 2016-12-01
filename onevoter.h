@@ -47,7 +47,10 @@ public:
  * General functions.
 **/
  void AssignStation(int station_number, int start_time_seconds);
- void DoneVoting();
+ //Commented out 30 November 2016, Stephen Page
+ //Description: Not Executed
+ //void DoneVoting();
+ 
 // Commented out 27 November 2016, C.J. Waldron
 // Description: These are not executed.
 // int GetTimeInQ() const;
