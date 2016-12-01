@@ -3,7 +3,7 @@
  *3456789 123456789 123456789 123456789 123456789 123456789 123456789 123456789
  * Implementation for the 'OneVoter' class.
  *
- * This class holds all the information of one specific voter. This includes the 
+ * This class holds all the information of one specific voter. This includes 
  * the times surrounding a voter, such as sequence and arrival, as well as the 
  * station a voter is at.  This class also includes methods of converting time
  * from seconds to hours, minutes, and seconds. 
