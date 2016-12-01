@@ -48,7 +48,7 @@ public:
 **/
  void AssignStation(int station_number, int start_time_seconds);
  //Commented out 30 November 2016, Stephen Page
- //Description: Not Executed
+ //Description: Never Written in Code
  //void DoneVoting();
  
 // Commented out 27 November 2016, C.J. Waldron
