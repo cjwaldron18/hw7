@@ -42,7 +42,9 @@ Contents:
 Introduction:
 
   This program is designed to perform calculations involved with queue theory. Currently, the program is configured
-  for simulating polling times at designated voting precincts. 
+  for simulating polling times at designated voting precincts. It requires 3 different input files which are included
+  in the package as well as instructions for altercation. This program is formatted to match the requirements of the 
+  Google C++ Style Guide and any further documentation needed is in the code.
 
 
 1. Main.cc .h:
