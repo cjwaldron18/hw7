@@ -1,3 +1,5 @@
+QUICK FILE FORMATTING INFORMATION:
+
 Config File:
   The first line should be these values separated by spaces
     -Seed for Random Number Generator. Should be changed each use.
@@ -13,6 +15,7 @@ Config File:
     -Percent of arrivals at opening time (enter 10.0 for 10%)
     -Percent of arrivals at each hour of the day (enter 10.0 for 10%)
 
+
 Precinct File:
   Each line should have this precinct data, in this order and separated by spaces, for each
   precinct.
@@ -27,6 +30,7 @@ Precinct File:
     000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
   (Notice the 3 trailing 0's. These should be 0 as a default.)
 
+
 Output:
   -The input values given in the config file
   -Max service time subscript, the longest time a voter had to wait (in seconds)
@@ -38,34 +42,32 @@ Output:
 
 
 
-To use this program, the user must first supply two different files, a configuration file and a Precinct File.  The purpose of the
-configuration file is to specify limits the program needs to know. The first line of the configuration file needs a number of integers,
-seperated by spaces, which are as followed; The first integer is a seed number, which is used for the randomizer.  This number is used
-for a random number generator the code uses and needs to be changed every time the program is read.  The second number is the length of
-the election day, or how long the polls are open for people to vote.  This number is meant to be in hours.  Next is the mean time to
-vote, which is the average time it took voters to cast their votes and leave the voting booth, which is in seconds. The next two numbers
-are the minimum and maximum voters that are expected and the nuumber of voters needed to run the simulation.  Next is an number of
-minutes in which is concidered that a voters had to wait a long time in line to vote.  The last integer of the first line is the number
-of times the simulation needs to be ran. 
-    The second line of the configuration file has percentages that account for the number of arrivals that occured at the opening of the 
-voting booths, as well as percentages for each following hour until the voting booth's closing. These numbers are written as doubles, in
-a format such that 10.0 would be 10% of voters. 
 
-The second file that needs to be given is the file that holds all the data for the various precincts.  Each line of the file has data 
+
+
+
+
+To use this program, the user must first supply two different files, a configuration file and a Precinct File.  The purpose of the configuration file is to specify limits the program needs to know. The first line of the configuration file needs a number of integers,
+separated by spaces, which are as followed; The first integer is a seed number, which is used for the randomizer.  This number is used
+for a random number generator the code uses and needs to be changed every time the program is read.  The second number is the length of the election day, or how long the polls are open for people to vote.  This number is meant to be in hours.  Next is the mean time to
+vote, which is the average time it took voters to cast their votes and leave the voting booth, which is in seconds. The next two numbers
+are the minimum and maximum voters that are expected and the number of voters needed to run the simulation. Next is the maximum wait time for the voter to cast their vote; as in, this number quantifies how long is too long to wait in order to vote. The last integer of the first line is the number
+of times the simulation needs to be ran. 
+    The second line of the configuration file has percentages that account for the number of arrivals that occurred at the opening of the 
+voting booths, as well as percentages for each following hour until the voting booth's closing. These numbers are written as doubles, in
+a format such that 10.0 would be 10% of voters, and 13 numbers are required, from hour 0 to hour 12. The second file that needs to be given is the file that holds all the data for the various precincts.  Each line of the file has data 
 for one precinct, and the data is listed as follows; The first number is the Precinct number, which is an integer written in the format
 of ###. The next integer is the name of the Precinct, which is in a format of XXX#####.  Following that is a double that represents the
 turnout of voters for that specific precinct, which is written in the same way as the percent from the config is written.  Next is an
 integer that is the number of voters that showed up at a specific precinct.  Next is an integer that represents the number of voters
 that was expected to show up at the precinct.  Following that is the number of voting stations that were available for use at the
 precinct.  Then comes another double which represents the Precinct minority, which is *(I don't really know that this is, so someone
-please see this message and edit this for me. Thanks.).  Lastly, there are three integers that represents statstics used in the
+please see this message and edit this for me. Thanks.).  Lastly, there are three integers that represents statistics used in the
 simulation, and should be set to 0 by default.  An example of the full line for one precinct would be:  
 
+
                                                       000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
-                                                
- With both files written properly and placed in a location where the program can find them* (Notice this part too, I need to know where
- the files need to be so the user knows where to place them.  Names would help too.), the user needs to run the simulation to generate 
- an output file.  This file lists a good bit of infomation.  First, it gives back all the information the user fed into the program 
- through the configuration file, so the user will be able to make sure everything was entered correctly.  It also returns the maximum 
- service time, which is the longest time in seconds that a voter had to vote.  The output file then lists out the percentages of the 
- arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." 
+
+
+The program can then find and properly interpret these files once they are formatted properly, placed in the executing directory( with respects to the executable), and then have their respective names be supplied as command line arguments to the program itself. After this process is completed and the user runs the executable, with the command line arguments supplied. Once, the program is finished running it will output useful information onto the supplied(through the command line  arguments) file. This file lists a good bit of information.  First, it gives back all the information the user fed into the program  through the configuration file, so the user will be able to make sure everything was entered correctly. The file also returns the maximum 
+service time, which is the longest time in seconds that a voter had to vote.  The output file then lists out the percentages of the arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." 
