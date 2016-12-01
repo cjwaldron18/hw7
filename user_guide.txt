@@ -79,4 +79,5 @@ Once, the program is finished running it will output useful information onto the
 This file lists a good bit of information.  First, it gives back all the information the user fed into the program  through the
 configuration file, so the user will be able to make sure everything was entered correctly. The file also returns the maximum 
 service time, which is the longest time in seconds that a voter had to vote.  The output file then lists out the percentages of the
-arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." 
+arrivals from each hour, which was given in the precinct file, and a compares numbers to the wait time that was listed as "too long." The output file also has a time and date header which includes information about CPU percent and usage before and
+after computation.
