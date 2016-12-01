@@ -152,7 +152,7 @@ Public Functions:
   RunSimulationPct() - sets a min and max station count, runs a simulation, then calls the private
                        member function DoStatistics().
   ToString()         - outputs a string of data involving a precinct.
-  ToStringVoterMap() - outputs the map of voters with information for each voter
+  ToStringVoterMap() - outputs the map of voters with information for each voter.
   
 Private Functions:
   void CreateVoters(const Configuration& config, MyRandom& random, ofstream& out_stream)
@@ -227,14 +227,14 @@ Public Functions:
   string NextLine();
   LONG NextLONG();
 
-  HasMoreData() - returns true if there are any characters left in input string
-  HasNext() - returns true if there are any characters left in input string
-  OpenString() - allows string to be read through, spliting by deliminator
-  Next() - returns anything until it hits white space, which can be carriage, new line, return, or tab
-  NextDouble() - returns next double until it hits whitespace, crashes if a double is not the next token
-  NextInt() - returns next int until it hits whitespace, crashes if an integer is not the next token
-  NextLine() - returns the rest of the line
-  NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token
+  HasMoreData() - returns true if there are any characters left in input string.
+  HasNext() - returns true if there are any characters left in input string.
+  OpenString() - allows string to be read through, spliting by deliminator.
+  Next() - returns anything until it hits white space, which can be carriage, new line, return, or tab.
+  NextDouble() - returns next double until it hits whitespace, crashes if a double is not the next token.
+  NextInt() - returns next int until it hits whitespace, crashes if an integer is not the next token.
+  NextLine() - returns the rest of the line.
+  NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token.
 
 Scanner.cc .h:
 
@@ -248,14 +248,14 @@ Public Functions:
   LONG NextLONG();
   void OpenFile();
   
-  Close() - closes scanner stream
-  HasNext() - returns true if there is anything left in the file
-  Next() - returns next token, anything that is not whitespace. Whitespace can be carriage, new line, return, or tab
-  NextDouble() - returns next double until it hits whitespace, crashes if a double is not the next token
-  NextInt() - returns next int until it hits whitespace, crashes if an integer is not the next token
-  NextLine() - returns the rest of the line
-  NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token
-  OpenFile() - allows a file to be opened as a "Scanner"
+  Close() - closes scanner stream.
+  HasNext() - returns true if there is anything left in the file.
+  Next() - returns next token, anything that is not whitespace. Whitespace can be carriage, new line, return, or tab.
+  NextDouble() - returns next double until it hits whitespace, crashes if a double is not the next token.
+  NextInt() - returns next int until it hits whitespace, crashes if an integer is not the next token.
+  NextLine() - returns the rest of the line.
+  NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token.
+  OpenFile() - allows a file to be opened as a "Scanner".
 
 
 Utils.cc .h:
