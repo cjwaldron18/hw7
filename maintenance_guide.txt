@@ -116,21 +116,21 @@ OnePct.cc .h:
   (Needs more description. Maybe one sentence?)
 
 Private Variables:
-  int    pct_expected_voters_   - the number of voters expected by a precinct. (?)
+  int    pct_expected_voters_   - the number of voters expected by a precinct. 
   int    pct_expected_per_hour_ - voters expected per hour.
   double pct_minority_          - (?)
   string pct_name_              - precinct name.
   int    pct_number_            - precint number (ID). (?)
   double pct_turnout_           - the percentage turnout of voters.
   int    pct_stations_          - number of voting stations.
-  int    pct_num_voters_        - total number of voters. (?)
+  int    pct_num_voters_        - total number of voters. 
   double wait_dev_seconds_      - deviation of the mean wait time, calculated.
   double wait_mean_seconds_     - mean wait time, calculated.
   
-  set<int> stations_to_histo_ - (?)
-  vector<int> free_stations_  - vector of free stations.
+  set<int> stations_to_histo_ - 
+  vector<int> free_stations_  - 
   
-  multimap<int, OneVoter> voters_backup_      - a backup of all voters. (?)
+  multimap<int, OneVoter> voters_backup_      - a backup of all voters.
   multimap<int, OneVoter> voters_done_voting_ - a map of voters who have finished voting.
   multimap<int, OneVoter> voters_pending_     - a map of voters waiting to vote.
   multimap<int, OneVoter> voters_voting_      - a map of voters currently voting.
@@ -163,24 +163,25 @@ Private Functions:
   DoStatistics()      - calculates how many voters had to wait too long as well as the mean and
                         deviation of the wait time via ComputeMeanAndDev().
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
-  RunSimulationPct2() - (?)
+  RunSimulationPct2() - assigns voters to voting booths and records which booth they used. Repeats if voters are still pending.
   
 
 OneVoter.cc .h:
 
-  (Description.)
+  The OneVoter class is where all the information that pertains to a voter is created and saved. It uses values
+  specified in the configuration and OnePct classes to generate random voters for use in calculations.
 
 Parameterized Constructor:
   OneVoter(int sequence, int arrival_seconds, int duration_seconds);
   
 Private Variables:
-  int sequence_                   - (?)
-  int time_arrival_seconds_       - arrival time in seconds for a single voter.
-  int time_done_voting_seconds_   - time finished voting in seconds for a single voter.
-  int time_start_voting_seconds_  - time started voting in seconds for a single voter.
-  int time_vote_duration_seconds_ - time spent voting in seconds for a single voter.
-  int time_waiting_seconds_       - time waiting to vote in seconds for a single voter.
-  int which_station_              - station being used by a single voter.
+  int sequence_;
+  int time_arrival_seconds_;
+  int time_done_voting_seconds_;
+  int time_start_voting_seconds_;
+  int time_vote_duration_seconds_;
+  int time_waiting_seconds_;
+  int which_station_;
   
 Accessors:
   int GetStationNumber() const  - returns the station in use by a voter.
@@ -198,7 +199,7 @@ Public Functions:
   
   AssignStation()  - called by OneVoter::RunSimulationPct2(), a voter is assigned to 
                      a free station.
-  DoneVoting()     - (?)
+  DoneVoting()     - find done voting time, never used (?)
   ToString()       - outputs data for a single voter.
   ToStringHeader() - creates a header for the ToString() member function.
   
@@ -210,16 +211,51 @@ Private Functions:
   GetTOD()      - returns the formatted time of day.
 
 
-MyRandom.cc .h:
-
-
-
 Utilities:
 
 Scanline.cc .h:
 
+Public Functions:
+  bool HasMoreData();
+  bool HasNext();
+  void OpenString();
+  string Next();
+  double NextDouble();
+  int NextInt();
+  string NextLine();
+  LONG NextLONG();
+
+  HasMoreData() - returns true if there are any characters left in input string
+  HasNext() - returns true if there are any characters left in input string
+  OpenString() - allows string to be read through, spliting by deliminator
+  Next() - returns anything until it hits white space, which can be carriage, new line, return, or tab
+  NextDouble() - returns next double until it hits whitespace, crashes if a double is not the next token
+  NextInt() - returns next int until it hits whitespace, crashes if an integer is not the next token
+  NextLine() - returns the rest of the line
+  NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token
 
 Scanner.cc .h:
 
+Public Functions:
+  void Close();
+  bool HasNext();
+  string Next();
+  double NextDouble();
+  int NextInt();
+  string NextLine();
+  LONG NextLONG();
+  void OpenFile();
+  
+  Close() - closes scanner stream
+  HasNext() - returns true if there is anything left in the file
+  Next() - returns next token, anything that is not whitespace. Whitespace can be carriage, new line, return, or tab
+  NextDouble() - returns next double until it hits whitespace, crashes if a double is not the next token
+  NextInt() - returns next int until it hits whitespace, crashes if an integer is not the next token
+  NextLine() - returns the rest of the line
+  NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token
+  OpenFile() - allows a file to be opened as a "Scanner"
+
 
 Utils.cc .h:
+
+
