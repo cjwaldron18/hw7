@@ -1,5 +1,6 @@
-POLLING SIMULATION MAINTENANCE GUIDE
-
+****************************************
+**POLLING SIMULATION MAINTENANCE GUIDE**
+****************************************
 Contents:
 
   - Introduction
