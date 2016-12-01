@@ -35,8 +35,11 @@ Contents:
     - 6.4 Public Functions
   - Utilities 
   - 7. Scanline
+    - 7.1 Public Functions
   - 8. Scanner
+    - 8.1 Public Functions
   - 9. Utils
+    - 9.1 Public Functions
 
 1. Main.cc .h:
 
