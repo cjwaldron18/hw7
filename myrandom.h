@@ -1,8 +1,16 @@
 /****************************************************************
  * Header file for the random number generator.
  *
+ * This file holds all member function declarations and variable
+ * declarations for the MyRandom class.
+ *
  * Author/copyright:  Duncan Buell
  * Date: 23 May 2016
+ * Used with permission by: Group 2, 1 December 2016
+ *   Abraham Khan
+ *   Thomas O'Hara
+ *   Stephen Page
+ *   C.J. Waldron
  *
 **/
 
