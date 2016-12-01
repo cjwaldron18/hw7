@@ -1,0 +1,48 @@
+MAIN: Beginning execution
+MAIN: 
+TIME***********************************************************************
+TIME CPU percent    0.00   0.00                    Tue Nov 15 15:43:06 2016
+TIME beginning             0.00 u         0.00 s   Res:      733184
+TIME beginning             0.00 u_t       0.00 s_t
+TIME***********************************************************************
+
+
+
+MAIN: outfile 'yyout'
+MAIN: logfile 'yylog'
+
+MAIN: 
+CONFIG: RN seed:                    35
+CONFIG: Election Day length:     46800 =   13.00 (   13.00) hours
+CONFIG: Time to vote mean:         105 =    1.75 minutes
+CONFIG: Min and max expected voters for this simulation:           50    5000
+Wait time (minutes) that is 'too long':       30
+Number of iterations to perform:    3
+Max service time subscript:  12957
+CONFIG:  0- 0 :    0.00
+CONFIG:  6- 7 :   10.00
+CONFIG:  7- 8 :   10.00
+CONFIG:  8- 9 :   10.00
+CONFIG:  9-10 :    5.00
+CONFIG: 10-11 :    5.00
+CONFIG: 11-12 :    5.00
+CONFIG: 12-13 :   10.00
+CONFIG: 13-14 :   10.00
+CONFIG: 14-15 :    5.00
+CONFIG: 15-16 :    5.00
+CONFIG: 16-17 :    5.00
+CONFIG: 17-18 :   10.00
+CONFIG: 18-19 :   10.00
+
+
+
+MAIN: Ending execution
+MAIN: 
+TIME***********************************************************************
+TIME CPU percent   85.70  85.90                    Tue Nov 15 15:43:08 2016
+TIME ending                1.71 u         0.00 s   Res:     3076096
+TIME ending                1.71 u_t       0.01 s_t
+TIME***********************************************************************
+
+
+
