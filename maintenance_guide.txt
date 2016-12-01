@@ -62,10 +62,10 @@ Contents:
   Scanner config_stream  - scanner used for reading the configuration file.
   Scanner pct_stream     - scanner used for reading the precinct file.
   Scanner service_stream - scanner used for reading the service-times file.
-  
-  Configuration config;.
-  Simulation simulation;  
-  MyRandom random;
+    
+  Configuration config;  - Object of Configuration class, used to configuere the computation with a configure file.
+  Simulation simulation; - Object of Simulation class, used to do the actucal queuing process and statistics. 
+  MyRandom random;       - Object of MyRandom class, used to generate random numbers.
 
 
 2. Config.cc .h:
