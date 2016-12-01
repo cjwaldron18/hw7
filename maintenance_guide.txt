@@ -271,4 +271,10 @@ Public Functions:
 
 Utils.cc .h:
 
+The Utils class houses a multitude of member functions all surrounding handling of input and output. This program utilizes
+a variety of the output formatting functions as well as the stream functions listed below. Also included is an argument checking 
+function.
+
+Public Functions:
+
 
