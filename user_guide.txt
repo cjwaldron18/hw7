@@ -57,13 +57,12 @@ of times the simulation needs to be ran.
 voting booths, as well as percentages for each following hour until the voting booth's closing. These numbers are written as doubles, in
 a format such that 10.0 would be 10% of voters, and 13 numbers are required, from hour 0 to hour 12. The second file that needs to be given is the file that holds all the data for the various precincts.  Each line of the file has data 
 for one precinct, and the data is listed as follows; The first number is the Precinct number, which is an integer written in the format
-of ###. The next integer is the name of the Precinct, which is in a format of XXX#####.  Following that is a double that represents the
-turnout of voters for that specific precinct, which is written in the same way as the percent from the config is written.  Next is an
-integer that is the number of voters that showed up at a specific precinct.  Next is an integer that represents the number of voters
-that was expected to show up at the precinct.  Following that is the number of voting stations that were available for use at the
-precinct.  Then comes another double which represents the Precinct minority, which is *(I don't really know that this is, so someone
-please see this message and edit this for me. Thanks.).  Lastly, there are three integers that represents statistics used in the
-simulation, and should be set to 0 by default.  An example of the full line for one precinct would be:  
+of ###. The next value is the name of the Precinct, which is a string written in the format of XXX#####.  Following that is a double 
+that represents the turnout of voters for that specific precinct, which is written in the same way as the percent from the config is 
+written.  Next is aninteger that is the number of voters that showed up at a specific precinct.  Next is an integer that represents the 
+number of votersthat was expected to show up at the precinct.  Following that is the number of voting stations that were available for 
+use at theprecinct.  Then comes another double which represents the Precinct minority. Lastly, there are three integers that represents 
+statistics used in the simulation, and should be set to 0 by default.  An example of the full line for one precinct would be:  
 
 
                                                       000 XXX00000 19.2 10101 0 235 8 10.1 0 0 0
