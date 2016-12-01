@@ -3,7 +3,13 @@
  * Main program for simulation.
  *
  * The Main class sets up the input and output files for the program as well
- * as makes all major function calls.
+ * as makes all major function calls. This program simulates a queue,
+ * in this case an election. Thus, this program takes in a configuration
+ * file, service time file, and a precinct file in order to compute 
+ * information regarding the simulation of an election. The output info
+ * outputs the submitted information(input) and a comparison between
+ * the time taken with respects to what was considered " too long". 
+ * 
  *
  * Author/copyright:  Duncan Buell. All rights reserved.
  * Date: 6 October 2016
