@@ -276,5 +276,8 @@ a variety of the output formatting functions as well as the stream functions lis
 function.
 
 Public Functions:
-
+  void Utils::FileOpen(std::ifstream& in_stream, std::string filename);
+  void Utils::FileOpen(std::ofstream& out_stream, std::string filename);  
+  
+  Utils::FileOpen() - an overloaded function that opens an input or output file based on the paramters passed.
 
