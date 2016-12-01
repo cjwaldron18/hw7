@@ -58,8 +58,7 @@ Introduction:
   string log_filename          - log file.txt, defined by argument 4.
   string service_time_filename - service-times file.txt, defined by argument 5.
   string outstring             - used to store output, output to log and output files.
-  string timecall_output       - (?)
-  
+
   ofstream out_stream - output stream used to write to out_filename
   
   Scanner config_stream  - scanner used for reading the configuration file.
