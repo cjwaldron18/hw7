@@ -6,14 +6,11 @@
  * of how the simulation is run.
  *
  * Author/copyright:  Duncan Buell
- * Used and modified with permission by:
- *   CJ Waldron
- *   Abraham Kahn
+ * Used with permission by: Group 2, 1 December 2016
+ *   Abraham Khan
  *   Thomas O'Hara
  *   Stephen Page
- *   Oneil Clemenson
- *
- * Date: November 2016
+ *   C.J. Waldron
  *
 **/
 
