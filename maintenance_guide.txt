@@ -2,6 +2,16 @@
   ***One line description of variables.*** (maybe only on main)
 POLLING SIMULATION MAINTENANCE GUIDE
 
+Contents:
+
+  - Introduction
+  - 1. Main
+  - 2. Config
+  - 3. Simulation
+  - 4. OnePct
+  - 5. OneVoter
+  - 6. 
+
 1. Main.cc .h:
 
    Main serves as the front end for the program. It handles setting up all the variables involved
@@ -24,12 +34,9 @@ POLLING SIMULATION MAINTENANCE GUIDE
   Scanner pct_stream     - scanner used for reading the precinct file.
   Scanner service_stream - scanner used for reading the service-times file.
   
-  (Does anyone think these descriptions are actually necessary? I know it should be 
-   'obvious to a coder' but I can't decide what Buell would say.)
-  Configuration config  - the object of Configuration.
-  Simulation simulation - the object of Simulation.
-  MyRandom random       - the object of MyRandom.
-
+  Configuration config;.
+  Simulation simulation;
+  MyRandom random;
 
 
 2. Config.cc .h:
