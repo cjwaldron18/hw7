@@ -270,16 +270,18 @@ Introduction:
 
 6. MyRandom.cc .h:
  
-  (Description.)
+  This class contains 4 member functions used for generating random numbers based on given
+  parameters. If a seed is not passed as a parameter, the default constructor assisgns the
+  seed value to 1.
 
 6.1 Private Variables:
-  int seed_ -
+  int seed_;
   
 6.2 Default Constructor:
-  MyRandom() -
+  MyRandom();
 
 6.3 Parameterized Constructor:
-  MyRandom(unsigned seed) - 
+  MyRandom(unsigned seed);
   
 6.4 Public Functions:
   int RandomExponentialInt(double mean);
