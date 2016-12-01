@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
   cout<< kTag << "Beginning execution" << endl;
 
   Utils::CheckArgs(5, argc, argv,string("configfilename pctfilename") + 
-		   string(" outfilename logfilename servicetimefilename"));
+		     string(" outfilename logfilename servicetimefilename"));
   
   config_filename = static_cast<string>(argv[1]);
   pct_filename = static_cast<string>(argv[2]);
