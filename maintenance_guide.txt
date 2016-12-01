@@ -33,7 +33,9 @@ Local Variables:
 
 Config.cc .h:
 
-  (Brief, maybe 3 sentence description.)
+  The Config class is responsible for assigning independent variables necessary to run the simulation. It 
+  reads in values given by a config file and passes them on to other classes in the program. It also reads and
+  handles the service time file.
 
 Public Variables:
   int seed_ - seed used by MyRandom, if unspecified, 1 is the default.
@@ -112,8 +114,8 @@ General Functions:
 OnePct.cc .h:
 
   The OnePct class is where the bulk of the work is done. It uses data input from the Configuration
-  file to perform computations involving queue theory.
-  (Needs more description. Maybe one sentence?)
+  file to perform computations involving queue theory. It also creates and uses voters from the OneVoter class.
+ 
 
 Private Variables:
   int    pct_expected_voters_   - the number of voters expected by a precinct. 
@@ -163,8 +165,7 @@ Private Functions:
   DoStatistics()      - calculates how many voters had to wait too long as well as the mean and
                         deviation of the wait time via ComputeMeanAndDev().
   ComputeMeanAndDev() - calculates the mean wait time and deviation of the mean.
-  RunSimulationPct2() - assigns voters to voting booths and records which booth they used. 
-                        Repeats if voters are still pending.
+  RunSimulationPct2() - assigns voters to voting booths and records which booth they used. Repeats if voters are still pending.
   
 
 OneVoter.cc .h:
@@ -211,30 +212,6 @@ Private Functions:
   ConvertTime() - returns time from seconds to hour:minute:second format.
   GetTOD()      - returns the formatted time of day.
 
-
-MyRandom.cc .h:
-
-(Description.)
-
-Default Constructor:
-  MyRandom() -
-
-Parameterized Constructor:
-  MyRandom(unsigned seed) - 
-
-Public Functions:
-  int RandomExponentialInt(double mean);
-  double RandomNormal(double mean, double dev);
-  double RandomUniformDouble(double lower, double upper);
-  int RandomUniformInt(int lower, int upper);
-  
-  int RandomExponentialInt()   -
-  double RandomNormal()        -
-  double RandomUniformDouble() -
-  int RandomUniformInt()       -
-  
-Private Variables:
-  int seed_ -
 
 Utilities:
 
