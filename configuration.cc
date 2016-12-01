@@ -11,7 +11,7 @@
  * 
  * Author/copyright:  Duncan Buell. All rights reserved.
  * Date: 6 October 2016
- * Modified and Used with permission by: Group 2, 1 December 2016
+ * Modified and used with permission by: Group 2, 1 December 2016
  *   Abraham Khan
  *   Thomas O'Hara
  *   Stephen Page
