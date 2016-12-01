@@ -1,5 +1,4 @@
-***Go back and also list local variables!***
-  ***One line description of variables.*** (maybe only on main)
+Poll Time Simulation Program Maintenance Guide
 
 Main.cc .h:
 
