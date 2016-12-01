@@ -10,7 +10,11 @@ Contents:
   - 3. Simulation
   - 4. OnePct
   - 5. OneVoter
-  - 6. 
+  - 6. MyRandom
+  - Utilities 
+  - 7. Scanline
+  - 8. Scanner
+  - 9. Utils
 
 1. Main.cc .h:
 
