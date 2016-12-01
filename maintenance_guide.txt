@@ -234,12 +234,36 @@ Contents:
   ConvertTime() - returns time from seconds to hour:minute:second format.
   GetTOD()      - returns the formatted time of day.
 
+6. MyRandom.cc .h:
+ 
+  (Description.)
+ 
+6.1 Default Constructor:
+  MyRandom() -
+
+6.2 Parameterized Constructor:
+  MyRandom(unsigned seed) - 
+  
+6.3 Public Functions:
+  int RandomExponentialInt(double mean);
+  double RandomNormal(double mean, double dev);
+  double RandomUniformDouble(double lower, double upper);
+  int RandomUniformInt(int lower, int upper);
+    
+  int RandomExponentialInt()   -
+  double RandomNormal()        -
+  double RandomUniformDouble() -
+  int RandomUniformInt()       -
+    
+6.4 Private Variables:
+  int seed_ -
+  
 
 Utilities:
 
-6. Scanline.cc .h:
+7. Scanline.cc .h:
 
-6.1 Public Functions:
+7.1 Public Functions:
   bool HasMoreData();
   bool HasNext();
   void OpenString();
@@ -258,9 +282,9 @@ Utilities:
   NextLine() - returns the rest of the line.
   NextLONG() - returns the next LONG until it hits whitespace, crashes if a LONG is not the next token.
 
-7. Scanner.cc .h:
+8. Scanner.cc .h:
 
-7.1 Public Functions:
+8.1 Public Functions:
   void Close();
   bool HasNext();
   string Next();
@@ -280,13 +304,13 @@ Utilities:
   OpenFile() - allows a file to be opened as a "Scanner."
 
 
-8. Utils.cc .h:
+9. Utils.cc .h:
 
   The Utils class houses a multitude of member functions all surrounding handling of input and output. This program utilizes
   a variety of the output formatting functions as well as the stream functions listed below. Also included is an argument checking 
   function.
 
-8.1 Public Functions:
+9.1 Public Functions:
   void Utils::FileOpen(std::ifstream& in_stream, std::string filename);
   void Utils::FileOpen(std::ofstream& out_stream, std::string filename);  
   
